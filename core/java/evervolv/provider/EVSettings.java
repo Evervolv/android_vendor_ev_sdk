@@ -1182,6 +1182,220 @@ public final class EVSettings {
         /** @hide */
         public static final Validator SWIPE_TO_SCREENSHOT_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Contains the notifications light maximum brightness to use.
+         * Values range from 1 to 255
+         */
+        public static final String NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL =
+                "notification_light_brightness_level";
+
+        /**
+         * Contains the notifications light maximum brightness to use when Do Not
+         * Disturb is active.
+         * Values range from 1 to 255
+         */
+        public static final String NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_ZEN =
+                "notification_light_brightness_level_zen";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 255);
+
+        /**
+         * Whether to allow notifications with the screen on or DayDreams.
+         * The value is boolean (1 or 0). Default will always be false.
+         */
+        public static final String NOTIFICATION_LIGHT_SCREEN_ON =
+                "notification_light_screen_on_enable";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_SCREEN_ON_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * What color to use for the notification LED by default
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR =
+                "notification_light_pulse_default_color";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * How long to flash the notification LED by default
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON =
+                "notification_light_pulse_default_led_on";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * How long to wait between flashes for the notification LED by default
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF =
+                "notification_light_pulse_default_led_off";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * What color to use for the missed call notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_CALL_COLOR =
+                "notification_light_pulse_call_color";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_CALL_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * How long to flash the missed call notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_CALL_LED_ON =
+                "notification_light_pulse_call_led_on";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_CALL_LED_ON_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * How long to wait between flashes for the missed call notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_CALL_LED_OFF =
+                "notification_light_pulse_call_led_off";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_CALL_LED_OFF_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * What color to use for the voicemail notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR =
+                "notification_light_pulse_vmail_color";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * How long to flash the voicemail notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON =
+                "notification_light_pulse_vmail_led_on";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * How long to wait between flashes for the voicemail notification LED
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF =
+                "notification_light_pulse_vmail_led_off";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
+         * Whether to use the custom LED values for the notification pulse LED.
+         * 0 = 0ff, 1 = on
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE =
+                "notification_light_pulse_custom_enable";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Which custom LED values to use for the notification pulse LED.
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES =
+                "notification_light_pulse_custom_values";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES_VALIDATOR =
+                new Validator() {
+                    @Override
+                    public boolean validate(String value) {
+                        if (TextUtils.isEmpty(value)) {
+                            return true;
+                        }
+
+                        for (String packageValuesString : value.split("\\|")) {
+                            String[] packageValues = packageValuesString.split("=");
+                            if (packageValues.length != 2) {
+                                if (LOCAL_LOGV) {
+                                    Log.d(TAG, "Incorrect number of package values: "
+                                            + packageValues.length);
+                                }
+                                return false;
+                            }
+                            String packageName = packageValues[0];
+                            if (TextUtils.isEmpty(packageName)) {
+                                if (LOCAL_LOGV)  Log.d(TAG, "Empty package name");
+                                return false;
+                            }
+                            String[] values = packageValues[1].split(";");
+                            if (values.length != 3) {
+                                if (LOCAL_LOGV) {
+                                    Log.d(TAG, "Incorrect number of values: " + values.length);
+                                }
+                                return false;
+                            }
+                            try {
+                                // values[0] is LED color
+                                if (!sColorValidator.validate(values[0])) {
+                                    if (LOCAL_LOGV) {
+                                        Log.d(TAG, "Invalid LED color (" + values[0] + ") for "
+                                                + packageName);
+                                    }
+                                    return false;
+                                }
+                                // values[1] is the LED on time and should be non-negative
+                                if (!sNonNegativeIntegerValidator.validate(values[1])) {
+                                    if (LOCAL_LOGV) {
+                                        Log.d(TAG, "Invalid LED on time (" + values[1] + ") for "
+                                                + packageName);
+                                    }
+                                    return false;
+                                }
+                                // values[1] is the LED off time and should be non-negative
+                                if (!sNonNegativeIntegerValidator.validate(values[2])) {
+                                    if (LOCAL_LOGV) {
+                                        Log.d(TAG, "Invalid LED off time (" + values[2] + ") for "
+                                                + packageName);
+                                    }
+                                    return false;
+                                }
+                            } catch (NumberFormatException e) {
+                                return false;
+                            }
+                        }
+                        // if we make it all the way through then the data is considered valid
+                        return true;
+                    }
+                };
+
+        /**
+         * Whether we automatically generate notification LED colors or just
+         * use the boring default.
+         *
+         * @hide
+         */
+        public static final String NOTIFICATION_LIGHT_COLOR_AUTO =
+                "notification_light_color_auto";
+
+        /** @hide */
+        public static final Validator NOTIFICATION_LIGHT_COLOR_AUTO_VALIDATOR =
+                sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1314,6 +1528,36 @@ public final class EVSettings {
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
             VALIDATORS.put(SWIPE_TO_SCREENSHOT, SWIPE_TO_SCREENSHOT_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
+                    NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_ZEN,
+                    NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_SCREEN_ON,
+                    NOTIFICATION_LIGHT_SCREEN_ON_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR,
+                    NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON,
+                    NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF,
+                    NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_CALL_COLOR,
+                    NOTIFICATION_LIGHT_PULSE_CALL_COLOR_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_CALL_LED_ON,
+                    NOTIFICATION_LIGHT_PULSE_CALL_LED_ON_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_CALL_LED_OFF,
+                    NOTIFICATION_LIGHT_PULSE_CALL_LED_OFF_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR,
+                    NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON,
+                    NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF,
+                    NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE,
+                    NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES,
+                    NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_LIGHT_COLOR_AUTO,
+                    NOTIFICATION_LIGHT_COLOR_AUTO_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
