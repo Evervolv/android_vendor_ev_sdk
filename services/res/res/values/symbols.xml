@@ -26,4 +26,8 @@
 
     <!-- Launcher icon for parts -->
     <java-symbol type="drawable" name="ic_launcher_evervolv" />
+
+    <!-- Config.xml entries -->
+    <java-symbol type="array" name="config_deviceKeyHandlerLibs" />
+    <java-symbol type="array" name="config_deviceKeyHandlerClasses" />
 </resources>
