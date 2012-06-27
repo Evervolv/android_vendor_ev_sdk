@@ -1397,6 +1397,72 @@ public final class EVSettings {
                 sBooleanValidator;
 
         /**
+         * Whether the battery light should be enabled (if hardware supports it)
+         * The value is boolean (1 or 0).
+         */
+        public static final String BATTERY_LIGHT_ENABLED = "battery_light_enabled";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_ENABLED_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Whether the battery LED should repeatedly flash when the battery is low
+         * on charge. The value is boolean (1 or 0).
+         */
+        public static final String BATTERY_LIGHT_PULSE = "battery_light_pulse";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_PULSE_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * What color to use for the battery LED while charging - low
+         */
+        public static final String BATTERY_LIGHT_LOW_COLOR = "battery_light_low_color";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_LOW_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * What color to use for the battery LED while charging - medium
+         */
+        public static final String BATTERY_LIGHT_MEDIUM_COLOR = "battery_light_medium_color";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_MEDIUM_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * What color to use for the battery LED while charging - full
+         */
+        public static final String BATTERY_LIGHT_FULL_COLOR = "battery_light_full_color";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_FULL_COLOR_VALIDATOR =
+                sColorValidator;
+
+        /**
+         * Contains the battery light maximum brightness to use.
+         * Values range from 1 to 255
+         */
+        public static final String BATTERY_LIGHT_BRIGHTNESS_LEVEL =
+                "battery_light_brightness_level";
+
+        /**
+         * Contains the battery light maximum brightness to use when Do Not
+         * Disturb is active.
+         * Values range from 1 to 255
+         */
+        public static final String BATTERY_LIGHT_BRIGHTNESS_LEVEL_ZEN =
+                "battery_light_brightness_level_zen";
+
+        /** @hide */
+        public static final Validator BATTERY_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 255);
+
+        /**
          * Whether the notification light will be allowed when in zen mode during downtime
          */
         public static final String ZEN_ALLOW_LIGHTS = "allow_lights";
@@ -1574,6 +1640,15 @@ public final class EVSettings {
                     NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_COLOR_AUTO,
                     NOTIFICATION_LIGHT_COLOR_AUTO_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_ENABLED, BATTERY_LIGHT_ENABLED_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_PULSE, BATTERY_LIGHT_PULSE_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_LOW_COLOR, BATTERY_LIGHT_LOW_COLOR_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_MEDIUM_COLOR, BATTERY_LIGHT_MEDIUM_COLOR_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_FULL_COLOR, BATTERY_LIGHT_FULL_COLOR_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_BRIGHTNESS_LEVEL,
+                    BATTERY_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
+            VALIDATORS.put(BATTERY_LIGHT_BRIGHTNESS_LEVEL_ZEN,
+                    BATTERY_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
             VALIDATORS.put(ZEN_ALLOW_LIGHTS, ZEN_ALLOW_LIGHTS_VALIDATOR);
             VALIDATORS.put(ZEN_PRIORITY_ALLOW_LIGHTS, ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
