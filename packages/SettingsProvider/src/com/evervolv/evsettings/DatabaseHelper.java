@@ -255,6 +255,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             stmt = db.compileStatement("INSERT OR IGNORE INTO secure(name,value)"
                     + " VALUES(?,?);");
             // Secure
+            loadIntegerSetting(stmt, EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR,
+                    R.integer.def_force_disable_navkeys);
         } finally {
             if (stmt != null) stmt.close();
         }

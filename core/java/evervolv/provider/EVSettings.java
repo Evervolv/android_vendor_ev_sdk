@@ -1428,6 +1428,15 @@ public final class EVSettings {
 
         // Secure Settings start
 
+        /**
+        * Developer options - Navigation Bar show switch
+        * @hide
+        */
+        public static final String DEV_FORCE_SHOW_NAVBAR = "dev_force_show_navbar";
+
+        /* @hide */
+        public static final Validator DEV_FORCE_SHOW_VALIDATOR = sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -1450,6 +1459,7 @@ public final class EVSettings {
          */
         public static final String[] LEGACY_SECURE_SETTINGS = new String[] {
             // Insert legacy secure settings here
+            EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR,
         };
 
         /**
@@ -1471,6 +1481,8 @@ public final class EVSettings {
         public static final Map<String, Validator> VALIDATORS =
                 new ArrayMap<String, Validator>();
         static {
+            VALIDATORS.put(DEV_FORCE_SHOW_NAVBAR,
+                    DEV_FORCE_SHOW_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
