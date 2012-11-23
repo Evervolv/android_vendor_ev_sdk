@@ -144,4 +144,8 @@
     <!-- Indicates that the device has Single-stage Camera key
          (without "Focus" state) instead of Dual-stage. -->
     <bool name="config_singleStageCameraKey">false</bool>
+
+    <!-- Default brightness of button lights -->
+    <integer name="config_buttonBrightnessSettingDefault">255</integer>
+    <bool name="config_deviceHasVariableButtonBrightness">false</bool>
 </resources>

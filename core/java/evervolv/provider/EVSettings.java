@@ -1232,6 +1232,29 @@ public final class EVSettings {
         public static final Validator SWIPE_TO_SCREENSHOT_VALIDATOR = sBooleanValidator;
 
         /**
+         * The button brightness to be used while the screen is on or after a button press,
+         * depending on the value of {@link BUTTON_BACKLIGHT_TIMEOUT}.
+         * Valid value range is between 0 and {@link PowerManager#getMaximumButtonBrightness()}
+         * @hide
+         */
+        public static final String BUTTON_BRIGHTNESS = "button_brightness";
+
+        /** @hide */
+        public static final Validator BUTTON_BRIGHTNESS_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 255);
+
+        /**
+         * The time in ms to keep the button backlight on after pressing a button.
+         * A value of 0 will keep the buttons on for as long as the screen is on.
+         * @hide
+         */
+        public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
+
+        /** @hide */
+        public static final Validator BUTTON_BACKLIGHT_TIMEOUT_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
+        /**
          * Contains the notifications light maximum brightness to use.
          * Values range from 1 to 255
          */
@@ -1699,6 +1722,8 @@ public final class EVSettings {
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
             VALIDATORS.put(SWIPE_TO_SCREENSHOT, SWIPE_TO_SCREENSHOT_VALIDATOR);
+            VALIDATORS.put(BUTTON_BRIGHTNESS, BUTTON_BRIGHTNESS_VALIDATOR);
+            VALIDATORS.put(BUTTON_BACKLIGHT_TIMEOUT, BUTTON_BACKLIGHT_TIMEOUT_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
                     NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_ZEN,

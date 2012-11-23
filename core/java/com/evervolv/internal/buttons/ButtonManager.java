@@ -35,6 +35,9 @@ public final class ButtonManager {
     private final String TAG = "ButtonManager";
     private final boolean DEBUG = false;
 
+    // Default duration for button lights.
+    private static final int DEFAULT_BUTTON_ON_DURATION = 5 * 1000;
+
     private static final int MSG_DISPATCH_VOLKEY_WITH_WAKELOCK = 1;
 
     private final Context mContext;
@@ -43,6 +46,10 @@ public final class ButtonManager {
     private boolean mIsLongPress = false;
 
     private boolean mVolBtnMusicControls = false;
+
+    private int mButtonTimeout;
+    private int mButtonBrightness;
+    private int mButtonBrightnessDefault;
 
     private class ButtonHandler extends Handler {
         @Override
@@ -64,6 +71,9 @@ public final class ButtonManager {
     public ButtonManager(Context context) {
         mContext = context;
         mHandler = new ButtonHandler();
+
+        mButtonBrightnessDefault = mContext.getResources().getInteger(
+                com.evervolv.platform.internal.R.integer.config_buttonBrightnessSettingDefault);
 
         SettingsObserver observer = new SettingsObserver(new Handler());
         observer.observe();
@@ -147,6 +157,12 @@ public final class ButtonManager {
             resolver.registerContentObserver(EVSettings.System.getUriFor(
                     EVSettings.System.VOLBTN_MUSIC_CONTROLS),
                             false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(EVSettings.System.getUriFor(
+                    EVSettings.System.BUTTON_BRIGHTNESS),
+                            false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(EVSettings.System.getUriFor(
+                    EVSettings.System.BUTTON_BACKLIGHT_TIMEOUT),
+                            false, this, UserHandle.USER_ALL);
 
             update();
         }
@@ -167,6 +183,22 @@ public final class ButtonManager {
             if (DEBUG) {
                 Slog.d(TAG, "music controls enabled = " + mVolBtnMusicControls);
             }
+
+            mButtonTimeout = EVSettings.System.getIntForUser(
+                    resolver, EVSettings.System.BUTTON_BACKLIGHT_TIMEOUT,
+                    DEFAULT_BUTTON_ON_DURATION, UserHandle.USER_CURRENT);
+
+            mButtonBrightness = EVSettings.System.getIntForUser(
+                    resolver, EVSettings.System.BUTTON_BRIGHTNESS, 
+                    mButtonBrightnessDefault, UserHandle.USER_CURRENT);
         }
+    }
+
+    public int getButtonBrightness() {
+        return mButtonBrightness;
+    }
+
+    public int getButtonTimeout() {
+        return mButtonTimeout;
     }
 }
