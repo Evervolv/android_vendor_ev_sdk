@@ -5,4 +5,6 @@
         on the device, the service will not be published as a binder service!
     -->
     <feature name="com.evervolv.hardware" />
+    <library name="com.evervolv.hardware"
+            file="/system/framework/com.evervolv.hardware.jar" />
 </permissions>
