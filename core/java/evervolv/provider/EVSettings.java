@@ -1169,6 +1169,16 @@ public final class EVSettings {
         public static final Validator STATUS_BAR_AM_PM_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 2);
 
+        /**
+         * Whether to allow one finger quick settings expansion on the side of the statusbar.
+         * 0 = 0ff, 1 = right, 2 = left
+         */
+        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 2);
+
         // System Settings end
 
         /**
@@ -1218,6 +1228,7 @@ public final class EVSettings {
             EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
             EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
             EVSettings.System.STATUS_BAR_AM_PM,
+            EVSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
         };
 
         /**
@@ -1296,6 +1307,8 @@ public final class EVSettings {
             VALIDATORS.put(BERRY_DARK_OVERLAY, BERRY_DARK_OVERLAY_VALIDATOR);
             VALIDATORS.put(BERRY_MANAGED_BY_APP, BERRY_MANAGED_BY_APP_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_QUICK_QS_PULLDOWN,
+                    STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
