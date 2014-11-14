@@ -307,6 +307,22 @@ public final class EVSettings {
     private static final Validator sColorValidator =
             new InclusiveIntegerRangeValidator(Integer.MIN_VALUE, Integer.MAX_VALUE);
 
+    /**
+     * Action to perform when a key is pressed.
+     * 0 - Nothing
+     * 1 - Menu
+     * 2 - App-switch
+     * 3 - Search
+     * 4 - Voice search
+     * 5 - In-app search
+     * 6 - Launch Camera
+     * 7 - Action Sleep
+     * 8 - Last app
+     * 9 - Toggle split screen
+     */
+    private static final Validator sActionValidator =
+            new InclusiveIntegerRangeValidator(0, 9);
+
     private static final Validator sAlwaysTrueValidator = new Validator() {
         @Override
         public boolean validate(String value) {
@@ -831,6 +847,98 @@ public final class EVSettings {
         /** @hide */
         public static final Validator TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Action to perform when the home key is long-pressed.
+         * (Default can be configured via config_longPressOnHomeBehavior)
+         * 0 - Nothing
+         * 1 - Menu
+         * 2 - App-switch
+         * 3 - Search
+         * 4 - Voice search
+         * 5 - In-app search
+         * 6 - Launch Camera
+         * 7 - Action Sleep
+         * 8 - Last app
+         * 9 - Toggle split screen
+         * @hide
+         */
+        public static final String KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action";
+
+        /** @hide */
+        public static final Validator KEY_HOME_LONG_PRESS_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the home key is double-tapped.
+         * (Default can be configured via config_doubleTapOnHomeBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
+
+        /** @hide */
+        public static final Validator KEY_HOME_DOUBLE_TAP_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the menu key is pressed. (Default is 1)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_MENU_ACTION = "key_menu_action";
+
+        /** @hide */
+        public static final Validator KEY_MENU_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the menu key is long-pressed.
+         * (Default is 0 on devices with a search key, 3 on devices without)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_MENU_LONG_PRESS_ACTION = "key_menu_long_press_action";
+
+        /** @hide */
+        public static final Validator KEY_MENU_LONG_PRESS_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the assistant (search) key is pressed. (Default is 3)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_ASSIST_ACTION = "key_assist_action";
+
+        /** @hide */
+        public static final Validator KEY_ASSIST_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the assistant (search) key is long-pressed. (Default is 4)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action";
+
+        /** @hide */
+        public static final Validator KEY_ASSIST_LONG_PRESS_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the app switch key is pressed. (Default is 2)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_APP_SWITCH_ACTION = "key_app_switch_action";
+
+        /** @hide */
+        public static final Validator KEY_APP_SWITCH_ACTION_VALIDATOR = sActionValidator;
+
+         /**
+         * Action to perform when the app switch key is long-pressed. (Default is 0)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action";
+
+        /** @hide */
+        public static final Validator KEY_APP_SWITCH_LONG_PRESS_ACTION_VALIDATOR = sActionValidator;
+
         // System Settings end
 
         /**
@@ -855,6 +963,14 @@ public final class EVSettings {
             // Insert legacy system settings here
             EVSettings.System.PROXIMITY_ON_WAKE,
             EVSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK,
+            EVSettings.System.KEY_HOME_LONG_PRESS_ACTION,
+            EVSettings.System.KEY_HOME_DOUBLE_TAP_ACTION,
+            EVSettings.System.KEY_MENU_ACTION,
+            EVSettings.System.KEY_MENU_LONG_PRESS_ACTION,
+            EVSettings.System.KEY_ASSIST_ACTION,
+            EVSettings.System.KEY_ASSIST_LONG_PRESS_ACTION,
+            EVSettings.System.KEY_APP_SWITCH_ACTION,
+            EVSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
         };
 
         /**
@@ -887,6 +1003,20 @@ public final class EVSettings {
             VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
             VALIDATORS.put(TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK,
                     TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK_VALIDATOR);
+            VALIDATORS.put(KEY_HOME_LONG_PRESS_ACTION,
+                    KEY_HOME_LONG_PRESS_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_HOME_DOUBLE_TAP_ACTION,
+                    KEY_HOME_DOUBLE_TAP_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_MENU_ACTION, KEY_MENU_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_MENU_LONG_PRESS_ACTION,
+                    KEY_MENU_LONG_PRESS_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_ASSIST_ACTION, KEY_ASSIST_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_ASSIST_LONG_PRESS_ACTION,
+                    KEY_ASSIST_LONG_PRESS_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_APP_SWITCH_ACTION,
+                    KEY_APP_SWITCH_ACTION_VALIDATOR);
+            VALIDATORS.put(KEY_APP_SWITCH_LONG_PRESS_ACTION,
+                    KEY_APP_SWITCH_LONG_PRESS_ACTION_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
