@@ -1100,6 +1100,21 @@ public final class EVSettings {
         public static final Validator DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR =
                 sAlwaysTrueValidator;
 
+        /**
+         * Display style of the status bar battery information
+         * 0: Display the battery an icon in portrait mode
+         * 2: Display the battery as a circle
+         * 4: Hide the battery status information
+         * 5: Display the battery as plain text
+         * default: 0
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_BATTERY_STYLE_VALIDATOR =
+            new InclusiveIntegerRangeValidator(0, 6);
+
         // System Settings end
 
         /**
@@ -1148,6 +1163,7 @@ public final class EVSettings {
             EVSettings.System.REVERSE_LOOKUP_PROVIDER,
             EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
             EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
+            EVSettings.System.STATUS_BAR_BATTERY_STYLE,
         };
 
         /**
@@ -1219,6 +1235,8 @@ public final class EVSettings {
                     DIALER_OPENCNAM_ACCOUNT_SID_VALIDATOR);
             VALIDATORS.put(DIALER_OPENCNAM_AUTH_TOKEN,
                     DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_BATTERY_STYLE,
+                    STATUS_BAR_BATTERY_STYLE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
