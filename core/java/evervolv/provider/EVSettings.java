@@ -949,6 +949,55 @@ public final class EVSettings {
         /** @hide */
         public static final Validator VOLBTN_MUSIC_CONTROLS_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Whether to wake the screen with the home key, the value is boolean.
+         * @hide
+         */
+        public static final String HOME_WAKE_SCREEN = "home_wake_screen";
+
+        /** @hide */
+        public static final Validator HOME_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+         /**
+         * Whether to wake the screen with the back key, the value is boolean.
+         * @hide
+         */
+        public static final String BACK_WAKE_SCREEN = "back_wake_screen";
+
+        /** @hide */
+        public static final Validator BACK_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+         /**
+         * Whether to wake the screen with the menu key, the value is boolean.
+         * @hide
+         */
+        public static final String MENU_WAKE_SCREEN = "menu_wake_screen";
+
+        /** @hide */
+        public static final Validator MENU_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+         /**
+         * Whether to wake the screen with the assist key, the value is boolean.
+         * @hide
+         */
+        public static final String ASSIST_WAKE_SCREEN = "assist_wake_screen";
+
+        /** @hide */
+        public static final Validator ASSIST_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+         /**
+         * Whether to wake the screen with the app switch key, the value is boolean.
+         * @hide
+         */
+        public static final String APP_SWITCH_WAKE_SCREEN = "app_switch_wake_screen";
+
+        /** @hide */
+        public static final Validator APP_SWITCH_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+         /**
+         * Whether to wake the screen with the volume keys, the value is boolean.
+         * @hide
+         */
+        public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
+
+        /** @hide */
+        public static final Validator VOLUME_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -982,6 +1031,12 @@ public final class EVSettings {
             EVSettings.System.KEY_APP_SWITCH_ACTION,
             EVSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
             EVSettings.System.VOLBTN_MUSIC_CONTROLS,
+            EVSettings.System.HOME_WAKE_SCREEN,
+            EVSettings.System.BACK_WAKE_SCREEN,
+            EVSettings.System.MENU_WAKE_SCREEN,
+            EVSettings.System.ASSIST_WAKE_SCREEN,
+            EVSettings.System.APP_SWITCH_WAKE_SCREEN,
+            EVSettings.System.VOLUME_WAKE_SCREEN,
         };
 
         /**
@@ -1030,6 +1085,13 @@ public final class EVSettings {
                     KEY_APP_SWITCH_LONG_PRESS_ACTION_VALIDATOR);
             VALIDATORS.put(VOLBTN_MUSIC_CONTROLS,
                     VOLBTN_MUSIC_CONTROLS_VALIDATOR);
+            VALIDATORS.put(HOME_WAKE_SCREEN, HOME_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(BACK_WAKE_SCREEN, BACK_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(MENU_WAKE_SCREEN, MENU_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(ASSIST_WAKE_SCREEN, ASSIST_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(APP_SWITCH_WAKE_SCREEN,
+                    APP_SWITCH_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(VOLUME_WAKE_SCREEN, VOLUME_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
