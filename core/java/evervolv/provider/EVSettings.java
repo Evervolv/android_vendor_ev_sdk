@@ -939,6 +939,16 @@ public final class EVSettings {
         /** @hide */
         public static final Validator KEY_APP_SWITCH_LONG_PRESS_ACTION_VALIDATOR = sActionValidator;
 
+        /**
+         * Whether or not volume button music controls should be enabled to seek media tracks
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
+
+        /** @hide */
+        public static final Validator VOLBTN_MUSIC_CONTROLS_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -971,6 +981,7 @@ public final class EVSettings {
             EVSettings.System.KEY_ASSIST_LONG_PRESS_ACTION,
             EVSettings.System.KEY_APP_SWITCH_ACTION,
             EVSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
+            EVSettings.System.VOLBTN_MUSIC_CONTROLS,
         };
 
         /**
@@ -1017,6 +1028,8 @@ public final class EVSettings {
                     KEY_APP_SWITCH_ACTION_VALIDATOR);
             VALIDATORS.put(KEY_APP_SWITCH_LONG_PRESS_ACTION,
                     KEY_APP_SWITCH_LONG_PRESS_ACTION_VALIDATOR);
+            VALIDATORS.put(VOLBTN_MUSIC_CONTROLS,
+                    VOLBTN_MUSIC_CONTROLS_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
