@@ -57,6 +57,16 @@ public final class HardwareManager {
     public static final int FEATURE_VIBRATOR = 0x1;
 
     /**
+     * Hardware navigation key disablement
+     */
+    @VisibleForTesting
+    public static final int FEATURE_KEY_DISABLE = 0x2;
+
+    private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
+        FEATURE_KEY_DISABLE
+    );
+
+    /**
      * @hide to prevent subclassing from outside of the framework
      */
     private HardwareManager(Context context) {
@@ -155,6 +165,10 @@ public final class HardwareManager {
      * @return true if the feature is enabled, false otherwise.
      */
     public boolean get(int feature) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
+        }
+
         try {
             if (checkService()) {
                 return sService.get(feature);
@@ -175,6 +189,10 @@ public final class HardwareManager {
      * @return true if the feature is enabled, false otherwise.
      */
     public boolean set(int feature, boolean enable) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
+        }
+
         try {
             if (checkService()) {
                 return sService.set(feature, enable);

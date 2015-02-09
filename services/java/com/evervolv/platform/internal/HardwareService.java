@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.evervolv.hardware.KeyDisabler;
 import com.evervolv.hardware.VibratorHW;
 
 /** @hide */
@@ -64,6 +65,8 @@ public class HardwareService extends VendorService {
         public LegacyHardware() {
             if (VibratorHW.isSupported())
                 mSupportedFeatures |= HardwareManager.FEATURE_VIBRATOR;
+            if (KeyDisabler.isSupported())
+                mSupportedFeatures |= HardwareManager.FEATURE_KEY_DISABLE;
         }
 
         public int getSupportedFeatures() {
@@ -72,6 +75,8 @@ public class HardwareService extends VendorService {
 
         public boolean get(int feature) {
             switch(feature) {
+                case HardwareManager.FEATURE_KEY_DISABLE:
+                    return KeyDisabler.isActive();
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
@@ -80,6 +85,8 @@ public class HardwareService extends VendorService {
 
         public boolean set(int feature, boolean enable) {
             switch(feature) {
+                case HardwareManager.FEATURE_KEY_DISABLE:
+                    return KeyDisabler.setActive(enable);
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
