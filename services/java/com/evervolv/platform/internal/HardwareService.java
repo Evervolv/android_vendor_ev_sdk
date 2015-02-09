@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.evervolv.hardware.HighTouchSensitivity;
 import com.evervolv.hardware.KeyDisabler;
 import com.evervolv.hardware.TouchscreenGestures;
 import com.evervolv.hardware.VibratorHW;
@@ -74,6 +75,8 @@ public class HardwareService extends VendorService {
                 mSupportedFeatures |= HardwareManager.FEATURE_KEY_DISABLE;
             if (TouchscreenGestures.isSupported())
                 mSupportedFeatures |= HardwareManager.FEATURE_TOUCHSCREEN_GESTURES;
+            if (HighTouchSensitivity.isSupported())
+                mSupportedFeatures |= HardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY;
         }
 
         public int getSupportedFeatures() {
@@ -84,6 +87,8 @@ public class HardwareService extends VendorService {
             switch(feature) {
                 case HardwareManager.FEATURE_KEY_DISABLE:
                     return KeyDisabler.isActive();
+                case HardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY:
+                    return HighTouchSensitivity.isEnabled();
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
@@ -94,6 +99,8 @@ public class HardwareService extends VendorService {
             switch(feature) {
                 case HardwareManager.FEATURE_KEY_DISABLE:
                     return KeyDisabler.setActive(enable);
+                case HardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY:
+                    return HighTouchSensitivity.setEnabled(enable);
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;

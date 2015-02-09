@@ -68,8 +68,15 @@ public final class HardwareManager {
     @VisibleForTesting
     public static final int FEATURE_TOUCHSCREEN_GESTURES = 0x4;
 
+    /**
+     * High touch sensitivity for touch panels
+     */
+    @VisibleForTesting
+    public static final int FEATURE_HIGH_TOUCH_SENSITIVITY = 0x8;
+
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
-        FEATURE_KEY_DISABLE
+        FEATURE_KEY_DISABLE,
+        FEATURE_HIGH_TOUCH_SENSITIVITY,
     );
 
     /**
