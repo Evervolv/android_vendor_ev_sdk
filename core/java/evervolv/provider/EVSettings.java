@@ -1749,6 +1749,12 @@ public final class EVSettings {
         public static final Validator ADVANCED_REBOOT_VALIDATOR = sBooleanValidator;
 
         /**
+         * Whether touch hovering is enabled on supported hardware
+         * @hide
+         */
+        public static final String FEATURE_TOUCH_HOVERING = "feature_touch_hovering";
+
+        /**
          * Vibrator intensity setting for supported devices
          * @hide
          */

@@ -74,9 +74,16 @@ public final class HardwareManager {
     @VisibleForTesting
     public static final int FEATURE_HIGH_TOUCH_SENSITIVITY = 0x8;
 
+    /**
+     * Touchscreen hovering
+     */
+    @VisibleForTesting
+    public static final int FEATURE_TOUCH_HOVERING = 0x10;
+
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
         FEATURE_KEY_DISABLE,
         FEATURE_HIGH_TOUCH_SENSITIVITY,
+        FEATURE_TOUCH_HOVERING
     );
 
     /**
