@@ -22,4 +22,7 @@ interface IHardwareService {
     int getSupportedFeatures();
     boolean get(int feature);
     boolean set(int feature, boolean enable);
+
+    int[] getVibratorIntensity();
+    boolean setVibratorIntensity(int intensity);
 }

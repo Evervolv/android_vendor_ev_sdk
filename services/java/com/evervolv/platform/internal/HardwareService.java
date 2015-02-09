@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.evervolv.hardware.VibratorHW;
+
 /** @hide */
 public class HardwareService extends VendorService {
 
@@ -50,6 +52,9 @@ public class HardwareService extends VendorService {
         public int getSupportedFeatures();
         public boolean get(int feature);
         public boolean set(int feature, boolean enable);
+
+        public int[] getVibratorIntensity();
+        public boolean setVibratorIntensity(int intensity);
     }
 
     private class LegacyHardware implements HardwareInterface {
@@ -57,6 +62,8 @@ public class HardwareService extends VendorService {
         private int mSupportedFeatures = 0;
 
         public LegacyHardware() {
+            if (VibratorHW.isSupported())
+                mSupportedFeatures |= HardwareManager.FEATURE_VIBRATOR;
         }
 
         public int getSupportedFeatures() {
@@ -77,6 +84,20 @@ public class HardwareService extends VendorService {
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
             }
+        }
+
+        public int[] getVibratorIntensity() {
+            int[] vibrator = new int[5];
+            vibrator[HardwareManager.VIBRATOR_INTENSITY_INDEX] = VibratorHW.getCurIntensity();
+            vibrator[HardwareManager.VIBRATOR_DEFAULT_INDEX] = VibratorHW.getDefaultIntensity();
+            vibrator[HardwareManager.VIBRATOR_MIN_INDEX] = VibratorHW.getMinIntensity();
+            vibrator[HardwareManager.VIBRATOR_MAX_INDEX] = VibratorHW.getMaxIntensity();
+            vibrator[HardwareManager.VIBRATOR_WARNING_INDEX] = VibratorHW.getWarningThreshold();
+            return vibrator;
+        }
+
+        public boolean setVibratorIntensity(int intensity) {
+            return VibratorHW.setIntensity(intensity);
         }
     }
 
@@ -143,6 +164,28 @@ public class HardwareService extends VendorService {
                 return false;
             }
             return mHardwareImpl.set(feature, enable);
+        }
+
+        @Override
+        public int[] getVibratorIntensity() {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_VIBRATOR)) {
+                Log.e(TAG, "Vibrator is not supported");
+                return null;
+            }
+            return mHardwareImpl.getVibratorIntensity();
+        }
+
+        @Override
+        public boolean setVibratorIntensity(int intensity) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_VIBRATOR)) {
+                Log.e(TAG, "Vibrator is not supported");
+                return false;
+            }
+            return mHardwareImpl.setVibratorIntensity(intensity);
         }
     };
 }
