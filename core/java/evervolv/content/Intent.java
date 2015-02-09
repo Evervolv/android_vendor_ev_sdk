@@ -62,4 +62,15 @@ public class Intent {
      */
     public static final String ACTION_UPDATE_POWER_MENU =
             "evervolv.intent.action.UPDATE_POWER_MENU";
+
+    /**
+     * Broadcast action: perform any initialization required for LineageHW services.
+     * Runs when the service receives the signal the device has booted, but
+     * should happen before {@link android.content.Intent#ACTION_BOOT_COMPLETED}.
+     *
+     * Requires {@link evervolv.platform.Manifest.permission#HARDWARE_ABSTRACTION_ACCESS}.
+     * @hide
+     */
+    public static final String ACTION_INITIALIZE_HARDWARE =
+            "evervolv.intent.action.INITIALIZE_HARDWARE";
 }

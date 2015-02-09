@@ -54,6 +54,18 @@ public final class ContextConstants {
     public static final String FONT_MANAGER = "font_manager";
 
     /**
+     * Use with {@link android.content.Context#getSystemService} to retrieve a
+     * {@link evervolv.hardware.HardwareManager} to manage the extended
+     * hardware features of the device.
+     *
+     * @see android.content.Context#getSystemService
+     * @see evervolv.hardware.HardwareManager
+     *
+     * @hide
+     */
+    public static final String HARDWARE_MANAGER = "hardware_manager";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
@@ -71,5 +83,12 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String FONTS = "com.evervolv.font";
+        /**
+         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
+         * {@link PackageManager#hasSystemFeature}: The device includes the hardware abstraction
+         * framework service utilized by the sdk.
+         */
+        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
+        public static final String HARDWARE_ABSTRACTION = "com.evervolv.hardware";
     }
 }

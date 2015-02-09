@@ -77,6 +77,7 @@ java_library {
 
     libs: [
         "services",
+        "com.evervolv.hardware",
     ] + evervolv_sdk_LOCAL_JAVA_LIBRARIES,
 
     srcs: [

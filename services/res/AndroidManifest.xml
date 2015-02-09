@@ -26,6 +26,7 @@
     <protected-broadcast android:name="evervolv.intent.action.UPDATE_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.REFRESH_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.ACTION_FONT_CHANGED" />
+    <protected-broadcast android:name="evervolv.intent.action.INITIALIZE_HARDWARE" />
 
     <!-- Allows an application to write to Evervolv system settings -->
     <permission android:name="evervolv.permission.WRITE_SETTINGS"
@@ -52,6 +53,13 @@
                 android:label="@string/permlab_accessFontManager"
                 android:description="@string/permdesc_accessFontManager"
                 android:protectionLevel="signatureOrSystem" />
+
+    <!-- Allows an application access to the hardware abstraction framework
+        <p>Not for use by third-party applications. -->
+    <permission android:name="evervolv.permission.HARDWARE_ABSTRACTION_ACCESS"
+                android:label="@string/permlab_useHardwareFramework"
+                android:description="@string/permdesc_useHardwareFramework"
+                android:protectionLevel="signature|privileged" />
 
     <application android:process="system"
                  android:persistent="true"
