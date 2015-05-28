@@ -1,0 +1,428 @@
+package evervolv.content {
+
+  public class FontInfo implements java.lang.Comparable android.os.Parcelable {
+    ctor public FontInfo();
+    ctor public FontInfo(java.lang.String, java.lang.String, java.lang.String);
+    ctor public FontInfo(evervolv.content.FontInfo);
+    ctor public FontInfo(android.os.Parcel);
+    method public int compareTo(evervolv.content.FontInfo);
+    method public int describeContents();
+    method public static evervolv.content.FontInfo getDefaultFontInfo();
+    method public java.lang.String toDelimitedString();
+    method public void updateFrom(evervolv.content.FontInfo);
+    method public void writeToParcel(android.os.Parcel, int);
+    field public static final android.os.Parcelable.Creator<evervolv.content.FontInfo> CREATOR;
+    field public static final java.lang.String DEFAULT_FONT_NAME = "Roboto";
+    field public static final java.lang.String DEFAULT_FONT_PACKAGE = "android";
+    field public static final java.lang.String DEFAULT_FONT_PATH = "/system/fonts/Roboto-Regular.ttf";
+    field public java.lang.String fontName;
+    field public java.lang.String packageName;
+    field public java.lang.String previewPath;
+  }
+
+  public class Intent {
+    ctor public Intent();
+  }
+
+}
+
+package evervolv.hardware {
+
+  public final class HardwareManager {
+    method public boolean get(int);
+    method public static evervolv.hardware.HardwareManager getInstance(android.content.Context);
+    method public int getSupportedFeatures();
+    method public evervolv.hardware.TouchscreenGesture[] getTouchscreenGestures();
+    method public int getVibratorDefaultIntensity();
+    method public int getVibratorIntensity();
+    method public int getVibratorMaxIntensity();
+    method public int getVibratorMinIntensity();
+    method public int getVibratorWarningIntensity();
+    method public boolean isSupported(int);
+    method public boolean set(int, boolean);
+    method public boolean setTouchscreenGestureEnabled(evervolv.hardware.TouchscreenGesture, boolean);
+    method public boolean setVibratorIntensity(int);
+    field public static final int FEATURE_HIGH_TOUCH_SENSITIVITY = 8; // 0x8
+    field public static final int FEATURE_KEY_DISABLE = 2; // 0x2
+    field public static final int FEATURE_TOUCHSCREEN_GESTURES = 4; // 0x4
+    field public static final int FEATURE_TOUCH_HOVERING = 16; // 0x10
+    field public static final int FEATURE_VIBRATOR = 1; // 0x1
+  }
+
+  public class TouchscreenGesture implements android.os.Parcelable {
+    ctor public TouchscreenGesture(int, java.lang.String, int);
+    method public int describeContents();
+    method public void writeToParcel(android.os.Parcel, int);
+    field public final int id;
+    field public final int keycode;
+    field public final java.lang.String name;
+  }
+
+}
+
+package evervolv.os {
+
+  public class Build {
+    ctor public Build();
+    method public static java.lang.String getNameForSDKInt(int);
+    method public static java.lang.String getVersion(boolean);
+    field public static final java.lang.String UNKNOWN = "unknown";
+  }
+
+  public static class Build.EVERVOLV_VERSION {
+    ctor public Build.EVERVOLV_VERSION();
+    field public static final int SDK_INT;
+  }
+
+  public static class Build.EVERVOLV_VERSION_CODES {
+    ctor public Build.EVERVOLV_VERSION_CODES();
+    field public static final int ACTINIUM = 1; // 0x1
+  }
+
+  public final class Concierge {
+    method public static evervolv.os.Concierge.ParcelInfo prepareParcel(android.os.Parcel);
+    method public static evervolv.os.Concierge.ParcelInfo receiveParcel(android.os.Parcel);
+  }
+
+  public static final class Concierge.ParcelInfo {
+    method public void complete();
+    method public int getParcelVersion();
+  }
+
+}
+
+package evervolv.power {
+
+  public class PerformanceManager {
+    method public evervolv.power.PerformanceProfile getActivePowerProfile();
+    method public static evervolv.power.PerformanceManager getInstance(android.content.Context);
+    method public int getNumberOfProfiles();
+    method public int getPowerProfile();
+    method public evervolv.power.PerformanceProfile getPowerProfile(int);
+    method public java.util.SortedSet<evervolv.power.PerformanceProfile> getPowerProfiles();
+    method public boolean setPowerProfile(int);
+    method public boolean setPowerProfile(evervolv.power.PerformanceProfile);
+    field public static final java.lang.String POWER_PROFILE_CHANGED = "cyanogenmod.power.PROFILE_CHANGED";
+    field public static final int PROFILE_BALANCED = 1; // 0x1
+    field public static final int PROFILE_BIAS_PERFORMANCE = 4; // 0x4
+    field public static final int PROFILE_BIAS_POWER_SAVE = 3; // 0x3
+    field public static final int PROFILE_HIGH_PERFORMANCE = 2; // 0x2
+    field public static final int PROFILE_POWER_SAVE = 0; // 0x0
+    field public static final java.lang.String TAG = "PerformanceManager";
+  }
+
+  public class PerformanceProfile implements java.lang.Comparable android.os.Parcelable {
+    ctor public PerformanceProfile(int, float, java.lang.String, java.lang.String);
+    method public int compareTo(evervolv.power.PerformanceProfile);
+    method public int describeContents();
+    method public java.lang.String getDescription();
+    method public int getId();
+    method public java.lang.String getName();
+    method public float getWeight();
+    method public void writeToParcel(android.os.Parcel, int);
+    field public static final android.os.Parcelable.Creator<evervolv.power.PerformanceProfile> CREATOR;
+  }
+
+}
+
+package evervolv.preference {
+
+  public class EVGlobalSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public EVGlobalSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public EVGlobalSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public EVGlobalSettingSwitchPreference(android.content.Context);
+  }
+
+  public class EVSecureSettingListPreference extends evervolv.preference.SelfRemovingListPreference {
+    ctor public EVSecureSettingListPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public EVSecureSettingListPreference(android.content.Context, android.util.AttributeSet);
+    method public int getIntValue(int);
+  }
+
+  public class EVSecureSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public EVSecureSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public EVSecureSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public EVSecureSettingSwitchPreference(android.content.Context);
+  }
+
+  public class EVSystemSettingListPreference extends evervolv.preference.SelfRemovingListPreference {
+    ctor public EVSystemSettingListPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public EVSystemSettingListPreference(android.content.Context, android.util.AttributeSet);
+    method public int getIntValue(int);
+  }
+
+  public class EVSystemSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public EVSystemSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public EVSystemSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public EVSystemSettingSwitchPreference(android.content.Context);
+  }
+
+  public class GlobalCheckBoxPreference extends evervolv.preference.SelfRemovingCheckBoxPreference {
+    ctor public GlobalCheckBoxPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public GlobalCheckBoxPreference(android.content.Context, android.util.AttributeSet);
+    ctor public GlobalCheckBoxPreference(android.content.Context);
+  }
+
+  public class GlobalSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public GlobalSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public GlobalSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public GlobalSettingSwitchPreference(android.content.Context);
+  }
+
+  public class RemotePreference extends evervolv.preference.SelfRemovingPreference {
+    ctor public RemotePreference(android.content.Context, android.util.AttributeSet, int, int);
+    ctor public RemotePreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public RemotePreference(android.content.Context, android.util.AttributeSet);
+    method public android.content.Intent getReceiverIntent();
+    method protected java.lang.String getRemoteKey(android.os.Bundle);
+    method public void onRemoteUpdated(android.os.Bundle);
+    field public static final java.lang.String ACTION_REFRESH_PREFERENCE = "evervolv.intent.action.REFRESH_PREFERENCE";
+    field public static final java.lang.String ACTION_UPDATE_PREFERENCE = "evervolv.intent.action.UPDATE_PREFERENCE";
+    field public static final java.lang.String EXTRA_ENABLED = ":pref_enabled";
+    field public static final java.lang.String EXTRA_KEY = ":pref_key";
+    field public static final java.lang.String EXTRA_SUMMARY = ":pref_summary";
+    field public static final java.lang.String META_REMOTE_KEY = "com.evervolv.settings.summary.key";
+    field public static final java.lang.String META_REMOTE_RECEIVER = "com.evervolv.settings.summary.receiver";
+    field protected final android.content.Context mContext;
+  }
+
+  public class RemotePreferenceUpdater extends android.content.BroadcastReceiver {
+    ctor public RemotePreferenceUpdater();
+    method protected boolean fillResultExtras(android.content.Context, java.lang.String, android.os.Bundle);
+    method protected java.lang.String getSummary(android.content.Context, java.lang.String);
+    method public static void notifyChanged(android.content.Context, java.lang.String);
+    method public void onReceive(android.content.Context, android.content.Intent);
+  }
+
+  public class SecureCheckBoxPreference extends evervolv.preference.SelfRemovingCheckBoxPreference {
+    ctor public SecureCheckBoxPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SecureCheckBoxPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SecureCheckBoxPreference(android.content.Context);
+  }
+
+  public class SecureSettingListPreference extends evervolv.preference.SelfRemovingListPreference {
+    ctor public SecureSettingListPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SecureSettingListPreference(android.content.Context, android.util.AttributeSet);
+    method public int getIntValue(int);
+  }
+
+  public class SecureSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public SecureSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SecureSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SecureSettingSwitchPreference(android.content.Context);
+  }
+
+  public class SelfRemovingCheckBoxPreference extends android.support.v7.preference.CheckBoxPreference {
+    ctor public SelfRemovingCheckBoxPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SelfRemovingCheckBoxPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SelfRemovingCheckBoxPreference(android.content.Context);
+    method public boolean isAvailable();
+    method protected boolean isPersisted();
+    method public void setAvailable(boolean);
+  }
+
+  public class SelfRemovingDropDownPreference extends android.support.v7.preference.DropDownPreference {
+    ctor public SelfRemovingDropDownPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SelfRemovingDropDownPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SelfRemovingDropDownPreference(android.content.Context);
+    method public boolean isAvailable();
+    method protected boolean isPersisted();
+    method public void setAvailable(boolean);
+  }
+
+  public class SelfRemovingListPreference extends android.support.v7.preference.ListPreference {
+    ctor public SelfRemovingListPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SelfRemovingListPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SelfRemovingListPreference(android.content.Context);
+    method public boolean isAvailable();
+    method protected boolean isPersisted();
+    method public void setAvailable(boolean);
+  }
+
+  public class SelfRemovingPreference extends android.support.v7.preference.Preference {
+    ctor public SelfRemovingPreference(android.content.Context, android.util.AttributeSet, int, int);
+    ctor public SelfRemovingPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SelfRemovingPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SelfRemovingPreference(android.content.Context);
+    method public boolean isAvailable();
+    method protected boolean isPersisted();
+    method public void setAvailable(boolean);
+  }
+
+  public class SelfRemovingSwitchPreference extends android.support.v14.preference.SwitchPreference {
+    ctor public SelfRemovingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SelfRemovingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SelfRemovingSwitchPreference(android.content.Context);
+    method public boolean isAvailable();
+    method protected boolean isPersisted();
+    method public void setAvailable(boolean);
+  }
+
+  public class SettingsHelper {
+    method public static synchronized evervolv.preference.SettingsHelper get(android.content.Context);
+    method public boolean getBoolean(android.net.Uri, boolean);
+    method public int getInt(android.net.Uri, int);
+    method public java.lang.String getString(android.net.Uri);
+    method public void putBoolean(android.net.Uri, boolean);
+    method public void putInt(android.net.Uri, int);
+    method public void putString(android.net.Uri, java.lang.String);
+    method public void startWatching(evervolv.preference.SettingsHelper.OnSettingsChangeListener, android.net.Uri...);
+    method public void stopWatching(evervolv.preference.SettingsHelper.OnSettingsChangeListener);
+  }
+
+  public static abstract interface SettingsHelper.OnSettingsChangeListener {
+    method public abstract void onSettingsChanged(android.net.Uri);
+  }
+
+  public class SystemCheckBoxPreference extends evervolv.preference.SelfRemovingCheckBoxPreference {
+    ctor public SystemCheckBoxPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SystemCheckBoxPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SystemCheckBoxPreference(android.content.Context);
+  }
+
+  public class SystemSettingDropDownPreference extends evervolv.preference.SelfRemovingDropDownPreference {
+    ctor public SystemSettingDropDownPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SystemSettingDropDownPreference(android.content.Context, android.util.AttributeSet);
+    method public int getIntValue(int);
+  }
+
+  public class SystemSettingListPreference extends evervolv.preference.SelfRemovingListPreference {
+    ctor public SystemSettingListPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SystemSettingListPreference(android.content.Context, android.util.AttributeSet);
+    method public int getIntValue(int);
+  }
+
+  public class SystemSettingSwitchPreference extends evervolv.preference.SelfRemovingSwitchPreference {
+    ctor public SystemSettingSwitchPreference(android.content.Context, android.util.AttributeSet, int);
+    ctor public SystemSettingSwitchPreference(android.content.Context, android.util.AttributeSet);
+    ctor public SystemSettingSwitchPreference(android.content.Context);
+  }
+
+}
+
+package evervolv.provider {
+
+  public final class EVSettings {
+    ctor public EVSettings();
+    field public static final java.lang.String AUTHORITY = "evsettings";
+  }
+
+  public static class EVSettings.EVSettingNotFoundException extends android.util.AndroidException {
+    ctor public EVSettings.EVSettingNotFoundException(java.lang.String);
+  }
+
+  public static final class EVSettings.Global extends android.provider.Settings.NameValueTable {
+    ctor public EVSettings.Global();
+    method public static float getFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static float getFloat(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static int getInt(android.content.ContentResolver, java.lang.String, int);
+    method public static int getInt(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static long getLong(android.content.ContentResolver, java.lang.String, long);
+    method public static long getLong(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String);
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    method public static android.net.Uri getUriFor(java.lang.String);
+    method public static boolean putFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static boolean putInt(android.content.ContentResolver, java.lang.String, int);
+    method public static boolean putLong(android.content.ContentResolver, java.lang.String, long);
+    method public static boolean putString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    field public static final android.net.Uri CONTENT_URI;
+    field public static final java.lang.String SYS_PROP_SETTING_VERSION = "sys.evervolv_settings_global_version";
+  }
+
+  public static final class EVSettings.Secure extends android.provider.Settings.NameValueTable {
+    ctor public EVSettings.Secure();
+    method public static float getFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static float getFloat(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static int getInt(android.content.ContentResolver, java.lang.String, int);
+    method public static int getInt(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static long getLong(android.content.ContentResolver, java.lang.String, long);
+    method public static long getLong(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String);
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    method public static android.net.Uri getUriFor(java.lang.String);
+    method public static boolean putFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static boolean putInt(android.content.ContentResolver, java.lang.String, int);
+    method public static boolean putLong(android.content.ContentResolver, java.lang.String, long);
+    method public static boolean putString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    field public static final evervolv.provider.EVSettings.Validator ADVANCED_REBOOT_VALIDATOR;
+    field public static final android.net.Uri CONTENT_URI;
+    field public static final evervolv.provider.EVSettings.Validator DEV_FORCE_SHOW_VALIDATOR;
+    field public static final evervolv.provider.EVSettings.Validator FEATURE_TOUCH_HOVERING_VALIDATOR;
+    field public static final java.lang.String SYS_PROP_SETTING_VERSION = "sys.evervolv_settings_secure_version";
+    field public static final evervolv.provider.EVSettings.Validator VIBRATOR_INTENSITY_VALIDATOR;
+  }
+
+  public static final class EVSettings.System extends android.provider.Settings.NameValueTable {
+    ctor public EVSettings.System();
+    method public static float getFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static float getFloat(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static int getInt(android.content.ContentResolver, java.lang.String, int);
+    method public static int getInt(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static long getLong(android.content.ContentResolver, java.lang.String, long);
+    method public static long getLong(android.content.ContentResolver, java.lang.String) throws evervolv.provider.EVSettings.EVSettingNotFoundException;
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String);
+    method public static java.lang.String getString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    method public static android.net.Uri getUriFor(java.lang.String);
+    method public static boolean putFloat(android.content.ContentResolver, java.lang.String, float);
+    method public static boolean putInt(android.content.ContentResolver, java.lang.String, int);
+    method public static boolean putLong(android.content.ContentResolver, java.lang.String, long);
+    method public static boolean putString(android.content.ContentResolver, java.lang.String, java.lang.String);
+    field public static final java.lang.String BERRY_CURRENT_ACCENT = "berry_current_accent";
+    field public static final java.lang.String BERRY_DARK_OVERLAY = "berry_dark_overlay";
+    field public static final java.lang.String BERRY_GLOBAL_STYLE = "berry_global_style";
+    field public static final java.lang.String BERRY_MANAGED_BY_APP = "berry_managed_by_app";
+    field public static final android.net.Uri CONTENT_URI;
+    field public static final java.lang.String LONG_SCREEN_APPS = "long_screen_apps";
+    field public static final java.lang.String STATUS_BAR_AM_PM = "status_bar_am_pm";
+    field public static final java.lang.String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
+    field public static final java.lang.String SYS_PROP_SETTING_VERSION = "sys.evervolv_settings_system_version";
+  }
+
+}
+
+package evervolv.style {
+
+  public class StyleInterface {
+    method public java.lang.String getAccent();
+    method public int getGlobalStyle();
+    method public static evervolv.style.StyleInterface getInstance(android.content.Context);
+    method public evervolv.style.Suggestion getSuggestion(android.graphics.Bitmap, int[]);
+    method public java.util.List<java.lang.String> getTrustedAccents();
+    method public boolean isDarkNow();
+    method public boolean setAccent(java.lang.String);
+    method public boolean setGlobalStyle(int, java.lang.String);
+    field public static final java.lang.String ACCENT_DEFAULT = "evervolv";
+    field public static final java.lang.String CHANGE_STYLE_SETTINGS_PERMISSION = "android.permission.CHANGE_OVERLAY_PACKAGES";
+    field public static final int STYLE_GLOBAL_AUTO_DAYTIME = 1; // 0x1
+    field public static final int STYLE_GLOBAL_AUTO_WALLPAPER = 0; // 0x0
+    field public static final int STYLE_GLOBAL_DARK = 3; // 0x3
+    field public static final int STYLE_GLOBAL_LIGHT = 2; // 0x2
+  }
+
+  public class Suggestion implements android.os.Parcelable {
+    ctor public Suggestion(int, int);
+    method public int describeContents();
+    method public void writeToParcel(android.os.Parcel, int);
+    field public final int globalStyle;
+    field public final int selectedAccent;
+  }
+
+}
+
+package evervolv.util {
+
+  public class ColorUtils {
+    ctor public ColorUtils();
+    method public static double calculateDeltaE(double, double, double, double, double, double);
+    method public static float[] convertRGBtoLAB(int);
+    method public static int dropAlpha(int);
+    method public static int findPerceptuallyNearestColor(int, int[]);
+    method public static int findPerceptuallyNearestSolidColor(int);
+    method public static int generateAlertColorFromDrawable(android.graphics.drawable.Drawable);
+    method public static evervolv.util.palette.Palette.Swatch getDominantSwatch(evervolv.util.palette.Palette);
+    method public static float[] temperatureToRGB(int);
+  }
+
+}
+
