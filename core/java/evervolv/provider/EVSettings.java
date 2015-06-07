@@ -1019,6 +1019,16 @@ public final class EVSettings {
 
         /** @hide */
         public static final Validator APP_SWITCH_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+
+         /**
+         * Whether to wake the screen with the camera key, the value is boolean.
+         * @hide
+         */
+        public static final String CAMERA_WAKE_SCREEN = "camera_wake_screen";
+
+        /** @hide */
+        public static final Validator CAMERA_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
+
          /**
          * Whether to wake the screen with the volume keys, the value is boolean.
          * @hide
@@ -1534,6 +1544,24 @@ public final class EVSettings {
         public static final Validator ALERT_SLIDER_SILENT_MODE_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * Whether or not to send device back to sleep if Camera button is released ("Peek")
+         * @hide
+         */
+        public static final String CAMERA_SLEEP_ON_RELEASE = "camera_sleep_on_release";
+
+        /** @hide */
+        public static final Validator CAMERA_SLEEP_ON_RELEASE_VALIDATOR = sBooleanValidator;
+
+        /**
+         * Whether to launch secure camera app when key is longpressed
+         * @hide
+         */
+        public static final String CAMERA_LAUNCH = "camera_launch";
+
+        /** @hide */
+        public static final Validator CAMERA_LAUNCH_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1572,6 +1600,7 @@ public final class EVSettings {
             EVSettings.System.MENU_WAKE_SCREEN,
             EVSettings.System.ASSIST_WAKE_SCREEN,
             EVSettings.System.APP_SWITCH_WAKE_SCREEN,
+            EVSettings.System.CAMERA_WAKE_SCREEN,
             EVSettings.System.VOLUME_WAKE_SCREEN,
             EVSettings.System.ENABLE_FORWARD_LOOKUP,
             EVSettings.System.ENABLE_PEOPLE_LOOKUP,
@@ -1630,6 +1659,7 @@ public final class EVSettings {
             VALIDATORS.put(ASSIST_WAKE_SCREEN, ASSIST_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(APP_SWITCH_WAKE_SCREEN,
                     APP_SWITCH_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(CAMERA_WAKE_SCREEN, CAMERA_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(VOLUME_WAKE_SCREEN, VOLUME_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(ENABLE_FORWARD_LOOKUP,
                     ENABLE_FORWARD_LOOKUP_VALIDATOR);
@@ -1702,6 +1732,8 @@ public final class EVSettings {
             VALIDATORS.put(ZEN_PRIORITY_ALLOW_LIGHTS, ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR);
             VALIDATORS.put(ALERT_SLIDER_ORDER, ALERT_SLIDER_ORDER_VALIDATOR);
             VALIDATORS.put(ALERT_SLIDER_SILENT_MODE, ALERT_SLIDER_SILENT_MODE_VALIDATOR);
+            VALIDATORS.put(CAMERA_SLEEP_ON_RELEASE, CAMERA_SLEEP_ON_RELEASE_VALIDATOR);
+            VALIDATORS.put(CAMERA_LAUNCH, CAMERA_LAUNCH_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };

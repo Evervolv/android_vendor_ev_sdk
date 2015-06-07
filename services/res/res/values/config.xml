@@ -140,4 +140,8 @@
 
     <!-- The location of the devices physical tri state switch -->
     <integer name="config_alertSliderLocation">0</integer>
+
+    <!-- Indicates that the device has Single-stage Camera key
+         (without "Focus" state) instead of Dual-stage. -->
+    <bool name="config_singleStageCameraKey">false</bool>
 </resources>

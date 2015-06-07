@@ -101,4 +101,8 @@
 
     <!-- The location of the devices physical tri state switch -->
     <java-symbol type="integer" name="config_alertSliderLocation" />
+
+    <!-- Indicates that the device has Single-stage Camera key
+         (without "Focus" state) instead of Dual-stage. -->
+    <java-symbol type="bool" name="config_singleStageCameraKey" />
 </resources>
