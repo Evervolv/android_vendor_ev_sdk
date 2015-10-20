@@ -1193,6 +1193,14 @@ public final class EVSettings {
          */
         public static final String FONT_PACKAGES = "font_packages";
 
+         /**
+         * Whether the HighTouchSensitivity is activated or not.
+         * 0 = off, 1 = on
+         * @hide
+         */
+        public static final String HIGH_TOUCH_SENSITIVITY_ENABLE =
+                "high_touch_sensitivity_enable";
+
         // System Settings end
 
         /**
