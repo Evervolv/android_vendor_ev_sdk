@@ -66,6 +66,13 @@ public final class ContextConstants {
     public static final String HARDWARE_MANAGER = "hardware_manager";
 
     /**
+     * Control device power profile and characteristics.
+     *
+     * @hide
+     */
+    public static final String PERFORMANCE_SERVICE = "performance";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
