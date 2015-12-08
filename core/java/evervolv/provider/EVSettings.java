@@ -1780,6 +1780,17 @@ public final class EVSettings {
         public static final Validator VOLUME_PANEL_ON_LEFT_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * Whether to show the keyguard visualizer.
+         * Boolean setting. 0 = off, 1 = on.
+         * @hide
+         */
+        public static final String LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer";
+
+        /* @hide */
+        public static final Validator LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR =
+                sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -1835,6 +1846,7 @@ public final class EVSettings {
             VALIDATORS.put(FEATURE_TOUCH_HOVERING, FEATURE_TOUCH_HOVERING_VALIDATOR);
             VALIDATORS.put(VIBRATOR_INTENSITY, VIBRATOR_INTENSITY_VALIDATOR);
             VALIDATORS.put(VOLUME_PANEL_ON_LEFT, VOLUME_PANEL_ON_LEFT_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_VISUALIZER_ENABLED, LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
