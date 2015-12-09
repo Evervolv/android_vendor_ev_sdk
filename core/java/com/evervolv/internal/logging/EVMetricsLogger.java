@@ -30,4 +30,8 @@ public class EVMetricsLogger extends MetricsLogger {
     // OPEN: QS Location detail panel
     // CATEGORY: QUICK_SETTINGS
     public static final int QS_LOCATION_DETAILS = BASE + 2;
+
+    // OPEN: QS Expanded desktop tile
+    // CATEGORY: QUICK_SETTINGS
+    public static final int QS_EXPANDED_DESKTOP = BASE + 3;
 }
