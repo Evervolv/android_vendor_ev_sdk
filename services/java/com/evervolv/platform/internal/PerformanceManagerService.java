@@ -44,6 +44,7 @@ import evervolv.provider.EVSettings;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Pattern;
 
+/** @hide */
 public class PerformanceManagerService extends SystemService {
 
     private static final String TAG = "PerformanceManager";
