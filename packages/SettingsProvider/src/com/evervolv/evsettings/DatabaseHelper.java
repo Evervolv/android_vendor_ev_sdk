@@ -270,6 +270,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             // System
             loadIntegerSetting(stmt, EVSettings.System.STATUS_BAR_BATTERY_STYLE,
                     R.integer.def_battery_style);
+            loadIntegerSetting(stmt, EVSettings.System.ENABLE_FORWARD_LOOKUP,
+                    R.integer.def_forward_lookup);
+            loadIntegerSetting(stmt, EVSettings.System.ENABLE_PEOPLE_LOOKUP,
+                    R.integer.def_people_lookup);
+            loadIntegerSetting(stmt, EVSettings.System.ENABLE_REVERSE_LOOKUP,
+                    R.integer.def_reverse_lookup);
         } finally {
             if (stmt != null) stmt.close();
         }
