@@ -1396,6 +1396,22 @@ public final class EVSettings {
         public static final Validator NOTIFICATION_LIGHT_COLOR_AUTO_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * Whether the notification light will be allowed when in zen mode during downtime
+         */
+        public static final String ZEN_ALLOW_LIGHTS = "allow_lights";
+
+        /** @hide */
+        public static final Validator ZEN_ALLOW_LIGHTS_VALIDATOR = sBooleanValidator;
+
+        /**
+         * Whether the notification light will be allowed when in zen priority mode during downtime
+         */
+        public static final String ZEN_PRIORITY_ALLOW_LIGHTS = "zen_priority_allow_lights";
+
+        /** @hide */
+        public static final Validator ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1558,6 +1574,8 @@ public final class EVSettings {
                     NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_COLOR_AUTO,
                     NOTIFICATION_LIGHT_COLOR_AUTO_VALIDATOR);
+            VALIDATORS.put(ZEN_ALLOW_LIGHTS, ZEN_ALLOW_LIGHTS_VALIDATOR);
+            VALIDATORS.put(ZEN_PRIORITY_ALLOW_LIGHTS, ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
