@@ -16,7 +16,17 @@
 -->
 <resources>
 
-    <!-- Defaults for Settings.Secure.DEV_FORCE_SHOW_NAVBAR. -->
+    <!-- Defaults for EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR. -->
     <integer name="def_force_disable_navkeys">0</integer>
+
+    <!-- Default for EVSettings.System.STATUS_BAR_BATTERY_STYLE
+         * 0: Display the battery an icon in portrait mode
+         * 2: Display the battery as a circle
+         * 3: Display the battery as a dotted circle
+         * 4: Hide the battery status information
+         * 5: Display the battery as plain text
+         * default: 0
+         -->
+    <integer name="def_battery_style">0</integer>
 
 </resources>

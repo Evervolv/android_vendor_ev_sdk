@@ -268,6 +268,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             stmt = db.compileStatement("INSERT OR IGNORE INTO system(name,value)"
                     + " VALUES(?,?);");
             // System
+            loadIntegerSetting(stmt, EVSettings.System.STATUS_BAR_BATTERY_STYLE,
+                    R.integer.def_battery_style);
         } finally {
             if (stmt != null) stmt.close();
         }
