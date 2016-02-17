@@ -17,6 +17,8 @@
 
 package evervolv.content;
 
+import android.Manifest;
+
 /**
  * Evervolv specific intent definition class.
  */
@@ -40,4 +42,13 @@ public class Intent {
      */
     public static final String EXTRA_RECENTS_LONG_PRESS_RELEASE =
             "evervolv.intent.extra.RECENTS_LONG_PRESS_RELEASE";
+
+    /**
+     * Broadcast action: notify the system that the user has performed a gesture on the screen
+     * to launch the camera. Broadcast should be protected to receivers holding the
+     * {@link Manifest.permission#STATUS_BAR_SERVICE} permission.
+     * @hide
+     */
+    public static final String ACTION_SCREEN_CAMERA_GESTURE =
+            "evervolv.intent.action.SCREEN_CAMERA_GESTURE";
 }
