@@ -822,6 +822,15 @@ public final class EVSettings {
         /** @hide */
         public static final Validator PROXIMITY_ON_WAKE_VALIDATOR = sBooleanValidator;
 
+         /**
+         * Whether or not to vibrate when a touchscreen gesture is detected
+         * @hide
+         */
+        public static final String TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
+
+        /** @hide */
+        public static final Validator TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -845,6 +854,7 @@ public final class EVSettings {
         public static final String[] LEGACY_SYSTEM_SETTINGS = new String[] {
             // Insert legacy system settings here
             EVSettings.System.PROXIMITY_ON_WAKE,
+            EVSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK,
         };
 
         /**
@@ -875,6 +885,8 @@ public final class EVSettings {
         static {
             VALIDATORS.put(LONG_SCREEN_APPS, LONG_SCREEN_APPS_VALIDATOR);
             VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
+            VALIDATORS.put(TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK,
+                    TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
