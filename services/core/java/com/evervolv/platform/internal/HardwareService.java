@@ -18,9 +18,11 @@ package com.evervolv.platform.internal;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.UserHandle;
+import android.os.Uri;
 import android.util.Log;
 
 import com.android.server.display.color.DisplayTransformManager;
@@ -30,6 +32,7 @@ import evervolv.app.ContextConstants;
 import evervolv.hardware.HardwareManager;
 import evervolv.hardware.IHardwareService;
 import evervolv.hardware.TouchscreenGesture;
+import evervolv.provider.EVSettings;
 
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
@@ -78,6 +81,8 @@ public class HardwareService extends VendorService {
 
     private int mSupportedFeatures = 0;
 
+    private SettingsObserver mSettingsObserver;
+
     public HardwareService(Context context) {
         super(context);
         mContext = context;
@@ -118,6 +123,9 @@ public class HardwareService extends VendorService {
             }
             mSupportedFeatures |= FEATURE_TOUCHSCREEN_GESTURES;
         } catch (NoSuchElementException | RemoteException e) { }
+
+        mSettingsObserver = new SettingsObserver(new Handler());
+        mSettingsObserver.observe();
     }
 
     @Override
@@ -269,4 +277,62 @@ public class HardwareService extends VendorService {
             return setGestureInternal(gesture, state);
         }
     };
+
+    private class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            registerFeature(FEATURE_HIGH_TOUCH_POLLING_RATE,
+                    EVSettings.System.getUriFor(
+                            EVSettings.System.HIGH_TOUCH_POLLING_RATE_ENABLE));
+            registerFeature(FEATURE_HIGH_TOUCH_SENSITIVITY,
+                    EVSettings.System.getUriFor(
+                            EVSettings.System.HIGH_TOUCH_SENSITIVITY_ENABLE));
+            registerFeature(FEATURE_TOUCH_HOVERING,
+                    EVSettings.Secure.getUriFor(
+                            EVSettings.Secure.FEATURE_TOUCH_HOVERING));
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        private void update() {
+            final ContentResolver resolver = mContext.getContentResolver();
+
+            final boolean highPollingRate = EVSettings.System.getInt(resolver,
+                    EVSettings.System.HIGH_TOUCH_POLLING_RATE_ENABLE, 0) == 1;
+            updateFeature(FEATURE_HIGH_TOUCH_POLLING_RATE, highPollingRate);
+
+            final boolean gloveMode = EVSettings.System.getInt(resolver,
+                    EVSettings.System.HIGH_TOUCH_SENSITIVITY_ENABLE, 0) == 1;
+            updateFeature(FEATURE_HIGH_TOUCH_SENSITIVITY, gloveMode);
+
+            final boolean stylusMode = EVSettings.Secure.getInt(resolver,
+                    EVSettings.Secure.FEATURE_TOUCH_HOVERING, 0) == 1;
+            updateFeature(FEATURE_TOUCH_HOVERING, stylusMode);
+        }
+
+        private void registerFeature(int feature, Uri uri) {
+            if (feature != (mSupportedFeatures & feature))
+                return;
+
+            mContext.getContentResolver().registerContentObserver(
+                    uri, false, this, UserHandle.USER_ALL);
+        }
+
+        private void updateFeature(int feature, boolean enabled) {
+            if (feature != (mSupportedFeatures & feature))
+                return;
+
+            final boolean status = getFeatureInternal(feature);
+            if (status != enabled) {
+                setFeatureInternal(feature, enabled);
+            }
+        }
+    }
 }
