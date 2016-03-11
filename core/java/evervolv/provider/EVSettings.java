@@ -1748,6 +1748,12 @@ public final class EVSettings {
         /* @hide */
         public static final Validator ADVANCED_REBOOT_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Vibrator intensity setting for supported devices
+         * @hide
+         */
+        public static final String VIBRATOR_INTENSITY = "vibrator_intensity";
+
         // Secure Settings end
 
         /**
