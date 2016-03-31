@@ -26,6 +26,7 @@
     <protected-broadcast android:name="evervolv.intent.action.UPDATE_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.REFRESH_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.INITIALIZE_HARDWARE" />
+    <protected-broadcast android:name="evervolv.intent.action.INITIALIZE_LIVEDISPLAY" />
 
     <!-- Allows an application to write to Evervolv system settings -->
     <permission android:name="evervolv.permission.WRITE_SETTINGS"
@@ -59,6 +60,12 @@
                 android:label="@string/permlab_perfAccess"
                 android:description="@string/permdesc_perfAccess"
                 android:protectionLevel="signature|privileged" />
+
+    <!-- Allows an application to manage LiveDisplay -->
+    <permission android:name="evervolv.permission.MANAGE_LIVEDISPLAY"
+                android:label="@string/permlab_manageLiveDisplay"
+                android:description="@string/permdesc_manageLiveDisplay"
+                android:protectionLevel="normal" />
 
     <application android:process="system"
                  android:persistent="true"

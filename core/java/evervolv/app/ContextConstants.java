@@ -58,6 +58,13 @@ public final class ContextConstants {
     public static final String GLOBAL_ACTIONS_SERVICE = "ev_globalactions";
 
     /**
+     * Manages display color adjustments
+     *
+     * @hide
+     */
+    public static final String LIVEDISPLAY_SERVICE = "ev_livedisplay";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
@@ -83,6 +90,14 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String GLOBAL_ACTIONS = "com.evervolv.globalactions";
+
+        /**
+         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
+         * {@link PackageManager#hasSystemFeature}: The device includes the LiveDisplay service
+         * utilized by the lineage sdk.
+         */
+        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
+        public static final String LIVEDISPLAY = "com.evervolv.livedisplay";
 
         /**
          * Feature for {@link PackageManager#getSystemAvailableFeatures} and

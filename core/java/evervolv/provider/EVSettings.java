@@ -53,6 +53,16 @@ public final class EVSettings {
 
     public static final String AUTHORITY = "evsettings";
 
+    /**
+     * Activity Action: Show LiveDisplay settings
+     * <p>
+     * Input: Nothing.
+     * <p>
+     * Output: Nothing.
+     */
+    public static final String ACTION_LIVEDISPLAY_SETTINGS =
+            "evervolv.settings.LIVEDISPLAY_SETTINGS";
+
     public static class EVSettingNotFoundException extends AndroidException {
         public EVSettingNotFoundException(String msg) {
             super(msg);
@@ -1638,6 +1648,136 @@ public final class EVSettings {
         /** @hide */
         public static final Validator ADAPTIVE_PLAYBACK_TIMEOUT_VALIDATOR =
                 sNonNegativeIntegerValidator;
+        /**
+         * Color temperature of the display during the day
+         */
+        public static final String DISPLAY_TEMPERATURE_DAY = "display_temperature_day";
+
+        /** @hide */
+        public static final Validator DISPLAY_TEMPERATURE_DAY_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 100000);
+
+        /**
+         * Color temperature of the display at night
+         */
+        public static final String DISPLAY_TEMPERATURE_NIGHT = "display_temperature_night";
+
+        /** @hide */
+        public static final Validator DISPLAY_TEMPERATURE_NIGHT_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 100000);
+
+        /**
+         * Display color temperature adjustment mode, one of DAY (default), NIGHT, or AUTO.
+         */
+        public static final String DISPLAY_TEMPERATURE_MODE = "display_temperature_mode";
+
+        /** @hide */
+        public static final Validator DISPLAY_TEMPERATURE_MODE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 4);
+
+        /**
+         * Automatic outdoor mode
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_AUTO_OUTDOOR_MODE = "display_auto_outdoor_mode";
+
+        /** @hide */
+        public static final Validator DISPLAY_AUTO_OUTDOOR_MODE_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Use display power saving features such as CABC or CABL
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_CABC = "display_low_power";
+
+        /**
+         * @deprecated Use {@link lineageos.providers.LineageSettings.System#DISPLAY_CABC} instead
+         */
+        @Deprecated
+        public static final String DISPLAY_LOW_POWER = DISPLAY_CABC;
+
+        /** @hide */
+        public static final Validator DISPLAY_CABC_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Use color enhancement feature of display
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_COLOR_ENHANCE = "display_color_enhance";
+
+        /** @hide */
+        public static final Validator DISPLAY_COLOR_ENHANCE_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Use auto contrast optimization feature of display
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_AUTO_CONTRAST = "display_auto_contrast";
+
+        /** @hide */
+        public static final Validator DISPLAY_AUTO_CONTRAST_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Manual display color adjustments (RGB values as floats, separated by spaces)
+         */
+        public static final String DISPLAY_COLOR_ADJUSTMENT = "display_color_adjustment";
+
+        /** @hide */
+        public static final Validator DISPLAY_COLOR_ADJUSTMENT_VALIDATOR =
+                new Validator() {
+                    @Override
+                    public boolean validate(String value) {
+                        String[] colorAdjustment = value == null ?
+                                null : value.split(" ");
+                        if (colorAdjustment != null && colorAdjustment.length != 3) {
+                            return false;
+                        }
+                        Validator floatValidator = new InclusiveFloatRangeValidator(0, 1);
+                        return colorAdjustment == null ||
+                                floatValidator.validate(colorAdjustment[0]) &&
+                                floatValidator.validate(colorAdjustment[1]) &&
+                                floatValidator.validate(colorAdjustment[2]);
+                    }
+                };
+
+        /**
+         * Did we tell about how they can stop breaking their eyes?
+         * @hide
+         */
+        public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
+
+        /** @hide */
+        public static final Validator LIVE_DISPLAY_HINTED_VALIDATOR =
+                new InclusiveIntegerRangeValidator(-3, 1);
+
+        /**
+         * The current custom picture adjustment values as a delimited string
+         */
+        public static final String DISPLAY_PICTURE_ADJUSTMENT =
+                "display_picture_adjustment";
+
+        /** @hide */
+        public static final Validator DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR =
+                new Validator() {
+                    @Override
+                    public boolean validate(String value) {
+                        if (TextUtils.isEmpty(value)) {
+                            return true;
+                        }
+                        final String[] sp = TextUtils.split(value, ",");
+                        for (String s : sp) {
+                            final String[] sp2 = TextUtils.split(s, ":");
+                            if (sp2.length != 2) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                };
 
         // System Settings end
 
@@ -1817,6 +1957,16 @@ public final class EVSettings {
             VALIDATORS.put(FOD_GESTURE, FOD_GESTURE_VALIDATOR);
             VALIDATORS.put(ADAPTIVE_PLAYBACK_ENABLED, ADAPTIVE_PLAYBACK_ENABLED_VALIDATOR);
             VALIDATORS.put(ADAPTIVE_PLAYBACK_TIMEOUT, ADAPTIVE_PLAYBACK_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(DISPLAY_TEMPERATURE_DAY, DISPLAY_TEMPERATURE_DAY_VALIDATOR);
+            VALIDATORS.put(DISPLAY_TEMPERATURE_NIGHT, DISPLAY_TEMPERATURE_NIGHT_VALIDATOR);
+            VALIDATORS.put(DISPLAY_TEMPERATURE_MODE, DISPLAY_TEMPERATURE_MODE_VALIDATOR);
+            VALIDATORS.put(DISPLAY_AUTO_CONTRAST, DISPLAY_AUTO_CONTRAST_VALIDATOR);
+            VALIDATORS.put(DISPLAY_AUTO_OUTDOOR_MODE, DISPLAY_AUTO_OUTDOOR_MODE_VALIDATOR);
+            VALIDATORS.put(DISPLAY_CABC, DISPLAY_CABC_VALIDATOR);
+            VALIDATORS.put(DISPLAY_COLOR_ENHANCE, DISPLAY_COLOR_ENHANCE_VALIDATOR);
+            VALIDATORS.put(DISPLAY_COLOR_ADJUSTMENT, DISPLAY_COLOR_ADJUSTMENT_VALIDATOR);
+            VALIDATORS.put(LIVE_DISPLAY_HINTED, LIVE_DISPLAY_HINTED_VALIDATOR);
+            VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };

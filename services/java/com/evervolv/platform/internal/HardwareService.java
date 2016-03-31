@@ -22,11 +22,14 @@ import android.os.IBinder;
 import android.os.UserHandle;
 import android.util.Log;
 
-import com.android.server.SystemService;
+import com.android.server.display.color.DisplayTransformManager;
+import com.android.server.LocalServices;
 
 import evervolv.app.ContextConstants;
 import evervolv.hardware.IHardwareService;
 import evervolv.hardware.HardwareManager;
+
+import static com.android.server.display.color.DisplayTransformManager.LEVEL_COLOR_MATRIX_NIGHT_DISPLAY;
 
 /** @hide */
 public class HardwareService extends VendorService {
@@ -41,13 +44,32 @@ public class HardwareService extends VendorService {
         public int getSupportedFeatures();
         public boolean get(int feature);
         public boolean set(int feature, boolean enable);
+
+        public int[] getDisplayColorCalibration();
+        public boolean setDisplayColorCalibration(int[] rgb);
     }
 
     private class LegacyHardware implements HardwareInterface {
 
+        private final int MIN = 0;
+        private final int MAX = 255;
+
+        private final int LEVEL_COLOR_MATRIX_CALIB = LEVEL_COLOR_MATRIX_NIGHT_DISPLAY + 1;
+
+        private boolean mAcceleratedTransform;
+        private DisplayTransformManager mDTMService;
+
+        private int[] mCurColors = { MAX, MAX, MAX };
+
         private int mSupportedFeatures = 0;
 
         public LegacyHardware() {
+            mAcceleratedTransform = mContext.getResources().getBoolean(
+                    com.android.internal.R.bool.config_setColorTransformAccelerated);
+            if (mAcceleratedTransform) {
+                mDTMService = LocalServices.getService(DisplayTransformManager.class);
+                mSupportedFeatures |= HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION;
+            }
         }
 
         public int getSupportedFeatures() {
@@ -68,6 +90,47 @@ public class HardwareService extends VendorService {
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
             }
+        }
+
+        private float[] rgbToMatrix(int[] rgb) {
+            float[] mat = new float[16];
+
+            for (int i = 0; i < 3; i++) {
+                // Sanity check
+                if (rgb[i] > MAX)
+                    rgb[i] = MAX;
+                else if (rgb[i] < MIN)
+                    rgb[i] = MIN;
+
+                mat[i * 5] = (float)rgb[i] / (float)MAX;
+            }
+
+            mat[15] = 1.0f;
+            return mat;
+        }
+
+        public int[] getDisplayColorCalibration() {
+            int[] rgb = mAcceleratedTransform ? mCurColors : null;
+            if (rgb == null || rgb.length != 3) {
+                Log.e(TAG, "Invalid color calibration string");
+                return null;
+            }
+            int[] currentCalibration = new int[5];
+            currentCalibration[HardwareManager.COLOR_CALIBRATION_RED_INDEX] = rgb[0];
+            currentCalibration[HardwareManager.COLOR_CALIBRATION_GREEN_INDEX] = rgb[1];
+            currentCalibration[HardwareManager.COLOR_CALIBRATION_BLUE_INDEX] = rgb[2];
+            currentCalibration[HardwareManager.COLOR_CALIBRATION_MIN_INDEX] = MIN;
+            currentCalibration[HardwareManager.COLOR_CALIBRATION_MAX_INDEX] = MAX;
+            return currentCalibration;
+        }
+
+        public boolean setDisplayColorCalibration(int[] rgb) {
+            if (mAcceleratedTransform) {
+                mCurColors = rgb;
+                mDTMService.setColorMatrix(LEVEL_COLOR_MATRIX_CALIB, rgbToMatrix(rgb));
+                return true;
+            }
+            return false;
         }
     }
 
@@ -134,6 +197,32 @@ public class HardwareService extends VendorService {
                 return false;
             }
             return mHardwareImpl.set(feature, enable);
+        }
+
+        @Override
+        public int[] getDisplayColorCalibration() {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION)) {
+                Log.e(TAG, "Display color calibration is not supported");
+                return null;
+            }
+            return mHardwareImpl.getDisplayColorCalibration();
+        }
+
+        @Override
+        public boolean setDisplayColorCalibration(int[] rgb) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION)) {
+                Log.e(TAG, "Display color calibration is not supported");
+                return false;
+            }
+            if (rgb.length < 3) {
+                Log.e(TAG, "Invalid color calibration");
+                return false;
+            }
+            return mHardwareImpl.setDisplayColorCalibration(rgb);
         }
     };
 }

@@ -61,6 +61,7 @@ java_defaults {
         "androidx.recyclerview_recyclerview",
         "androidx.legacy_legacy-preference-v14",
         "vendor.evervolv.touch-V1.0-java",
+        "vendor.lineage.livedisplay-V2.0-java",
     ],
     aidl: {
         local_include_dirs: ["core/java"],

@@ -27,6 +27,12 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "com.evervolv.livedisplay.xml",
+    sub_dir: "permissions",
+    src: "com.evervolv.livedisplay.xml",
+}
+
+prebuilt_etc {
     name: "com.evervolv.performance.xml",
     sub_dir: "permissions",
     src: "com.evervolv.performance.xml",

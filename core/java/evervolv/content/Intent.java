@@ -73,4 +73,11 @@ public class Intent {
      */
     public static final String ACTION_INITIALIZE_HARDWARE =
             "evervolv.intent.action.INITIALIZE_HARDWARE";
+
+    /**
+     * Broadcast action: notify SystemUI that LiveDisplay service has finished initialization.
+     * @hide
+     */
+    public static final String ACTION_INITIALIZE_LIVEDISPLAY =
+            "evervolv.intent.action.INITIALIZE_LIVEDISPLAY";
 }
