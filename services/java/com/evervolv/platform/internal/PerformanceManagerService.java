@@ -41,7 +41,7 @@ import evervolv.power.PerformanceManagerInternal;
 import evervolv.provider.EVSettings;
 
 /** @hide */
-public class PerformanceManagerService extends SystemService {
+public class PerformanceManagerService extends VendorService {
 
     private static final String TAG = "PerformanceManager";
 
@@ -105,14 +105,13 @@ public class PerformanceManagerService extends SystemService {
     }
 
     @Override
+    public String getFeatureDeclaration() {
+        return CMContextConstants.Features.PERFORMANCE;
+    }
+
+    @Override
     public void onStart() {
-        if (mContext.getPackageManager().hasSystemFeature(
-                ContextConstants.Features.PERFORMANCE)) {
-            publishBinderService(ContextConstants.PERFORMANCE_SERVICE, mBinder);
-        } else {
-            Log.wtf(TAG, "Performance service started by system server but feature xml not" +
-                    " declared. Not publishing binder service!");
-        }
+        publishBinderService(ContextConstants.PERFORMANCE_SERVICE, mBinder);
         publishLocalService(PerformanceManagerInternal.class, new LocalService());
     }
 
