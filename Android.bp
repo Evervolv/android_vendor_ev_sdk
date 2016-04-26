@@ -1,0 +1,136 @@
+//
+// Copyright (C) 2018 The LineageOS Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+android_app {
+    name: "com.evervolv.platform-res",
+    certificate: "platform",
+    no_framework_libs: true,
+    manifest: "services/res/AndroidManifest.xml",
+
+    aaptflags: [
+        "--auto-add-overlay",
+        "--private-symbols",
+        "com.evervolv.platform.internal",
+
+        // Framework doesn't need versioning since it IS the platform.
+        "--no-auto-version",
+
+        // Tell aapt to create "extending (non-application)" resource IDs,
+        // since these resources will be used by many apps.
+        "--allow-reserved-package-id",
+        // Use id 0x3f (one less than app id).
+        "--package-id",
+        "63",
+    ],
+
+    resource_dirs: [
+        "services/res/res"
+    ],
+
+    // Create package-export.apk, which other packages can use to get
+    // PRODUCT-agnostic resource data like IDs and type definitions.
+    export_package_resources: true,
+}
+
+// The Evervolv Platform Framework Library
+// ============================================================
+
+evervolv_sdk_src = "core/java/evervolv"
+evervolv_sdk_internal_src = "core/java/com/evervolv/internal"
+evervolv_services_src = "services/java"
+
+evervolv_sdk_LOCAL_JAVA_LIBRARIES = [
+    "android-support-annotations",
+    "android-support-v7-preference",
+    "android-support-v7-recyclerview",
+    "android-support-v14-preference",
+]
+
+// READ ME: ########################################################
+//
+// When updating this list of aidl files, consider if that aidl is
+// part of the SDK API.  If it is, also add it to the list below that
+// is preprocessed and distributed with the SDK. This list should
+// not contain any aidl files for parcelables, but the one below should
+// if you intend for 3rd parties to be able to send those objects
+// across process boundaries.
+//
+// READ ME: ########################################################
+
+java_library {
+    name: "com.evervolv.platform",
+
+    libs: [
+        "services",
+    ] + evervolv_sdk_LOCAL_JAVA_LIBRARIES,
+
+    srcs: [
+        evervolv_sdk_src + "/**/*.java",
+        evervolv_sdk_internal_src + "/**/*.java",
+        evervolv_services_src + "/**/*.java",
+        evervolv_sdk_src + "/**/I*.aidl",
+        evervolv_sdk_internal_src + "/**/I*.aidl",
+    ],
+
+    // Include aidl files from evervolv.app namespace as well as internal src aidl files
+    aidl: {
+        local_include_dirs: ["core/java"],
+    },
+}
+
+// Full target for use by platform apps
+// ============================================================
+
+java_library_static {
+    name: "com.evervolv.platform.internal",
+    required: ["services"],
+    libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
+
+    srcs: [
+        evervolv_sdk_src + "/**/*.java",
+        evervolv_sdk_internal_src + "/**/*.java",
+        evervolv_sdk_src + "/**/I*.aidl",
+        evervolv_sdk_internal_src + "/**/I*.aidl",
+    ],
+
+    aidl: {
+        local_include_dirs: ["core/java"],
+    },
+}
+
+// The SDK
+// ============================================================
+
+// Included aidl files from evervolv.app namespace
+
+java_library_static {
+    name: "com.evervolv.platform.sdk",
+    required: ["services"],
+    libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
+
+    srcs: [
+        evervolv_sdk_src + "/**/*.java",
+        evervolv_sdk_src + "/**/I*.aidl",
+    ],
+
+    aidl: {
+        local_include_dirs: ["core/java"],
+    },
+}
+
+subdirs = [
+    "core/*",
+]
