@@ -1836,6 +1836,16 @@ public final class EVSettings {
         public static final Validator PREFERRED_REFRESH_RATE_VALIDATOR =
                 new InclusiveFloatRangeValidator(0, 240);
 
+        /**
+         * Whether keyguard will rotate to landscape mode
+         * 0 = false, 1 = true
+         */
+        public static final String LOCKSCREEN_ROTATION = "lockscreen_rotation";
+
+        /** @hide */
+        public static final Validator LOCKSCREEN_ROTATION_VALIDATOR =
+                sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -2029,6 +2039,7 @@ public final class EVSettings {
             VALIDATORS.put(DISPLAY_READING_MODE, DISPLAY_READING_MODE_VALIDATOR);
             VALIDATORS.put(DISPLAY_ANTI_FLICKER, DISPLAY_ANTI_FLICKER_VALIDATOR);
             VALIDATORS.put(PREFERRED_REFRESH_RATE, PREFERRED_REFRESH_RATE_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_ROTATION, LOCKSCREEN_ROTATION_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
