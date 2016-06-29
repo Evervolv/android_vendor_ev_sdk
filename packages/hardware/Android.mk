@@ -17,22 +17,29 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 ifneq ($(BOARD_HARDWARE_CLASS),)
-    $(foreach bcp,$(BOARD_HARDWARE_CLASS), \
-        $(eval LOCAL_SRC_FILES += $(call all-java-files-under, ../../../$(bcp))))
+    $(foreach bcp, $(BOARD_HARDWARE_CLASS), \
+        $(eval BOARD_SRC_FILES += $(call all-java-files-under, ../../../$(bcp))))
 endif
 
 BASE_SRC_FILES += $(call all-java-files-under, src/)
 
-unique_specific_classes := 
-    $(foreach cf,$(LOCAL_SRC_FILES), \
-        $(eval unique_specific_classes += $(notdir $(cf))))
-  
-default_classes :=
-$(foreach cf,$(BASE_SRC_FILES), \
-    $(if $(filter $(unique_specific_classes),$(notdir $(cf))),,\
-        $(eval default_classes += $(cf))))
+reverse = $(if $(wordlist 2,2,$(1)),$(call reverse,$(wordlist 2,$(words $(1)),$(1))) $(firstword $(1)),$(1))
 
-LOCAL_SRC_FILES += $(default_classes)
+overriden_classes :=
+    $(foreach cf, $(call reverse, $(BOARD_SRC_FILES)), \
+        $(eval overriden_classes += $(cf)))
+
+unique_specific_classes :=
+    $(foreach cf, $(overriden_classes), \
+        $(if $(filter $(notdir $(unique_specific_classes)), $(notdir $(cf))),, \
+            $(eval unique_specific_classes += $(cf))))
+
+default_classes :=
+    $(foreach cf, $(BASE_SRC_FILES), \
+        $(if $(filter $(notdir $(unique_specific_classes)), $(notdir $(cf))),, \
+            $(eval default_classes += $(cf))))
+
+LOCAL_SRC_FILES += $(default_classes) $(unique_specific_classes)
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := com.evervolv.hardware
