@@ -18,12 +18,11 @@ package evervolv.preference;
 
 import android.content.Context;
 import android.provider.Settings;
-import android.support.v14.preference.SwitchPreference;
 import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;
 
-public class EVSystemSettingSwitchPreference extends SwitchPreference {
+public class EVSystemSettingSwitchPreference extends SelfRemovingSwitchPreference {
     public EVSystemSettingSwitchPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -33,7 +32,7 @@ public class EVSystemSettingSwitchPreference extends SwitchPreference {
     }
 
     public EVSystemSettingSwitchPreference(Context context) {
-        super(context, null);
+        super(context);
     }
 
     @Override

@@ -18,12 +18,11 @@ package evervolv.preference;
 
 import android.content.Context;
 import android.provider.Settings;
-import android.support.v7.preference.ListPreference;
 import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;
 
-public class EVSystemSettingListPreference extends ListPreference {
+public class EVSystemSettingListPreference extends SelfRemovingListPreference {
 
     public EVSystemSettingListPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

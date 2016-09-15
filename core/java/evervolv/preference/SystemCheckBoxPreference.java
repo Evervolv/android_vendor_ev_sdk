@@ -17,11 +17,10 @@
 package evervolv.preference;
 
 import android.content.Context;
-import android.support.v7.preference.CheckBoxPreference;
 import android.provider.Settings;
 import android.util.AttributeSet;
 
-public class SystemCheckBoxPreference extends CheckBoxPreference {
+public class SystemCheckBoxPreference extends SelfRemovingCheckBoxPreference {
     public SystemCheckBoxPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }

@@ -37,6 +37,7 @@ android_app {
     ],
 
     resource_dirs: [
+        "core/res/res",
         "services/res/res"
     ],
 
