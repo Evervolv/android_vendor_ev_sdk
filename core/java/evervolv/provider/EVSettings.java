@@ -1015,6 +1015,91 @@ public final class EVSettings {
         public static final Validator ACCELEROMETER_ROTATION_ANGLES_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 15);
 
+       /**
+         * Enable looking up of phone numbers of nearby places
+         *
+         * @hide
+         */
+        public static final String ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
+
+        /** @hide */
+        public static final Validator ENABLE_FORWARD_LOOKUP_VALIDATOR = sBooleanValidator;
+
+        /**
+         * Enable looking up of phone numbers of people
+         *
+         * @hide
+         */
+        public static final String ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
+
+        /** @hide */
+        public static final Validator ENABLE_PEOPLE_LOOKUP_VALIDATOR = sBooleanValidator;
+
+        /**
+         * Enable looking up of information of phone numbers not in the contacts
+         *
+         * @hide
+         */
+        public static final String ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
+
+        /** @hide */
+        public static final Validator ENABLE_REVERSE_LOOKUP_VALIDATOR = sBooleanValidator;
+
+        /**
+         * The forward lookup provider
+         *
+         * @hide
+         */
+        public static final String FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
+
+        /** @hide */
+        public static final Validator FORWARD_LOOKUP_PROVIDER_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
+         * The people lookup provider
+         *
+         * @hide
+         */
+        public static final String PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
+
+        /** @hide */
+        public static final Validator PEOPLE_LOOKUP_PROVIDER_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
+         * The reverse lookup provider
+         *
+         * @hide
+         */
+        public static final String REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
+
+        /** @hide */
+        public static final Validator REVERSE_LOOKUP_PROVIDER_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
+         * The OpenCNAM paid account ID
+         *
+         * @hide
+         */
+        public static final String DIALER_OPENCNAM_ACCOUNT_SID = "dialer_opencnam_account_sid";
+
+        /** @hide */
+        public static final Validator DIALER_OPENCNAM_ACCOUNT_SID_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
+         * The OpenCNAM authentication token
+         *
+         * @hide
+         */
+        public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
+
+        /** @hide */
+        public static final Validator DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR =
+                sAlwaysTrueValidator;
+
         // System Settings end
 
         /**
@@ -1055,6 +1140,14 @@ public final class EVSettings {
             EVSettings.System.APP_SWITCH_WAKE_SCREEN,
             EVSettings.System.VOLUME_WAKE_SCREEN,
             EVSettings.System.ACCELEROMETER_ROTATION_ANGLES,
+            EVSettings.System.ENABLE_FORWARD_LOOKUP,
+            EVSettings.System.ENABLE_PEOPLE_LOOKUP,
+            EVSettings.System.ENABLE_REVERSE_LOOKUP,
+            EVSettings.System.FORWARD_LOOKUP_PROVIDER,
+            EVSettings.System.PEOPLE_LOOKUP_PROVIDER,
+            EVSettings.System.REVERSE_LOOKUP_PROVIDER,
+            EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
+            EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
         };
 
         /**
@@ -1110,6 +1203,22 @@ public final class EVSettings {
             VALIDATORS.put(APP_SWITCH_WAKE_SCREEN,
                     APP_SWITCH_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(VOLUME_WAKE_SCREEN, VOLUME_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(ENABLE_FORWARD_LOOKUP,
+                    ENABLE_FORWARD_LOOKUP_VALIDATOR);
+            VALIDATORS.put(ENABLE_PEOPLE_LOOKUP,
+                    ENABLE_PEOPLE_LOOKUP_VALIDATOR);
+            VALIDATORS.put(ENABLE_REVERSE_LOOKUP,
+                    ENABLE_REVERSE_LOOKUP_VALIDATOR);
+            VALIDATORS.put(FORWARD_LOOKUP_PROVIDER,
+                    FORWARD_LOOKUP_PROVIDER_VALIDATOR);
+            VALIDATORS.put(PEOPLE_LOOKUP_PROVIDER,
+                    PEOPLE_LOOKUP_PROVIDER_VALIDATOR);
+            VALIDATORS.put(REVERSE_LOOKUP_PROVIDER,
+                    REVERSE_LOOKUP_PROVIDER_VALIDATOR);
+            VALIDATORS.put(DIALER_OPENCNAM_ACCOUNT_SID,
+                    DIALER_OPENCNAM_ACCOUNT_SID_VALIDATOR);
+            VALIDATORS.put(DIALER_OPENCNAM_AUTH_TOKEN,
+                    DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
