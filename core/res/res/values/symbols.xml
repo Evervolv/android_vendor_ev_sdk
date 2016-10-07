@@ -9,4 +9,6 @@
     <java-symbol type="attr" name="replacesKey" />
     <java-symbol type="attr" name="minSummaryLines" />
 
+    <java-symbol type="attr" name="xmlRes" />
+
 </resources>

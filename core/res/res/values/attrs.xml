@@ -27,4 +27,9 @@
         <attr name="minSummaryLines" format="integer" />
     </declare-styleable>
 
+    <!--Settings search providers-->
+    <declare-styleable name="Searchable">
+        <attr name="xmlRes" format="reference" />
+    </declare-styleable>
+
 </resources>

@@ -20,4 +20,7 @@
     <java-symbol type="array" name="config_externalVendorServices" />
     <!-- Vendor system server -->
     <java-symbol type="string" name="config_externalSystemServer" />
+
+    <!-- Launcher icon for parts -->
+    <java-symbol type="drawable" name="ic_launcher_evervolv" />
 </resources>
