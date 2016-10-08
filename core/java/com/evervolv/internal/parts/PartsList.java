@@ -43,13 +43,13 @@ import static com.android.internal.R.styleable.Preference_title;
 
 public class PartsList {
 
-    public static final String ACTION_PART = "com.evervolv.parts.PART";
     public static final String ACTION_PART_CHANGED = "com.evervolv.parts.PART_CHANGED";
 
     public static final String EXTRA_PART = "part";
     public static final String EXTRA_PART_KEY = "key";
 
     public static final String PARTS_PACKAGE = "com.evervolv.toolbox";
+    public static final String PARTS_ACTION_PREFIX = PARTS_PACKAGE + ".parts";
 
     private static final Map<String, PartInfo> sParts = new ArrayMap<String, PartInfo>();
 

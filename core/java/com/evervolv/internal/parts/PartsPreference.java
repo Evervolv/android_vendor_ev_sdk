@@ -23,7 +23,6 @@ import android.util.AttributeSet;
 
 import evervolv.preference.SelfRemovingPreference;
 
-import static com.evervolv.internal.parts.PartsList.ACTION_PART;
 import static com.evervolv.internal.parts.PartsList.ACTION_PART_CHANGED;
 import static com.evervolv.internal.parts.PartsList.EXTRA_PART;
 import static com.evervolv.internal.parts.PartsList.EXTRA_PART_KEY;
@@ -46,9 +45,7 @@ public class PartsPreference extends SelfRemovingPreference {
             setAvailable(false);
         }
 
-        Intent i = new Intent(ACTION_PART);
-        i.putExtra(EXTRA_PART_KEY, mPart.getName());
-        setIntent(i);
+        setIntent(mPart.getIntentForActivity());
         update();
     }
 

@@ -15,6 +15,8 @@
  */
 package com.evervolv.internal.parts;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -125,6 +127,18 @@ public class PartInfo implements Parcelable {
         out.writeInt(mAvailable ? 1 : 0);
 
         parcelInfo.complete();
+    }
+
+    public String getAction() {
+        return PartsList.PARTS_ACTION_PREFIX + "." + mName;
+    }
+
+    public Intent getIntentForActivity() {
+        Intent i = new Intent(getAction());
+        ComponentName cn = new ComponentName(PartsList.PARTS_PACKAGE,
+                PartsList.PARTS_PACKAGE + ".PartsActivity");
+        i.setComponent(cn);
+        return i;
     }
 
     public static final Parcelable.Creator<PartInfo> CREATOR =
