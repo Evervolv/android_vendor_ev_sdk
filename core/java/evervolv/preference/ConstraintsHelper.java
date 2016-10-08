@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import evervolv.hardware.HardwareManager;
 import evervolv.platform.R;
 
 /**
@@ -171,8 +172,15 @@ public class ConstraintsHelper {
 
             // Check if a system feature is available
             String rFeature = a.getString(R.styleable.SelfRemovingPreference_requiresFeature);
-            if (rFeature != null && !hasSystemFeature(mContext, rFeature)) {
-                return false;
+            if (rFeature != null) {
+                if (rFeature.startsWith("hardware:")) {
+                    if (!HardwareManager.getInstance(mContext).isSupported(
+                            rFeature.substring("hardware:".length()))) {
+                        return false;
+                    }
+                } else if (!hasSystemFeature(mContext, rFeature)) {
+                    return false;
+                }
             }
 
             // Check a boolean system property
