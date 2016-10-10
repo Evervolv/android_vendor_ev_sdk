@@ -15,28 +15,27 @@
  */
 package com.evervolv.internal.parts;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.AttributeSet;
 
 import evervolv.preference.SelfRemovingPreference;
 
-import static com.evervolv.internal.parts.PartsList.ACTION_PART_CHANGED;
-import static com.evervolv.internal.parts.PartsList.EXTRA_PART;
-import static com.evervolv.internal.parts.PartsList.EXTRA_PART_KEY;
-
-public class PartsPreference extends SelfRemovingPreference {
+/**
+ * A link to a remote preference screen which can be used with a minimum amount
+ * of information. Supports summary updates asynchronously.
+ */
+public class PartsPreference extends SelfRemovingPreference implements PartInfo.RemotePart {
 
     private static final String TAG = "PartsPreference";
 
     private final PartInfo mPart;
 
+    private final Context mContext;
+
     public PartsPreference(Context context, AttributeSet attrs) {
         super(context, attrs, com.android.internal.R.attr.preferenceScreenStyle);
-
-        mPart = PartsList.getPartInfo(context, getKey());
+        mContext = context;
+        mPart = PartsList.get(context).getPartInfo(getKey());
         if (mPart == null) {
             throw new RuntimeException("Part not found: " + getKey());
         }
@@ -46,34 +45,25 @@ public class PartsPreference extends SelfRemovingPreference {
         }
 
         setIntent(mPart.getIntentForActivity());
-        update();
+
+        onRefresh(context, mPart);
     }
 
     @Override
     public void onAttached() {
         super.onAttached();
-        getContext().registerReceiver(mPartChangedReceiver, new IntentFilter(ACTION_PART_CHANGED));
+        mPart.registerRemote(mContext, this);
     }
 
     @Override
     public void onDetached() {
         super.onDetached();
-        getContext().unregisterReceiver(mPartChangedReceiver);
+        mPart.unregisterRemote(mContext, this);
     }
 
-    private void update() {
+    @Override
+    public void onRefresh(Context context, PartInfo info) {
         setTitle(mPart.getTitle());
         setSummary((CharSequence) mPart.getSummary());
     }
-
-    private final BroadcastReceiver mPartChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ACTION_PART_CHANGED.equals(intent.getAction()) &&
-                    mPart.getName().equals(intent.getStringExtra(EXTRA_PART_KEY))) {
-                mPart.updateFrom((PartInfo) intent.getParcelableExtra(EXTRA_PART));
-                update();
-            }
-        }
-    };
 }
