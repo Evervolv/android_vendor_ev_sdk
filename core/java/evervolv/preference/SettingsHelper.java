@@ -24,6 +24,8 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
+import evervolv.provider.EVSettings;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,10 @@ public class SettingsHelper {
     private static final String SETTINGS_GLOBAL = Settings.Global.CONTENT_URI.toString();
     private static final String SETTINGS_SECURE = Settings.Secure.CONTENT_URI.toString();
     private static final String SETTINGS_SYSTEM = Settings.System.CONTENT_URI.toString();
+
+    private static final String EV_SETTINGS_GLOBAL = EVSettings.Global.CONTENT_URI.toString();
+    private static final String EV_SETTINGS_SECURE = EVSettings.Secure.CONTENT_URI.toString();
+    private static final String EV_SETTINGS_SYSTEM = EVSettings.System.CONTENT_URI.toString();
 
     private static SettingsHelper sInstance;
 
@@ -62,6 +68,12 @@ public class SettingsHelper {
             return Settings.System.getString(resolver, uri.substring(SETTINGS_SYSTEM.length()));
         } else if (uri.startsWith(SETTINGS_GLOBAL)) {
             return Settings.Global.getString(resolver, uri.substring(SETTINGS_GLOBAL.length()));
+        } else if (uri.startsWith(EV_SETTINGS_SECURE)) {
+            return EVSettings.Secure.getString(resolver, uri.substring(EV_SETTINGS_SECURE.length()));
+        } else if (uri.startsWith(EV_SETTINGS_SYSTEM)) {
+            return EVSettings.System.getString(resolver, uri.substring(EV_SETTINGS_SYSTEM.length()));
+        } else if (uri.startsWith(EV_SETTINGS_GLOBAL)) {
+            return EVSettings.Global.getString(resolver, uri.substring(EV_SETTINGS_GLOBAL.length()));
         }
         return null;
     }
@@ -76,6 +88,12 @@ public class SettingsHelper {
             return Settings.System.getInt(resolver, uri.substring(SETTINGS_SYSTEM.length()), def);
         } else if (uri.startsWith(SETTINGS_GLOBAL)) {
             return Settings.Global.getInt(resolver, uri.substring(SETTINGS_GLOBAL.length()), def);
+        } else if (uri.startsWith(EV_SETTINGS_SECURE)) {
+            return EVSettings.Secure.getInt(resolver, uri.substring(EV_SETTINGS_SECURE.length()), def);
+        } else if (uri.startsWith(EV_SETTINGS_SYSTEM)) {
+            return EVSettings.System.getInt(resolver, uri.substring(EV_SETTINGS_SYSTEM.length()), def);
+        } else if (uri.startsWith(EV_SETTINGS_GLOBAL)) {
+            return EVSettings.Global.getInt(resolver, uri.substring(EV_SETTINGS_GLOBAL.length()), def);
         }
         return def;
     }
@@ -95,6 +113,12 @@ public class SettingsHelper {
             Settings.System.putString(resolver, uri.substring(SETTINGS_SYSTEM.length()), value);
         } else if (uri.startsWith(SETTINGS_GLOBAL)) {
             Settings.Global.putString(resolver, uri.substring(SETTINGS_GLOBAL.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_SECURE)) {
+            EVSettings.Secure.putString(resolver, uri.substring(EV_SETTINGS_SECURE.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_SYSTEM)) {
+            EVSettings.System.putString(resolver, uri.substring(EV_SETTINGS_SYSTEM.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_GLOBAL)) {
+            EVSettings.Global.putString(resolver, uri.substring(EV_SETTINGS_GLOBAL.length()), value);
         }
     }
 
@@ -108,6 +132,12 @@ public class SettingsHelper {
             Settings.System.putInt(resolver, uri.substring(SETTINGS_SYSTEM.length()), value);
         } else if (uri.startsWith(SETTINGS_GLOBAL)) {
             Settings.Global.putInt(resolver, uri.substring(SETTINGS_GLOBAL.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_SECURE)) {
+            EVSettings.Secure.putInt(resolver, uri.substring(EV_SETTINGS_SECURE.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_SYSTEM)) {
+            EVSettings.System.putInt(resolver, uri.substring(EV_SETTINGS_SYSTEM.length()), value);
+        } else if (uri.startsWith(EV_SETTINGS_GLOBAL)) {
+            EVSettings.Global.putInt(resolver, uri.substring(EV_SETTINGS_GLOBAL.length()), value);
         }
     }
 
