@@ -27,7 +27,7 @@
     <string name="permlab_writeSecureSettings">modify Evervolv secure system settings</string>
     <string name="permdesc_writeSecureSettings">Allows an app to modify Evervolv secure system settings. Not for use by normal apps.</string>
 
-    <!-- Permissions used by CMParts -->
-    <string name="permlab_manageParts">manage remote settings</string>
-    <string name="permdesc_manageParts">Allows an app to manage CyanogenMod settings</string>
+    <!-- Permissions used by remote preferences -->
+    <string name="permlab_manageRemotePrefs">manage remote settings</string>
+    <string name="permdesc_manageRemotePrefs">Allows an app to manage remote settings</string>
 </resources>

@@ -22,8 +22,8 @@
     coreApp="true" android:sharedUserId="android.uid.system"
     android:sharedUserLabel="@string/evervolv_system_label">
 
-    <protected-broadcast android:name="com.evervolv.settings.REFRESH_SUMMARY" />
-    <protected-broadcast android:name="com.evervolv.toolbox.REFRESH_PART" />
+    <protected-broadcast android:name="evervolv.intent.action.UPDATE_PREFERENCE" />
+    <protected-broadcast android:name="evervolv.intent.action.REFRESH_PREFERENCE" />
 
     <!-- Allows an application to write to Evervolv system settings -->
     <permission android:name="evervolv.permission.WRITE_SETTINGS"
@@ -38,10 +38,10 @@
                 android:description="@string/permdesc_writeSecureSettings"
                 android:protectionLevel="signature|privileged|development" />
 
-    <!-- Permission for managing remote parts -->
-    <permission android:name="evervolv.permission.MANAGE_PARTS"
-                android:label="@string/permlab_manageParts"
-                android:description="@string/permdesc_manageParts"
+    <!-- Permission for managing remote preferences -->
+    <permission android:name="evervolv.permission.MANAGE_REMOTE_PREFERENCES"
+                android:label="@string/permlab_manageRemotePrefs"
+                android:description="@string/permdesc_manageRemotePrefs"
                 android:protectionLevel="signature|privileged" />
 
     <application android:process="system"
