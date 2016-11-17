@@ -31,6 +31,7 @@ import com.android.server.SystemService;
 import evervolv.app.ContextConstants;
 import evervolv.hardware.IHardwareService;
 import evervolv.hardware.HardwareManager;
+import evervolv.hardware.TouchscreenGesture;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.evervolv.hardware.KeyDisabler;
+import com.evervolv.hardware.TouchscreenGestures;
 import com.evervolv.hardware.VibratorHW;
 
 /** @hide */
@@ -56,6 +58,9 @@ public class HardwareService extends VendorService {
 
         public int[] getVibratorIntensity();
         public boolean setVibratorIntensity(int intensity);
+
+        public TouchscreenGesture[] getTouchscreenGestures();
+        public boolean setTouchscreenGestureEnabled(TouchscreenGesture gesture, boolean state);
     }
 
     private class LegacyHardware implements HardwareInterface {
@@ -67,6 +72,8 @@ public class HardwareService extends VendorService {
                 mSupportedFeatures |= HardwareManager.FEATURE_VIBRATOR;
             if (KeyDisabler.isSupported())
                 mSupportedFeatures |= HardwareManager.FEATURE_KEY_DISABLE;
+            if (TouchscreenGestures.isSupported())
+                mSupportedFeatures |= HardwareManager.FEATURE_TOUCHSCREEN_GESTURES;
         }
 
         public int getSupportedFeatures() {
@@ -105,6 +112,14 @@ public class HardwareService extends VendorService {
 
         public boolean setVibratorIntensity(int intensity) {
             return VibratorHW.setIntensity(intensity);
+        }
+
+        public TouchscreenGesture[] getTouchscreenGestures() {
+            return TouchscreenGestures.getAvailableGestures();
+        }
+
+        public boolean setTouchscreenGestureEnabled(TouchscreenGesture gesture, boolean state) {
+            return TouchscreenGestures.setGestureEnabled(gesture, state);
         }
     }
 
@@ -193,6 +208,28 @@ public class HardwareService extends VendorService {
                 return false;
             }
             return mHardwareImpl.setVibratorIntensity(intensity);
+        }
+
+        @Override
+        public TouchscreenGesture[] getTouchscreenGestures() {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_TOUCHSCREEN_GESTURES)) {
+                Log.e(TAG, "Touchscreen gestures are not supported");
+                return null;
+            }
+            return mHardwareImpl.getTouchscreenGestures();
+        }
+
+        @Override
+        public boolean setTouchscreenGestureEnabled(TouchscreenGesture gesture, boolean state) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
+            if (!isSupported(HardwareManager.FEATURE_TOUCHSCREEN_GESTURES)) {
+                Log.e(TAG, "Touchscreen gestures are not supported");
+                return false;
+            }
+            return mHardwareImpl.setTouchscreenGestureEnabled(gesture, state);
         }
     };
 }

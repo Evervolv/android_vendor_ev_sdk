@@ -62,6 +62,12 @@ public final class HardwareManager {
     @VisibleForTesting
     public static final int FEATURE_KEY_DISABLE = 0x2;
 
+    /**
+     * Touchscreen gesture
+     */
+    @VisibleForTesting
+    public static final int FEATURE_TOUCHSCREEN_GESTURES = 0x4;
+
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
         FEATURE_KEY_DISABLE
     );
@@ -288,6 +294,33 @@ public final class HardwareManager {
         try {
             if (checkService()) {
                 return sService.setVibratorIntensity(intensity);
+            }
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    /**
+     * @return a list of available touchscreen gestures on the devices
+     */
+    public TouchscreenGesture[] getTouchscreenGestures() {
+        try {
+            if (checkService()) {
+                return sService.getTouchscreenGestures();
+            }
+        } catch (RemoteException e) {
+        }
+        return null;
+    }
+
+    /**
+     * @return true if setting the activation status was successful
+     */
+    public boolean setTouchscreenGestureEnabled(
+            TouchscreenGesture gesture, boolean state) {
+        try {
+            if (checkService()) {
+                return sService.setTouchscreenGestureEnabled(gesture, state);
             }
         } catch (RemoteException e) {
         }

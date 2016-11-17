@@ -17,6 +17,8 @@
 
 package evervolv.hardware;
 
+import evervolv.hardware.TouchscreenGesture;
+
 /** @hide */
 interface IHardwareService {
     int getSupportedFeatures();
@@ -25,4 +27,7 @@ interface IHardwareService {
 
     int[] getVibratorIntensity();
     boolean setVibratorIntensity(int intensity);
+
+    TouchscreenGesture[] getTouchscreenGestures();
+    boolean setTouchscreenGestureEnabled(in TouchscreenGesture gesture, boolean state);
 }
