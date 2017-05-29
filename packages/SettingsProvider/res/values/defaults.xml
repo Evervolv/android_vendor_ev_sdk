@@ -41,4 +41,7 @@
     <!-- Default for CMSettings.Secure.LOCKSCREEN_VISUALIZER_ENABLED -->
     <bool name="def_lockscreen_visualizer">false</bool>
 
+    <!-- Default for EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA -->
+    <bool name="def_lockscreen_media_metadata">false</bool>
+
 </resources>

@@ -259,6 +259,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     R.integer.def_force_disable_navkeys);
             loadBooleanSetting(stmt, EVSettings.Secure.LOCKSCREEN_VISUALIZER_ENABLED,
                     R.bool.def_lockscreen_visualizer);
+            loadBooleanSetting(stmt, EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA,
+                    R.bool.def_lockscreen_media_metadata);
         } finally {
             if (stmt != null) stmt.close();
         }

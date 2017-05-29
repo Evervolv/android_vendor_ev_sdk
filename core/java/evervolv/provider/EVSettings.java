@@ -1791,6 +1791,17 @@ public final class EVSettings {
         public static final Validator LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * Whether to show media art on lockscreen
+         * Boolean setting. 0 = off, 1 = on.
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_visualizer";
+
+        /* @hide */
+        public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR =
+                sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -1847,6 +1858,7 @@ public final class EVSettings {
             VALIDATORS.put(VIBRATOR_INTENSITY, VIBRATOR_INTENSITY_VALIDATOR);
             VALIDATORS.put(VOLUME_PANEL_ON_LEFT, VOLUME_PANEL_ON_LEFT_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_VISUALIZER_ENABLED, LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
