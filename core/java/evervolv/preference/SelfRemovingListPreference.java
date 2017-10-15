@@ -46,6 +46,12 @@ public abstract class SelfRemovingListPreference extends ListPreference {
     }
 
     @Override
+    public void onAttached() {
+        super.onAttached();
+        mConstraints.onAttached();
+    }
+
+    @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         mConstraints.onBindViewHolder(holder);
