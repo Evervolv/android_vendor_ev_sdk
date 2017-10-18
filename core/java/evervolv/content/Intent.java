@@ -51,4 +51,15 @@ public class Intent {
      */
     public static final String ACTION_SCREEN_CAMERA_GESTURE =
             "evervolv.intent.action.SCREEN_CAMERA_GESTURE";
+
+    /**
+     * Broadcast Action: Update preferences for the power menu dialog.  This is to provide a
+     * way for the preferences that need to be enabled/disabled to update because they were
+     * toggled elsewhere in the settings (ie profiles, immersive desktop, etc) so we don't have
+     * to do constant lookups while we wait for the menu to be created. Getting the values once
+     * when necessary is enough.
+     *@hide
+     */
+    public static final String ACTION_UPDATE_POWER_MENU =
+            "evervolv.intent.action.UPDATE_POWER_MENU";
 }

@@ -1499,6 +1499,24 @@ public final class EVSettings {
         /* @hide */
         public static final Validator DEV_FORCE_SHOW_VALIDATOR = sBooleanValidator;
 
+        /**
+         * String to contain power menu actions
+         * @hide
+         */
+        public static final String POWER_MENU_ACTIONS = "power_menu_actions";
+
+        private static final Validator POWER_MENU_ACTIONS_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
+         * Whether to include options in power menu for rebooting into recovery or bootloader
+         * @hide
+         */
+        public static final String ADVANCED_REBOOT = "advanced_reboot";
+
+        /* @hide */
+        public static final Validator ADVANCED_REBOOT_VALIDATOR = sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -1522,6 +1540,8 @@ public final class EVSettings {
         public static final String[] LEGACY_SECURE_SETTINGS = new String[] {
             // Insert legacy secure settings here
             EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR,
+            EVSettings.Secure.POWER_MENU_ACTIONS,
+            EVSettings.Secure.ADVANCED_REBOOT,
         };
 
         /**
@@ -1545,6 +1565,10 @@ public final class EVSettings {
         static {
             VALIDATORS.put(DEV_FORCE_SHOW_NAVBAR,
                     DEV_FORCE_SHOW_VALIDATOR);
+            VALIDATORS.put(ADVANCED_REBOOT,
+                    ADVANCED_REBOOT_VALIDATOR);
+            VALIDATORS.put(POWER_MENU_ACTIONS,
+                    POWER_MENU_ACTIONS_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
