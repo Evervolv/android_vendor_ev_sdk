@@ -70,4 +70,7 @@
     <string name="perf_profile_perf_summary">High performance mode. Useful for applications requiring low latency and highest throughput when power consumption is not a concern</string>
     <string name="perf_profile_bias_power_summary">Favor power savings. Limit maximum CPU power and optimize for power saving at the cost of higher latency</string>
     <string name="perf_profile_bias_perf_summary">Favor performance. Reduces latency with slightly increased power consumption</string>
+
+    <!-- About phone screen, status item label -->
+    <string name="platform_version">Evervolv SDK</string>
 </resources>

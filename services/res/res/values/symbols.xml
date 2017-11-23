@@ -76,4 +76,8 @@
     <java-symbol type="string" name="perf_profile_bias_perf_summary" />
 
     <java-symbol type="bool" name="config_waitForMpctlOnBoot" />
+
+    <!-- About phone screen, status item label -->
+    <java-symbol type="string" name="platform_version" />
+
 </resources>
