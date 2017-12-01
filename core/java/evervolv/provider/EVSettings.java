@@ -812,6 +812,16 @@ public final class EVSettings {
         public static final Validator LONG_SCREEN_APPS_VALIDATOR =
                 sAlwaysTrueValidator;
 
+        /**
+         * Check the proximity sensor during wakeup
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
+
+        /** @hide */
+        public static final Validator PROXIMITY_ON_WAKE_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -834,6 +844,7 @@ public final class EVSettings {
          */
         public static final String[] LEGACY_SYSTEM_SETTINGS = new String[] {
             // Insert legacy system settings here
+            EVSettings.System.PROXIMITY_ON_WAKE,
         };
 
         /**
@@ -863,6 +874,7 @@ public final class EVSettings {
                 new ArrayMap<String, Validator>();
         static {
             VALIDATORS.put(LONG_SCREEN_APPS, LONG_SCREEN_APPS_VALIDATOR);
+            VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
