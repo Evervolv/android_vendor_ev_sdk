@@ -16,7 +16,39 @@
 
 package com.evervolv.internal.util;
 
+import android.content.ContentResolver;
+import android.os.UserHandle;
+
+import evervolv.provider.EVSettings;
+
 public class DeviceKeysConstants {
+    // Available custom actions to perform on a key press.
+    // Must match values for KEY_HOME_LONG_PRESS_ACTION in:
+    // core/java/evervolv/provider/EVSettings.java
+    public enum Action {
+        NOTHING,
+        MENU,
+        APP_SWITCH,
+        SEARCH,
+        VOICE_SEARCH,
+        IN_APP_SEARCH,
+        LAUNCH_CAMERA,
+        SLEEP,
+        SPLIT_SCREEN;
+
+        public static Action fromIntSafe(int id) {
+            if (id < NOTHING.ordinal() || id > Action.values().length) {
+                return NOTHING;
+            }
+            return Action.values()[id];
+        }
+
+        public static Action fromSettings(ContentResolver cr, String setting, Action def) {
+            return fromIntSafe(EVSettings.System.getIntForUser(cr,
+                    setting, def.ordinal(), UserHandle.USER_CURRENT));
+        }
+    }
+
     // Masks for checking presence of hardware keys.
     // Must match values in:
     //   lineage/res/res/values/config.xml
