@@ -18,6 +18,16 @@
 
     <!-- Trusted accents package names -->
     <string-array name="trusted_accent_packages" translatable="false">
+        <item>com.evervolv.overlay.accent.red</item>
+        <item>com.evervolv.overlay.accent.pink</item>
+        <item>com.evervolv.overlay.accent.purple</item>
+        <item>com.evervolv.overlay.accent.blue</item>
+        <item>com.evervolv.overlay.accent.cyan</item>
+        <item>com.evervolv.overlay.accent.green</item>
+        <item>com.evervolv.overlay.accent.orange</item>
+        <item>com.evervolv.overlay.accent.yellow</item>
+        <item>com.evervolv.overlay.accent.brown</item>
+        <item>com.evervolv.overlay.accent.black</item>
     </string-array>
 
 </resources>
