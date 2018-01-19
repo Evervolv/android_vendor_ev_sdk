@@ -1116,6 +1116,28 @@ public final class EVSettings {
         public static final Validator STATUS_BAR_BATTERY_STYLE_VALIDATOR =
             new InclusiveIntegerRangeValidator(0, 6);
 
+        /**
+         * Whether to use dark theme
+         * 0: automatic - based on wallpaper
+         * 1: time - based on LiveDisplay status
+         * 2: force light
+         * 3: force dark
+         */
+        public static final String BERRY_GLOBAL_STYLE = "berry_global_style";
+
+        /** @hide */
+        public static final Validator BERRY_GLOBAL_STYLE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 3);
+
+        /**
+         * Current accent package name
+         */
+        public static final String BERRY_CURRENT_ACCENT = "berry_current_accent";
+
+        /** @hide */
+        public static final Validator BERRY_CURRENT_ACCENT_VALIDATOR =
+                sNonNullStringValidator;
+
         // System Settings end
 
         /**
@@ -1165,6 +1187,8 @@ public final class EVSettings {
             EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
             EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
             EVSettings.System.STATUS_BAR_BATTERY_STYLE,
+            EVSettings.System.BERRY_GLOBAL_STYLE,
+            EVSettings.System.BERRY_CURRENT_ACCENT,
         };
 
         /**
@@ -1238,6 +1262,8 @@ public final class EVSettings {
                     DIALER_OPENCNAM_AUTH_TOKEN_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_BATTERY_STYLE,
                     STATUS_BAR_BATTERY_STYLE_VALIDATOR);
+            VALIDATORS.put(BERRY_GLOBAL_STYLE, BERRY_GLOBAL_STYLE_VALIDATOR);
+            VALIDATORS.put(BERRY_CURRENT_ACCENT, BERRY_CURRENT_ACCENT_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
