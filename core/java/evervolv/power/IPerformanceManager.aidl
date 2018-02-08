@@ -21,8 +21,6 @@ import evervolv.power.PerformanceProfile;
 /** @hide */
 interface IPerformanceManager {
 
-    oneway void cpuBoost(int duration);
-
     boolean setPowerProfile(int profile);
 
     int getPowerProfile();
