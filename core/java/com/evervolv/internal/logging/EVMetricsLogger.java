@@ -26,4 +26,8 @@ public class EVMetricsLogger extends MetricsLogger {
 
     //Since we never want to collide, lets start at the back and move inward
     public static final int DONT_LOG = BASE + 1;
+
+    // OPEN: QS Location detail panel
+    // CATEGORY: QUICK_SETTINGS
+    public static final int QS_LOCATION_DETAILS = BASE + 2;
 }
