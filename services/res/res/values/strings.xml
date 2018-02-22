@@ -31,6 +31,10 @@
     <string name="permlab_manageRemotePrefs">manage remote settings</string>
     <string name="permdesc_manageRemotePrefs">Allows an app to manage remote settings</string>
 
+    <!-- Labels for CHANGE_STYLE permission -->
+    <string name="permlab_changeStyle">change system style</string>
+    <string name="permdesc_changeStyle">Allows an app customize the system colors.</string>
+
     <!-- Accent colors -->
     <string name="accent_black">Carbon</string>
     <string name="accent_blue">Blueberry</string>

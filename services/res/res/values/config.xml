@@ -19,6 +19,7 @@
     <!-- Defines external services to be started by the LineageSystemServer at boot. The service itself
          should publish as a binder services in its onStart -->
     <string-array name="config_externalVendorServices">
+        <item>com.evervolv.platform.internal.StyleInterfaceService</item>
     </string-array>
 
     <!-- The LineageSystemServer class that is invoked from Android's SystemServer -->

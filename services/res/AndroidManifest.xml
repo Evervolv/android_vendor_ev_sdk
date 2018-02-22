@@ -45,6 +45,12 @@
                 android:description="@string/permdesc_manageRemotePrefs"
                 android:protectionLevel="signature|privileged" />
 
+    <!-- Allows an application to change system style -->
+    <permission android:name="evervolv.permission.CHANGE_STYLE"
+                android:label="@string/permlab_changeStyle"
+                android:description="@string/permdesc_changeStyle"
+                android:protectionLevel="dangerous" />
+
     <application android:process="system"
                  android:persistent="true"
                  android:hasCode="false"
