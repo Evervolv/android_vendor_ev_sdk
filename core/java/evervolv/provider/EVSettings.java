@@ -1304,6 +1304,17 @@ public final class EVSettings {
                 sNonNegativeIntegerValidator;
 
         /**
+         * Whether the button backlight is only lit when pressed (and not when screen is touched)
+         * The value is boolean (1 or 0).
+         */
+        public static final String BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED =
+                "button_backlight_only_when_pressed";
+
+        /** @hide */
+        public static final Validator BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED_VALIDATOR =
+                sBooleanValidator;
+
+        /**
          * Contains the notifications light maximum brightness to use.
          * Values range from 1 to 255
          */
@@ -1987,6 +1998,8 @@ public final class EVSettings {
             VALIDATORS.put(SWIPE_TO_SCREENSHOT, SWIPE_TO_SCREENSHOT_VALIDATOR);
             VALIDATORS.put(BUTTON_BRIGHTNESS, BUTTON_BRIGHTNESS_VALIDATOR);
             VALIDATORS.put(BUTTON_BACKLIGHT_TIMEOUT, BUTTON_BACKLIGHT_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED,
+                    BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
                     NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_ZEN,

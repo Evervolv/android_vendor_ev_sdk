@@ -50,6 +50,7 @@ public final class ButtonManager {
     private int mButtonTimeout;
     private float mButtonBrightness;
     private float mButtonBrightnessDefault;
+    private boolean mButtonLightOnKeypressOnly;
 
     private class ButtonHandler extends Handler {
         @Override
@@ -163,6 +164,9 @@ public final class ButtonManager {
             resolver.registerContentObserver(EVSettings.System.getUriFor(
                     EVSettings.System.BUTTON_BACKLIGHT_TIMEOUT),
                             false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(EVSettings.System.getUriFor(
+                    EVSettings.System.BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED),
+                            false, this, UserHandle.USER_ALL);
 
             update();
         }
@@ -191,6 +195,10 @@ public final class ButtonManager {
             mButtonBrightness = EVSettings.System.getFloatForUser(
                     resolver, EVSettings.System.BUTTON_BRIGHTNESS, 
                     mButtonBrightnessDefault, UserHandle.USER_CURRENT);
+
+            mButtonLightOnKeypressOnly = EVSettings.System.getIntForUser(
+                    resolver, EVSettings.System.BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED, 
+                    0, UserHandle.USER_CURRENT) == 1;
         }
     }
 
@@ -204,5 +212,9 @@ public final class ButtonManager {
 
     public int getButtonTimeout() {
         return mButtonTimeout;
+    }
+
+    public boolean getButtonLightOnKeypress() {
+        return mButtonLightOnKeypressOnly;
     }
 }
