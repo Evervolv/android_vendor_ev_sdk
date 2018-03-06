@@ -24,6 +24,10 @@ import evervolv.os.Build;
 import evervolv.os.Concierge;
 import evervolv.os.Concierge.ParcelInfo;
 
+/**
+ * Style suggestion holder class.
+ * This is returned when calling {@link #lineageos.style.StyleInterface#getSuggestion}
+ */
 public class Suggestion implements Parcelable {
     public final int globalStyle;
     public final int selectedAccent;
@@ -31,10 +35,11 @@ public class Suggestion implements Parcelable {
     /**
      * Default constructor
      *
-     * @see evervolv.style.StyleInterface#getSuggestion
+     * @see {@link evervolv.style.StyleInterface#getSuggestion}
      *
-     * @param globalStyle one of {@link #STYLE_GLOBAL_LIGHT} or {@link #STYLE_GLOBAL_DARK}
-     * @param colorPosition position of selected color in the input array
+     * @param globalStyle One of {@link #evervolv.style.StyleInterface#STYLE_GLOBAL_LIGHT} or
+     *                           {@link #evervolv.style.StyleInterface#STYLE_GLOBAL_DARK}
+     * @param selectedAccent The position of the selected color in the input array
      */
     public Suggestion(int globalStyle, int selectedAccent) {
         this.globalStyle = globalStyle;

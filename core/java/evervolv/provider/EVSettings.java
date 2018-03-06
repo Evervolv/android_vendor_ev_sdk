@@ -1138,6 +1138,15 @@ public final class EVSettings {
         public static final Validator BERRY_CURRENT_ACCENT_VALIDATOR =
                 sNonNullStringValidator;
 
+        /**
+         * Current application managing the style
+         */
+        public static final String BERRY_MANAGED_BY_APP = "berry_managed_by_app";
+
+        /** @hide */
+        public static final Validator BERRY_MANAGED_BY_APP_VALIDATOR =
+                sNonNullStringValidator;
+
         // System Settings end
 
         /**
@@ -1264,6 +1273,7 @@ public final class EVSettings {
                     STATUS_BAR_BATTERY_STYLE_VALIDATOR);
             VALIDATORS.put(BERRY_GLOBAL_STYLE, BERRY_GLOBAL_STYLE_VALIDATOR);
             VALIDATORS.put(BERRY_CURRENT_ACCENT, BERRY_CURRENT_ACCENT_VALIDATOR);
+            VALIDATORS.put(BERRY_MANAGED_BY_APP, BERRY_MANAGED_BY_APP_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
