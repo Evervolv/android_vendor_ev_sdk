@@ -25,6 +25,7 @@
     <protected-broadcast android:name="evervolv.intent.action.SCREEN_CAMERA_GESTURE" />
     <protected-broadcast android:name="evervolv.intent.action.UPDATE_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.REFRESH_PREFERENCE" />
+    <protected-broadcast android:name="evervolv.intent.action.ACTION_FONT_CHANGED" />
 
     <!-- Allows an application to write to Evervolv system settings -->
     <permission android:name="evervolv.permission.WRITE_SETTINGS"

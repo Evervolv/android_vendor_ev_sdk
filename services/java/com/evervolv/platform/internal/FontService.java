@@ -488,6 +488,10 @@ public class FontService extends IFontService.Stub {
             } else {
                 copyFonts(info);
             }
+            Intent intent = new Intent("evervolv.intent.action.ACTION_FONT_CHANGED");
+            intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY
+                        | Intent.FLAG_RECEIVER_FOREGROUND);
+            mContext.sendBroadcastAsUser(intent, UserHandle.CURRENT);
         } finally {
             Binder.restoreCallingIdentity(ident);
         }
