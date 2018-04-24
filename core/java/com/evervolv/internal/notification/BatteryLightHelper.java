@@ -208,12 +208,12 @@ public final class BatteryLightHelper {
             // Battery light enabled
             resolver.registerContentObserver(EVSettings.System.getUriFor(
                     EVSettings.System.BATTERY_LIGHT_ENABLED), false, this,
-                   UserHandle.USER_ALL);
+                    UserHandle.USER_ALL);
 
             // Low battery pulse
             resolver.registerContentObserver(EVSettings.System.getUriFor(
                     EVSettings.System.BATTERY_LIGHT_PULSE), false, this,
-                UserHandle.USER_ALL);
+                    UserHandle.USER_ALL);
 
             if (mMultiColorBatteryLed) {
                 // Light colors
@@ -252,34 +252,39 @@ public final class BatteryLightHelper {
             Resources res = mContext.getResources();
 
             // Battery light enabled
-            mLightEnabled = EVSettings.System.getInt(resolver,
-                    EVSettings.System.BATTERY_LIGHT_ENABLED, 1) != 0;
+            mLightEnabled = EVSettings.System.getIntForUser(resolver,
+                    EVSettings.System.BATTERY_LIGHT_ENABLED,
+                    1, UserHandle.USER_CURRENT) != 0;
 
             // Low battery pulse
-            mLedPulseEnabled = EVSettings.System.getInt(resolver,
-                        EVSettings.System.BATTERY_LIGHT_PULSE, 1) != 0;
+            mLedPulseEnabled = EVSettings.System.getIntForUser(resolver,
+                    EVSettings.System.BATTERY_LIGHT_PULSE,
+                    1, UserHandle.USER_CURRENT) != 0;
 
             // Light colors
-            mBatteryLowARGB = EVSettings.System.getInt(resolver,
+            mBatteryLowARGB = EVSettings.System.getIntForUser(resolver,
                     EVSettings.System.BATTERY_LIGHT_LOW_COLOR, res.getInteger(
-                    com.android.internal.R.integer.config_notificationsBatteryLowARGB));
-            mBatteryMediumARGB = EVSettings.System.getInt(resolver,
+                    com.android.internal.R.integer.config_notificationsBatteryLowARGB),
+                    UserHandle.USER_CURRENT);
+            mBatteryMediumARGB = EVSettings.System.getIntForUser(resolver,
                     EVSettings.System.BATTERY_LIGHT_MEDIUM_COLOR, res.getInteger(
-                    com.android.internal.R.integer.config_notificationsBatteryMediumARGB));
-            mBatteryFullARGB = EVSettings.System.getInt(resolver,
+                    com.android.internal.R.integer.config_notificationsBatteryMediumARGB),
+                    UserHandle.USER_CURRENT);
+            mBatteryFullARGB = EVSettings.System.getIntForUser(resolver,
                     EVSettings.System.BATTERY_LIGHT_FULL_COLOR, res.getInteger(
-                    com.android.internal.R.integer.config_notificationsBatteryFullARGB));
+                    com.android.internal.R.integer.config_notificationsBatteryFullARGB),
+                    UserHandle.USER_CURRENT);
 
             // Adustable battery LED brightness.
             if (mCanAdjustBrightness) {
                 // Battery brightness level
-                mBatteryBrightnessLevel = EVSettings.System.getInt(resolver,
+                mBatteryBrightnessLevel = EVSettings.System.getIntForUser(resolver,
                         EVSettings.System.BATTERY_LIGHT_BRIGHTNESS_LEVEL,
-                        LedValues.LIGHT_BRIGHTNESS_MAXIMUM);
+                        LedValues.LIGHT_BRIGHTNESS_MAXIMUM, UserHandle.USER_CURRENT);
                 // Battery brightness level in Do Not Disturb mode
-                mBatteryBrightnessZenLevel = EVSettings.System.getInt(resolver,
+                mBatteryBrightnessZenLevel = EVSettings.System.getIntForUser(resolver,
                         EVSettings.System.BATTERY_LIGHT_BRIGHTNESS_LEVEL_ZEN,
-                        LedValues.LIGHT_BRIGHTNESS_MAXIMUM);
+                        LedValues.LIGHT_BRIGHTNESS_MAXIMUM, UserHandle.USER_CURRENT);
             }
 
             mLedUpdater.update();
