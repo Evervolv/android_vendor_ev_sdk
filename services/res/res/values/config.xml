@@ -23,4 +23,7 @@
 
     <!-- The LineageSystemServer class that is invoked from Android's SystemServer -->
     <string name="config_externalSystemServer" translatable="false">com.evervolv.platform.internal.VendorServer</string>
+
+    <!-- Whether device has a screen with a higher aspect ratio -->
+    <bool name="config_haveHigherAspectRatioScreen">false</bool>
 </resources>

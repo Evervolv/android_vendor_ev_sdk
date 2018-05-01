@@ -803,6 +803,15 @@ public final class EVSettings {
 
         // System Settings start
 
+        /**
+         * List of long-screen apps.
+         */
+        public static final String LONG_SCREEN_APPS = "long_screen_apps";
+
+        /** @hide */
+        public static final Validator LONG_SCREEN_APPS_VALIDATOR =
+                sAlwaysTrueValidator;
+
         // System Settings end
 
         /**
@@ -853,6 +862,7 @@ public final class EVSettings {
         public static final Map<String, Validator> VALIDATORS =
                 new ArrayMap<String, Validator>();
         static {
+            VALIDATORS.put(LONG_SCREEN_APPS, LONG_SCREEN_APPS_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
