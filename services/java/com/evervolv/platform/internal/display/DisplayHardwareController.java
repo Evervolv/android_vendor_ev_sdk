@@ -50,6 +50,7 @@ public class DisplayHardwareController extends LiveDisplayFeature {
     private final boolean mUseColorAdjustment;
     private final boolean mUseColorEnhancement;
     private final boolean mUseCABC;
+    private final boolean mUseReaderMode;
     private final boolean mUseDisplayModes;
 
     // default values
@@ -74,6 +75,8 @@ public class DisplayHardwareController extends LiveDisplayFeature {
             EVSettings.System.getUriFor(EVSettings.System.DISPLAY_COLOR_ENHANCE);
     private static final Uri DISPLAY_CABC =
             EVSettings.System.getUriFor(EVSettings.System.DISPLAY_CABC);
+    private static final Uri DISPLAY_READING_MODE =
+            EVSettings.System.getUriFor(EVSettings.System.DISPLAY_READING_MODE);
 
     public DisplayHardwareController(Context context, Handler handler) {
         super(context, handler);
@@ -100,6 +103,9 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         mUseDisplayModes = mHardware
                 .isSupported(HardwareManager.FEATURE_DISPLAY_MODES);
 
+        mUseReaderMode = mHardware
+                .isSupported(HardwareManager.FEATURE_READING_ENHANCEMENT);
+
         if (mUseColorAdjustment) {
             mMaxColor = mHardware.getDisplayColorCalibrationMax();
             copyColors(getColorAdjustment(), mColorAdjustment);
@@ -123,6 +129,9 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         }
         if (mUseColorAdjustment) {
             settings.add(DISPLAY_COLOR_ADJUSTMENT);
+        }
+        if (mUseReaderMode) {
+            settings.add(DISPLAY_READING_MODE);
         }
 
         if (settings.size() == 0) {
@@ -149,8 +158,11 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         if (mUseDisplayModes) {
             caps.set(LiveDisplayManager.FEATURE_DISPLAY_MODES);
         }
+        if (mUseReaderMode) {
+            caps.set(LiveDisplayManager.FEATURE_READING_ENHANCEMENT);
+        }
         return mUseAutoContrast || mUseColorEnhancement || mUseCABC || mUseColorAdjustment ||
-            mUseDisplayModes;
+            mUseDisplayModes || mUseReaderMode;
     }
 
     @Override
@@ -203,6 +215,7 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         pw.println("  mUseColorEnhancement="  + mUseColorEnhancement);
         pw.println("  mUseCABC=" + mUseCABC);
         pw.println("  mUseDisplayModes=" + mUseDisplayModes);
+        pw.println("  mUseReaderMode=" + mUseReaderMode);
         pw.println();
         pw.println("  DisplayHardwareController State:");
         pw.println("    mAutoContrast=" + isAutoContrastEnabled());

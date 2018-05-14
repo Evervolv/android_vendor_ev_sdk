@@ -1779,6 +1779,16 @@ public final class EVSettings {
                     }
                 };
 
+        /**
+         * Reader mode
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_READING_MODE = "display_reading_mode";
+
+        /** @hide */
+        public static final Validator DISPLAY_READING_MODE_VALIDATOR =
+                sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1967,6 +1977,7 @@ public final class EVSettings {
             VALIDATORS.put(DISPLAY_COLOR_ADJUSTMENT, DISPLAY_COLOR_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(LIVE_DISPLAY_HINTED, LIVE_DISPLAY_HINTED_VALIDATOR);
             VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
+            VALIDATORS.put(DISPLAY_READING_MODE, DISPLAY_READING_MODE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };

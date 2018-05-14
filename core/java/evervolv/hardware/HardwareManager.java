@@ -46,6 +46,7 @@ import vendor.lineage.livedisplay.V2_0.IDisplayColorCalibration;
 import vendor.lineage.livedisplay.V2_0.IDisplayModes;
 import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
 import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
+import vendor.lineage.livedisplay.V2_0.IReadingEnhancement;
 import vendor.lineage.livedisplay.V2_0.ISunlightEnhancement;
 
 import java.lang.IllegalArgumentException;
@@ -158,6 +159,12 @@ public final class HardwareManager {
     @VisibleForTesting
     public static final int FEATURE_PICTURE_ADJUSTMENT = 0x1000;
 
+    /**
+     * Reading mode
+     */
+    @VisibleForTesting
+    public static final int FEATURE_READING_ENHANCEMENT = 0x2000;
+
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
         FEATURE_ADAPTIVE_BACKLIGHT,
         FEATURE_AUTO_CONTRAST,
@@ -165,6 +172,7 @@ public final class HardwareManager {
         FEATURE_HIGH_TOUCH_SENSITIVITY,
         FEATURE_KEY_DISABLE,
         FEATURE_KEY_SWAP,
+        FEATURE_READING_ENHANCEMENT,
         FEATURE_SUNLIGHT_ENHANCEMENT,
         FEATURE_TOUCH_HOVERING
     );
@@ -291,6 +299,8 @@ public final class HardwareManager {
                     return IKeySwapper.getService(true);
                 case FEATURE_PICTURE_ADJUSTMENT:
                     return IPictureAdjustment.getService(true);
+                case FEATURE_READING_ENHANCEMENT:
+                    return IReadingEnhancement.getService(true);
                 case FEATURE_SUNLIGHT_ENHANCEMENT:
                     return ISunlightEnhancement.getService(true);
                 case FEATURE_TOUCH_HOVERING:
@@ -411,6 +421,9 @@ public final class HardwareManager {
                     case FEATURE_KEY_SWAP:
                         IKeySwapper keySwapper = (IKeySwapper) obj;
                         return keySwapper.setEnabled(enable);
+                    case FEATURE_READING_ENHANCEMENT:
+                        IReadingEnhancement readingEnhancement = (IReadingEnhancement) obj;
+                        return readingEnhancement.setEnabled(enable);
                     case FEATURE_SUNLIGHT_ENHANCEMENT:
                         ISunlightEnhancement sunlightEnhancement = (ISunlightEnhancement) obj;
                         return sunlightEnhancement.setEnabled(enable);

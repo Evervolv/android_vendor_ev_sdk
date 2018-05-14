@@ -30,6 +30,7 @@ import evervolv.hardware.IHardwareService;
 import evervolv.hardware.HardwareManager;
 
 import static com.android.server.display.color.DisplayTransformManager.LEVEL_COLOR_MATRIX_NIGHT_DISPLAY;
+import static com.android.server.display.color.DisplayTransformManager.LEVEL_COLOR_MATRIX_GRAYSCALE;
 
 /** @hide */
 public class HardwareService extends VendorService {
@@ -54,12 +55,33 @@ public class HardwareService extends VendorService {
         private final int MIN = 0;
         private final int MAX = 255;
 
+        /**
+         * Matrix and offset used for converting color to grayscale.
+         * Copied from com.android.server.accessibility.DisplayAdjustmentUtils.MATRIX_GRAYSCALE
+         */
+        private final float[] MATRIX_GRAYSCALE = {
+            .2126f, .2126f, .2126f, 0,
+            .7152f, .7152f, .7152f, 0,
+            .0722f, .0722f, .0722f, 0,
+                 0,      0,      0, 1
+        };
+
+        /** Full color matrix and offset */
+        private final float[] MATRIX_NORMAL = {
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        };
+
         private final int LEVEL_COLOR_MATRIX_CALIB = LEVEL_COLOR_MATRIX_NIGHT_DISPLAY + 1;
+        private final int LEVEL_COLOR_MATRIX_READING = LEVEL_COLOR_MATRIX_GRAYSCALE + 1;
 
         private boolean mAcceleratedTransform;
         private DisplayTransformManager mDTMService;
 
         private int[] mCurColors = { MAX, MAX, MAX };
+        private boolean mReadingEnhancementEnabled;
 
         private int mSupportedFeatures = 0;
 
@@ -69,6 +91,7 @@ public class HardwareService extends VendorService {
             if (mAcceleratedTransform) {
                 mDTMService = LocalServices.getService(DisplayTransformManager.class);
                 mSupportedFeatures |= HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION;
+                mSupportedFeatures |= HardwareManager.FEATURE_READING_ENHANCEMENT;
             }
         }
 
@@ -78,6 +101,9 @@ public class HardwareService extends VendorService {
 
         public boolean get(int feature) {
             switch(feature) {
+                case HardwareManager.FEATURE_READING_ENHANCEMENT:
+                    if (mAcceleratedTransform)
+                        return mReadingEnhancementEnabled;
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
@@ -86,6 +112,13 @@ public class HardwareService extends VendorService {
 
         public boolean set(int feature, boolean enable) {
             switch(feature) {
+                case HardwareManager.FEATURE_READING_ENHANCEMENT:
+                    if (mAcceleratedTransform) {
+                        mReadingEnhancementEnabled = enable;
+                        mDTMService.setColorMatrix(LEVEL_COLOR_MATRIX_READING,
+                                enable ? MATRIX_GRAYSCALE : MATRIX_NORMAL);
+                        return true;
+                    }
                 default:
                     Log.e(TAG, "feature " + feature + " is not a boolean feature");
                     return false;
