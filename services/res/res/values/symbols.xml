@@ -91,4 +91,11 @@
 
     <!-- Notification light mappings -->
     <java-symbol type="array" name="notification_light_package_mapping" />
+
+    <!-- Whether device has physical tri state switch -->
+    <java-symbol type="bool" name="config_hasAlertSlider" />
+
+    <!-- Alert slider proc nodes paths. -->
+    <java-symbol type="string" name="alert_slider_state_path" />
+    <java-symbol type="string" name="alert_slider_uevent_match_path" />
 </resources>
