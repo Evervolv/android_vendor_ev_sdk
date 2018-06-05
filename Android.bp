@@ -73,6 +73,7 @@ evervolv_sdk_LOCAL_JAVA_LIBRARIES = [
 
 java_library {
     name: "com.evervolv.platform",
+    static_libs: ["telephony-ext"],
 
     libs: [
         "services",
@@ -98,6 +99,7 @@ java_library {
 java_library_static {
     name: "com.evervolv.platform.internal",
     required: ["services"],
+    static_libs: ["telephony-ext"],
     libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
 
     srcs: [
