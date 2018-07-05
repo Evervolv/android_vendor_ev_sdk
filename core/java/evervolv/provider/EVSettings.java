@@ -1139,6 +1139,15 @@ public final class EVSettings {
                 sNonNullStringValidator;
 
         /**
+         * Current dark overlay package name
+         */
+        public static final String BERRY_DARK_OVERLAY = "berry_dark_overlay";
+
+        /** @hide */
+        public static final Validator BERRY_DARK_OVERLAY_VALIDATOR =
+                sNonNullStringValidator;
+
+        /**
          * Current application managing the style
          */
         public static final String BERRY_MANAGED_BY_APP = "berry_managed_by_app";
@@ -1273,6 +1282,7 @@ public final class EVSettings {
                     STATUS_BAR_BATTERY_STYLE_VALIDATOR);
             VALIDATORS.put(BERRY_GLOBAL_STYLE, BERRY_GLOBAL_STYLE_VALIDATOR);
             VALIDATORS.put(BERRY_CURRENT_ACCENT, BERRY_CURRENT_ACCENT_VALIDATOR);
+            VALIDATORS.put(BERRY_DARK_OVERLAY, BERRY_DARK_OVERLAY_VALIDATOR);
             VALIDATORS.put(BERRY_MANAGED_BY_APP, BERRY_MANAGED_BY_APP_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
