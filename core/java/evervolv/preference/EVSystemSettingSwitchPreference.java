@@ -36,29 +36,18 @@ public class EVSystemSettingSwitchPreference extends SelfRemovingSwitchPreferenc
     }
 
     @Override
-    protected boolean persistBoolean(boolean value) {
-        if (shouldPersist()) {
-            if (value == getPersistedBoolean(!value)) {
-                // It's already there, so the same as persisting
-                return true;
-            }
-            EVSettings.System.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean getPersistedBoolean(boolean defaultReturnValue) {
-        if (!shouldPersist()) {
-            return defaultReturnValue;
-        }
-        return EVSettings.System.getInt(getContext().getContentResolver(),
-                getKey(), defaultReturnValue ? 1 : 0) != 0;
-    }
-
-    @Override
     protected boolean isPersisted() {
         return EVSettings.System.getString(getContext().getContentResolver(), getKey()) != null;
+    }
+
+    @Override
+    protected void putBoolean(String key, boolean value) {
+        EVSettings.System.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
+    }
+
+    @Override
+    protected boolean getBoolean(String key, boolean defaultValue) {
+        return EVSettings.System.getInt(getContext().getContentResolver(),
+                getKey(), defaultValue ? 1 : 0) != 0;
     }
 }

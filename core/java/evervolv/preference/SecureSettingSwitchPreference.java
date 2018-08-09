@@ -35,31 +35,18 @@ public class SecureSettingSwitchPreference extends SelfRemovingSwitchPreference 
     }
 
     @Override
-    protected boolean persistBoolean(boolean value) {
-        if (shouldPersist()) {
-            if (value == getPersistedBoolean(!value)) {
-                // It's already there, so the same as persisting
-                return true;
-            }
-            Settings.Secure.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean getPersistedBoolean(boolean defaultReturnValue) {
-        if (!shouldPersist()) {
-            return defaultReturnValue;
-        }
-        return Settings.Secure.getInt(getContext().getContentResolver(),
-                getKey(), defaultReturnValue ? 1 : 0) != 0;
-    }
-
-    @Override
     protected boolean isPersisted() {
-        // Using getString instead of getInt so we can simply check for null
-        // instead of catching an exception. (All values are stored as strings.)
         return Settings.Secure.getString(getContext().getContentResolver(), getKey()) != null;
+    }
+
+    @Override
+    protected void putBoolean(String key, boolean value) {
+        Settings.Secure.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
+    }
+
+    @Override
+    protected boolean getBoolean(String key, boolean defaultValue) {
+        return Settings.Secure.getInt(getContext().getContentResolver(),
+                getKey(), defaultValue ? 1 : 0) != 0;
     }
 }
