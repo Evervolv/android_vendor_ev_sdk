@@ -61,4 +61,11 @@ public class SelfRemovingPreference extends Preference {
     public boolean isAvailable() {
         return mConstraints.isAvailable();
     }
+
+    /**
+     * Returns whether the preference can be found in persistent storage
+     */
+    protected boolean isPersisted() {
+        return getSharedPreferences().contains(getKey());
+    }
 }
