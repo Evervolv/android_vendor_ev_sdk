@@ -30,7 +30,8 @@ public class VibratorHW {
     private static final String MIN_PATH = "/sys/class/timed_output/vibrator/vtg_min";
 
     public static boolean isSupported() {
-        return FileUtils.isFileWritable(LEVEL_PATH) &&
+        return FileUtils.isFileReadable(LEVEL_PATH) &&
+                FileUtils.isFileWritable(LEVEL_PATH) &&
                 FileUtils.isFileReadable(DEFAULT_PATH) &&
                 FileUtils.isFileReadable(MAX_PATH) &&
                 FileUtils.isFileReadable(MIN_PATH);
