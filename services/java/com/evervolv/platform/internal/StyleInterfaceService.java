@@ -198,7 +198,8 @@ public class StyleInterfaceService extends VendorService {
 
         try {
             PackageInfo pi = mPackageManager.getPackageInfo(pkgName, 0);
-            return pi != null && !pi.isStaticOverlay && isValidAccent(pkgName);
+            return pi != null && !pi.isStaticOverlayPackage() &&
+                    isValidAccent(pkgName);
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
