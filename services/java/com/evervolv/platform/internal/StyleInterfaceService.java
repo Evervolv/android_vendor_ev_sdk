@@ -32,6 +32,8 @@ import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.util.Log;
 
+import com.android.server.SystemService;
+
 import evervolv.app.ContextConstants;
 import evervolv.provider.EVSettings;
 import evervolv.style.IStyleInterface;
@@ -70,8 +72,15 @@ public class StyleInterfaceService extends VendorService {
 
     @Override
     public void onStart() {
-        mPackageManager = mContext.getPackageManager();
-        mOverlayService = IOverlayManager.Stub.asInterface(ServiceManager.getService("overlay"));
+        /* No-op */
+    }
+
+    @Override
+    public void onBootPhase(int phase) {
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
+            mPackageManager = mContext.getPackageManager();
+            mOverlayService = IOverlayManager.Stub.asInterface(ServiceManager.getService("overlay"));
+        }
     }
 
     private void enforceChangeStylePermission() {
