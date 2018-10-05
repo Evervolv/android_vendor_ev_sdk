@@ -310,15 +310,7 @@ public class StyleInterfaceService extends VendorService {
         @Override
         public boolean setAccent(String pkgName) {
             enforceChangeStylePermission();
-            /*
-             * We need to clear the caller's identity in order to
-             *   allow this method call to modify settings
-             *   not allowed by the caller's permissions.
-             */
-            long token = clearCallingIdentity();
-            boolean success = setAccentInternal(pkgName);
-            restoreCallingIdentity(token);
-            return success;
+            return setAccentInternal(pkgName);
         }
 
         @Override
@@ -379,15 +371,7 @@ public class StyleInterfaceService extends VendorService {
         @Override
         public boolean setDarkOverlay(String overlayName) {
             enforceChangeStylePermission();
-            /*
-             * We need to clear the caller's identity in order to
-             *   allow this method call to modify settings
-             *   not allowed by the caller's permissions.
-             */
-            long token = clearCallingIdentity();
-            boolean success = setDarkOverlayInternal(overlayName);
-            restoreCallingIdentity(token);
-            return success;
+            return setDarkOverlayInternal(overlayName);
         }
 
         @Override
