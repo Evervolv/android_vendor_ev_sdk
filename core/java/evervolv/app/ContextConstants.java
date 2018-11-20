@@ -43,6 +43,17 @@ public final class ContextConstants {
     public static final String STYLE_INTERFACE = "style";
 
     /**
+     * Use with {@link android.content.Context#getSystemService}
+     * {@link com.evervolv.platform.internal.FontService} interact with system font.
+     *
+     * @see android.content.Context#getSystemService
+     * @see com.evervolv.platform.internal.FontService
+     *
+     * @hide
+     */
+    public static final String FONT_MANAGER = "font_manager";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
@@ -53,5 +64,12 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String STYLES = "com.evervolv.style";
+        /**
+         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
+         * {@link PackageManager#hasSystemFeature}: The device includes the font manager
+         * utilized by the sdk.
+         */
+        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
+        public static final String FONTS = "com.evervolv.font";
     }
 }

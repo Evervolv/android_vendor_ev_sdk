@@ -30,4 +30,8 @@
         <item>com.evervolv.overlay.accent.black</item>
     </string-array>
 
+    <!-- System font packages -->
+    <string-array name="config_fontPackages" translatable="false">
+    </string-array>
+
 </resources>
