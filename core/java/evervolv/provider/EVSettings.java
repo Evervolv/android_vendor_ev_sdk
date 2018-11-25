@@ -1204,9 +1204,6 @@ public final class EVSettings {
             EVSettings.System.REVERSE_LOOKUP_PROVIDER,
             EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
             EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
-            EVSettings.System.STATUS_BAR_BATTERY_STYLE,
-            EVSettings.System.BERRY_GLOBAL_STYLE,
-            EVSettings.System.BERRY_CURRENT_ACCENT,
         };
 
         /**
