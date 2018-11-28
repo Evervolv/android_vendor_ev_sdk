@@ -998,23 +998,6 @@ public final class EVSettings {
         /** @hide */
         public static final Validator VOLUME_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
 
-        /**
-         * Control the type of rotation which can be performed using the accelerometer
-         * if ACCELEROMETER_ROTATION is enabled.
-         * Value is a bitwise combination of
-         * 1 = 0 degrees (portrait)
-         * 2 = 90 degrees (left)
-         * 4 = 180 degrees (inverted portrait)
-         * 8 = 270 degrees (right)
-         * Setting to 0 is effectively orientation lock
-         * @hide
-         */
-        public static final String ACCELEROMETER_ROTATION_ANGLES = "accelerometer_rotation_angles";
-
-        /** @hide */
-        public static final Validator ACCELEROMETER_ROTATION_ANGLES_VALIDATOR =
-                new InclusiveIntegerRangeValidator(0, 15);
-
        /**
          * Enable looking up of phone numbers of nearby places
          *
@@ -1238,7 +1221,6 @@ public final class EVSettings {
             EVSettings.System.ASSIST_WAKE_SCREEN,
             EVSettings.System.APP_SWITCH_WAKE_SCREEN,
             EVSettings.System.VOLUME_WAKE_SCREEN,
-            EVSettings.System.ACCELEROMETER_ROTATION_ANGLES,
             EVSettings.System.ENABLE_FORWARD_LOOKUP,
             EVSettings.System.ENABLE_PEOPLE_LOOKUP,
             EVSettings.System.ENABLE_REVERSE_LOOKUP,
