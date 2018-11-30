@@ -27,12 +27,6 @@ public class Build {
     /** Value used for when a build property is unknown. */
     public static final String UNKNOWN = "unknown";
 
-    /** A build ID utilized to distinguish lineageos versions */
-    public static final String EVERVOLV_VERSION = getString("ro.evervolv.version");
-
-    /** A build ID string meant for displaying to the user */
-    public static final String EVERVOLV_DISPLAY_VERSION = getString("ro.evervolv.display.version");
-
     private static final SparseArray<String> sdkMap;
     static
     {
@@ -80,6 +74,18 @@ public class Build {
             return UNKNOWN;
         }
         return name;
+    }
+
+    /**
+     * Retrieve a build ID to distinguish versions
+     * @param useFull
+     * @return either full length or truncated version of the build ID
+     */
+    public static String getVersion(boolean useFull) {
+        if (useFull) {
+            return getString("ro.evervolv.version");
+        }
+        return getString("ro.evervolv.display.version");
     }
 
     private static String getString(String property) {
