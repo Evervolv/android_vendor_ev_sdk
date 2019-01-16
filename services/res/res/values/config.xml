@@ -79,4 +79,8 @@
         <item>restart_recovery</item>
         <item>restart_bootloader</item>
     </string-array>
+
+    <!-- Whether device needs to wait for Qualcomm MPCTL service to start
+         before setting power profiles on boot. -->
+    <bool name="config_waitForMpctlOnBoot">false</bool>
 </resources>

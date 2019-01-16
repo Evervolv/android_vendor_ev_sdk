@@ -77,4 +77,6 @@
     <java-symbol type="string" name="perf_profile_perf_summary" />
     <java-symbol type="string" name="perf_profile_bias_power_summary" />
     <java-symbol type="string" name="perf_profile_bias_perf_summary" />
+
+    <java-symbol type="bool" name="config_waitForMpctlOnBoot" />
 </resources>
