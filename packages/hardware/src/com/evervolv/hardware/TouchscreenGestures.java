@@ -44,7 +44,7 @@ public class TouchscreenGestures {
         return false;
     }
 
-    /*
+    /**
      * Get the list of available gestures. A mode has an integer
      * identifier and a string name.
      *
