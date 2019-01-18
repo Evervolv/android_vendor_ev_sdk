@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2018 The LineageOS Project
+// Copyright (C) 2018-2019 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -60,6 +60,10 @@ evervolv_sdk_LOCAL_JAVA_LIBRARIES = [
     "android-support-v14-preference",
 ]
 
+evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES = [
+    "vendor.evervolv.touch-V1.0-java",
+]
+
 // READ ME: ########################################################
 //
 // When updating this list of aidl files, consider if that aidl is
@@ -73,7 +77,7 @@ evervolv_sdk_LOCAL_JAVA_LIBRARIES = [
 
 java_library {
     name: "com.evervolv.platform",
-    static_libs: ["telephony-ext"],
+    static_libs: ["telephony-ext"] + evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
 
     libs: [
         "services",
@@ -100,7 +104,7 @@ java_library {
 java_library_static {
     name: "com.evervolv.platform.internal",
     required: ["services"],
-    static_libs: ["telephony-ext"],
+    static_libs: ["telephony-ext"] + evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
     libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
 
     srcs: [
@@ -124,6 +128,7 @@ java_library_static {
     name: "com.evervolv.platform.sdk",
     required: ["services"],
     libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
+    static_libs: evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
 
     srcs: [
         evervolv_sdk_src + "/**/*.java",

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015-2016 The CyanogenMod Project
- *               2017-2018 The LineageOS Project
+ *               2017-2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,33 @@
 package evervolv.hardware;
 
 import android.content.Context;
+import android.hidl.base.V1_0.IBase;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.util.Range;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.util.ArrayUtils;
 
 import evervolv.app.ContextConstants;
+import evervolv.hardware.HIDLHelper;
+import evervolv.hardware.TouchscreenGesture;
 
-import java.io.UnsupportedEncodingException;
+import vendor.evervolv.touch.V1_0.IGloveMode;
+import vendor.evervolv.touch.V1_0.IKeyDisabler;
+import vendor.evervolv.touch.V1_0.IStylusMode;
+import vendor.evervolv.touch.V1_0.ITouchscreenGesture;
+
 import java.lang.IllegalArgumentException;
 import java.lang.reflect.Field;
-import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Manages access to hardware extensions
@@ -49,6 +60,9 @@ public final class HardwareManager {
     private static HardwareManager sHardwareManagerInstance;
 
     private Context mContext;
+
+    // HIDL hals
+    private HashMap<Integer, IBase> mHIDLMap = new HashMap<Integer, IBase>();
 
     /**
      * Variable vibrator intensity
@@ -152,7 +166,41 @@ public final class HardwareManager {
      * @return true if the feature is supported, false otherwise.
      */
     public boolean isSupported(int feature) {
-        return feature == (getSupportedFeatures() & feature);
+        return isSupportedHIDL(feature) || isSupportedLegacy(feature);
+    }
+
+    private boolean isSupportedHIDL(int feature) {
+        if (!mHIDLMap.containsKey(feature)) {
+            mHIDLMap.put(feature, getHIDLService(feature));
+        }
+        return mHIDLMap.get(feature) != null;
+    }
+
+    private boolean isSupportedLegacy(int feature) {
+        try {
+            if (checkService()) {
+                return feature == (sService.getSupportedFeatures() & feature);
+            }
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    private IBase getHIDLService(int feature) {
+        try {
+            switch (feature) {
+                case FEATURE_HIGH_TOUCH_SENSITIVITY:
+                    return IGloveMode.getService(true);
+                case FEATURE_KEY_DISABLE:
+                    return IKeyDisabler.getService(true);
+                case FEATURE_TOUCH_HOVERING:
+                    return IStylusMode.getService(true);
+                case FEATURE_TOUCHSCREEN_GESTURES:
+                    return ITouchscreenGesture.getService(true);
+            }
+        } catch (NoSuchElementException | RemoteException e) {
+        }
+        return null;
     }
 
     /**
@@ -190,7 +238,20 @@ public final class HardwareManager {
         }
 
         try {
-            if (checkService()) {
+            if (isSupportedHIDL(feature)) {
+                IBase obj = mHIDLMap.get(feature);
+                switch (feature) {
+                    case FEATURE_HIGH_TOUCH_SENSITIVITY:
+                        IGloveMode gloveMode = (IGloveMode) obj;
+                        return gloveMode.isEnabled();
+                    case FEATURE_KEY_DISABLE:
+                        IKeyDisabler keyDisabler = (IKeyDisabler) obj;
+                        return keyDisabler.isEnabled();
+                    case FEATURE_TOUCH_HOVERING:
+                        IStylusMode stylusMode = (IStylusMode) obj;
+                        return stylusMode.isEnabled();
+                }
+            } else if (checkService()) {
                 return sService.get(feature);
             }
         } catch (RemoteException e) {
@@ -214,7 +275,20 @@ public final class HardwareManager {
         }
 
         try {
-            if (checkService()) {
+            if (isSupportedHIDL(feature)) {
+                IBase obj = mHIDLMap.get(feature);
+                switch (feature) {
+                    case FEATURE_HIGH_TOUCH_SENSITIVITY:
+                        IGloveMode gloveMode = (IGloveMode) obj;
+                        return gloveMode.setEnabled(enable);
+                    case FEATURE_KEY_DISABLE:
+                        IKeyDisabler keyDisabler = (IKeyDisabler) obj;
+                        return keyDisabler.setEnabled(enable);
+                    case FEATURE_TOUCH_HOVERING:
+                        IStylusMode stylusMode = (IStylusMode) obj;
+                        return stylusMode.setEnabled(enable);
+                }
+            } else if (checkService()) {
                 return sService.set(feature, enable);
             }
         } catch (RemoteException e) {
@@ -319,7 +393,11 @@ public final class HardwareManager {
      */
     public TouchscreenGesture[] getTouchscreenGestures() {
         try {
-            if (checkService()) {
+            if (isSupportedHIDL(FEATURE_TOUCHSCREEN_GESTURES)) {
+                ITouchscreenGesture touchscreenGesture = (ITouchscreenGesture)
+                        mHIDLMap.get(FEATURE_TOUCHSCREEN_GESTURES);
+                return HIDLHelper.fromHIDLGestures(touchscreenGesture.getSupportedGestures());
+            } else if (checkService()) {
                 return sService.getTouchscreenGestures();
             }
         } catch (RemoteException e) {
@@ -333,7 +411,12 @@ public final class HardwareManager {
     public boolean setTouchscreenGestureEnabled(
             TouchscreenGesture gesture, boolean state) {
         try {
-            if (checkService()) {
+            if (isSupportedHIDL(FEATURE_TOUCHSCREEN_GESTURES)) {
+                ITouchscreenGesture touchscreenGesture = (ITouchscreenGesture)
+                        mHIDLMap.get(FEATURE_TOUCHSCREEN_GESTURES);
+                return touchscreenGesture.setGestureEnabled(
+                        HIDLHelper.toHIDLGesture(gesture), state);
+            } else if (checkService()) {
                 return sService.setTouchscreenGestureEnabled(gesture, state);
             }
         } catch (RemoteException e) {
