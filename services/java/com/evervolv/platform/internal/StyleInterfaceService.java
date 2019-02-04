@@ -194,16 +194,19 @@ public class StyleInterfaceService extends VendorService {
             return false;
         }
 
+        // Disable current overlay
+        String currentOverlay = getDarkOverlayInternal();
+
         try {
-            String currentDarkOverlay = EVSettings.System.getString(
-                    mContext.getContentResolver(), EVSettings.System.BERRY_DARK_OVERLAY,
-                    StyleInterface.OVERLAY_DARK_DEFAULT);
-            if (isEnabled(currentDarkOverlay)) {
-                // Swich dark overlays
-                mOverlayService.setEnabled(currentDarkOverlay, false, userId);
-                mOverlayService.setEnabled(overlayName, true, userId);
-            }
-            return true;
+            mOverlayService.setEnabled(currentOverlay, false, userId);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Failed to disable current dark overlay", e);
+        }
+
+        try {
+            mOverlayService.setEnabled(overlayName, true, userId);
+            return EVSettings.System.putString(mContext.getContentResolver(),
+                    EVSettings.System.BERRY_DARK_OVERLAY, overlayName);
         } catch (RemoteException e) {
             Log.e(TAG, "Failed to change dark overlay");
         }
