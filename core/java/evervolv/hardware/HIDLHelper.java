@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 class HIDLHelper {
 
-    public static TouchscreenGesture[] fromHIDLGestures(
+    static TouchscreenGesture[] fromHIDLGestures(
             ArrayList<vendor.evervolv.touch.V1_0.Gesture> gestures) {
         int size = gestures.size();
         TouchscreenGesture[] r = new TouchscreenGesture[size];
@@ -33,7 +33,7 @@ class HIDLHelper {
         return r;
     }
 
-    public static vendor.evervolv.touch.V1_0.Gesture toHIDLGesture(TouchscreenGesture gesture) {
+    static vendor.evervolv.touch.V1_0.Gesture toHIDLGesture(TouchscreenGesture gesture) {
         vendor.evervolv.touch.V1_0.Gesture g = new vendor.evervolv.touch.V1_0.Gesture();
         g.id = gesture.id;
         g.name = gesture.name;
