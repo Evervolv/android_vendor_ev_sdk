@@ -1186,12 +1186,20 @@ public final class EVSettings {
          */
         public static final String FONT_INFO = "font_info";
 
+        /** @hide */
+        public static final Validator FONT_INFO_VALIDATOR =
+                sNonNullStringValidator;
+
         /**
          * Hold list of installed font provider packages. Uses "|" as a delimiter
          *
          * @hide
          */
         public static final String FONT_PACKAGES = "font_packages";
+
+        /** @hide */
+        public static final Validator FONT_PACKAGES_VALIDATOR =
+                sNonNullStringValidator;
 
          /**
          * Whether the HighTouchSensitivity is activated or not.
@@ -1200,6 +1208,9 @@ public final class EVSettings {
          */
         public static final String HIGH_TOUCH_SENSITIVITY_ENABLE =
                 "high_touch_sensitivity_enable";
+
+        /** @hide */
+        public static final Validator HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR = sBooleanValidator;
 
         // System Settings end
 
@@ -1331,6 +1342,10 @@ public final class EVSettings {
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_QUICK_QS_PULLDOWN,
                     STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
+            VALIDATORS.put(FONT_INFO, FONT_INFO_VALIDATOR);
+            VALIDATORS.put(FONT_PACKAGES, FONT_PACKAGES_VALIDATOR);
+            VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
+                    HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
@@ -1762,11 +1777,18 @@ public final class EVSettings {
          */
         public static final String FEATURE_TOUCH_HOVERING = "feature_touch_hovering";
 
+        /* @hide */
+        public static final Validator FEATURE_TOUCH_HOVERING_VALIDATOR = sBooleanValidator;
+
         /**
          * Vibrator intensity setting for supported devices
          * @hide
          */
         public static final String VIBRATOR_INTENSITY = "vibrator_intensity";
+
+        /* @hide */
+        public static final Validator VIBRATOR_INTENSITY_VALIDATOR =
+                sNonNullStringValidator;
 
         // Secure Settings end
 
@@ -1820,6 +1842,8 @@ public final class EVSettings {
                     ADVANCED_REBOOT_VALIDATOR);
             VALIDATORS.put(POWER_MENU_ACTIONS,
                     POWER_MENU_ACTIONS_VALIDATOR);
+            VALIDATORS.put(FEATURE_TOUCH_HOVERING, FEATURE_TOUCH_HOVERING_VALIDATOR);
+            VALIDATORS.put(VIBRATOR_INTENSITY, VIBRATOR_INTENSITY_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
