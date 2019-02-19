@@ -79,7 +79,6 @@ java_library {
 
     libs: [
         "services",
-        "com.evervolv.hardware",
     ],
 
     srcs: [

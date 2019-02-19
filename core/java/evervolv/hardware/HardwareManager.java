@@ -65,34 +65,28 @@ public final class HardwareManager {
     private HashMap<Integer, IBase> mHIDLMap = new HashMap<Integer, IBase>();
 
     /**
-     * Variable vibrator intensity
-     */
-    @VisibleForTesting
-    public static final int FEATURE_VIBRATOR = 0x1;
-
-    /**
      * Hardware navigation key disablement
      */
     @VisibleForTesting
-    public static final int FEATURE_KEY_DISABLE = 0x2;
+    public static final int FEATURE_KEY_DISABLE = 0x1;
 
     /**
      * Touchscreen gesture
      */
     @VisibleForTesting
-    public static final int FEATURE_TOUCHSCREEN_GESTURES = 0x4;
+    public static final int FEATURE_TOUCHSCREEN_GESTURES = 0x2;
 
     /**
      * High touch sensitivity for touch panels
      */
     @VisibleForTesting
-    public static final int FEATURE_HIGH_TOUCH_SENSITIVITY = 0x8;
+    public static final int FEATURE_HIGH_TOUCH_SENSITIVITY = 0x4;
 
     /**
      * Touchscreen hovering
      */
     @VisibleForTesting
-    public static final int FEATURE_TOUCH_HOVERING = 0x10;
+    public static final int FEATURE_TOUCH_HOVERING = 0x8;
 
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
         FEATURE_KEY_DISABLE,
@@ -166,24 +160,10 @@ public final class HardwareManager {
      * @return true if the feature is supported, false otherwise.
      */
     public boolean isSupported(int feature) {
-        return isSupportedHIDL(feature) || isSupportedLegacy(feature);
-    }
-
-    private boolean isSupportedHIDL(int feature) {
         if (!mHIDLMap.containsKey(feature)) {
             mHIDLMap.put(feature, getHIDLService(feature));
         }
         return mHIDLMap.get(feature) != null;
-    }
-
-    private boolean isSupportedLegacy(int feature) {
-        try {
-            if (checkService()) {
-                return feature == (sService.getSupportedFeatures() & feature);
-            }
-        } catch (RemoteException e) {
-        }
-        return false;
     }
 
     private IBase getHIDLService(int feature) {
@@ -238,7 +218,7 @@ public final class HardwareManager {
         }
 
         try {
-            if (isSupportedHIDL(feature)) {
+            if (isSupported(feature)) {
                 IBase obj = mHIDLMap.get(feature);
                 switch (feature) {
                     case FEATURE_HIGH_TOUCH_SENSITIVITY:
@@ -275,7 +255,7 @@ public final class HardwareManager {
         }
 
         try {
-            if (isSupportedHIDL(feature)) {
+            if (isSupported(feature)) {
                 IBase obj = mHIDLMap.get(feature);
                 switch (feature) {
                     case FEATURE_HIGH_TOUCH_SENSITIVITY:
@@ -296,109 +276,15 @@ public final class HardwareManager {
         return false;
     }
 
-    private int getArrayValue(int[] arr, int idx, int defaultValue) {
-        if (arr == null || arr.length <= idx) {
-            return defaultValue;
-        }
-
-        return arr[idx];
-    }
-
-    /**
-     * {@hide}
-     */
-    public static final int VIBRATOR_INTENSITY_INDEX = 0;
-    /**
-     * {@hide}
-     */
-    public static final int VIBRATOR_DEFAULT_INDEX = 1;
-    /**
-     * {@hide}
-     */
-    public static final int VIBRATOR_MIN_INDEX = 2;
-    /**
-     * {@hide}
-     */
-    public static final int VIBRATOR_MAX_INDEX = 3;
-    /**
-     * {@hide}
-     */
-    public static final int VIBRATOR_WARNING_INDEX = 4;
-
-    private int[] getVibratorIntensityArray() {
-        try {
-            if (checkService()) {
-                return sService.getVibratorIntensity();
-            }
-        } catch (RemoteException e) {
-        }
-        return null;
-    }
-
-    /**
-     * @return The current vibrator intensity.
-     */
-    public int getVibratorIntensity() {
-        return getArrayValue(getVibratorIntensityArray(), VIBRATOR_INTENSITY_INDEX, 0);
-    }
-
-    /**
-     * @return The default vibrator intensity.
-     */
-    public int getVibratorDefaultIntensity() {
-        return getArrayValue(getVibratorIntensityArray(), VIBRATOR_DEFAULT_INDEX, 0);
-    }
-
-    /**
-     * @return The minimum vibrator intensity.
-     */
-    public int getVibratorMinIntensity() {
-        return getArrayValue(getVibratorIntensityArray(), VIBRATOR_MIN_INDEX, 0);
-    }
-
-    /**
-     * @return The maximum vibrator intensity.
-     */
-    public int getVibratorMaxIntensity() {
-        return getArrayValue(getVibratorIntensityArray(), VIBRATOR_MAX_INDEX, 0);
-    }
-
-    /**
-     * @return The warning threshold vibrator intensity.
-     */
-    public int getVibratorWarningIntensity() {
-        return getArrayValue(getVibratorIntensityArray(), VIBRATOR_WARNING_INDEX, 0);
-    }
-
-    /**
-     * Set the current vibrator intensity
-     *
-     * @param intensity the intensity to set, between {@link #getVibratorMinIntensity()} and
-     * {@link #getVibratorMaxIntensity()} inclusive.
-     *
-     * @return true on success, false otherwise.
-     */
-    public boolean setVibratorIntensity(int intensity) {
-        try {
-            if (checkService()) {
-                return sService.setVibratorIntensity(intensity);
-            }
-        } catch (RemoteException e) {
-        }
-        return false;
-    }
-
     /**
      * @return a list of available touchscreen gestures on the devices
      */
     public TouchscreenGesture[] getTouchscreenGestures() {
         try {
-            if (isSupportedHIDL(FEATURE_TOUCHSCREEN_GESTURES)) {
+            if (isSupported(FEATURE_TOUCHSCREEN_GESTURES)) {
                 ITouchscreenGesture touchscreenGesture = (ITouchscreenGesture)
                         mHIDLMap.get(FEATURE_TOUCHSCREEN_GESTURES);
                 return HIDLHelper.fromHIDLGestures(touchscreenGesture.getSupportedGestures());
-            } else if (checkService()) {
-                return sService.getTouchscreenGestures();
             }
         } catch (RemoteException e) {
         }
@@ -411,13 +297,11 @@ public final class HardwareManager {
     public boolean setTouchscreenGestureEnabled(
             TouchscreenGesture gesture, boolean state) {
         try {
-            if (isSupportedHIDL(FEATURE_TOUCHSCREEN_GESTURES)) {
+            if (isSupported(FEATURE_TOUCHSCREEN_GESTURES)) {
                 ITouchscreenGesture touchscreenGesture = (ITouchscreenGesture)
                         mHIDLMap.get(FEATURE_TOUCHSCREEN_GESTURES);
                 return touchscreenGesture.setGestureEnabled(
                         HIDLHelper.toHIDLGesture(gesture), state);
-            } else if (checkService()) {
-                return sService.setTouchscreenGestureEnabled(gesture, state);
             }
         } catch (RemoteException e) {
         }

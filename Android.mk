@@ -135,8 +135,7 @@ LOCAL_ADDITONAL_JAVA_DIR := $(evervolv_platform_docs_LOCAL_ADDITIONAL_JAVA_DIR)
 LOCAL_IS_HOST_MODULE := false
 LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR := $(SRC_EVERVOLV_DIR)/build/tools/droiddoc/templates
 LOCAL_ADDITIONAL_DEPENDENCIES := \
-    services \
-    com.evervolv.hardware
+    services
 
 LOCAL_JAVA_LIBRARIES := $(evervolv_platform_docs_java_libraries)
 
