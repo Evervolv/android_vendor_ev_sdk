@@ -59,9 +59,6 @@
     <java-symbol type="string" name="accent_red" />
     <java-symbol type="string" name="accent_yellow" />
 
-    <!-- System fonts -->
-    <java-symbol type="array" name="config_fontPackages" />
-
     <!-- Performance Profiles -->
     <java-symbol type="array" name="perf_profile_entries" />
     <java-symbol type="array" name="perf_profile_values" />

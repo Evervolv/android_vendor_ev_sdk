@@ -1179,28 +1179,6 @@ public final class EVSettings {
         public static final Validator STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 2);
 
-        /**
-         * Hold current font name and name of the originating package Uses "|" as a delimiter
-         *
-         * @hide
-         */
-        public static final String FONT_INFO = "font_info";
-
-        /** @hide */
-        public static final Validator FONT_INFO_VALIDATOR =
-                sNonNullStringValidator;
-
-        /**
-         * Hold list of installed font provider packages. Uses "|" as a delimiter
-         *
-         * @hide
-         */
-        public static final String FONT_PACKAGES = "font_packages";
-
-        /** @hide */
-        public static final Validator FONT_PACKAGES_VALIDATOR =
-                sNonNullStringValidator;
-
          /**
          * Whether the HighTouchSensitivity is activated or not.
          * 0 = off, 1 = on
@@ -1342,8 +1320,6 @@ public final class EVSettings {
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_QUICK_QS_PULLDOWN,
                     STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
-            VALIDATORS.put(FONT_INFO, FONT_INFO_VALIDATOR);
-            VALIDATORS.put(FONT_PACKAGES, FONT_PACKAGES_VALIDATOR);
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,

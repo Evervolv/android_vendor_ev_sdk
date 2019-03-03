@@ -30,10 +30,6 @@
         <item>com.evervolv.overlay.accent.black</item>
     </string-array>
 
-    <!-- System font packages -->
-    <string-array name="config_fontPackages" translatable="false">
-    </string-array>
-
     <!-- Performance profiles -->
     <string-array name="perf_profile_entries" translatable="false">
         <item>@string/perf_profile_pwrsv</item>

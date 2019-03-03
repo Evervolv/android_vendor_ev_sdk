@@ -1,25 +1,5 @@
 package evervolv.content {
 
-  public class FontInfo implements java.lang.Comparable android.os.Parcelable {
-    ctor public FontInfo();
-    ctor public FontInfo(java.lang.String, java.lang.String, java.lang.String);
-    ctor public FontInfo(evervolv.content.FontInfo);
-    ctor public FontInfo(android.os.Parcel);
-    method public int compareTo(evervolv.content.FontInfo);
-    method public int describeContents();
-    method public static evervolv.content.FontInfo getDefaultFontInfo();
-    method public java.lang.String toDelimitedString();
-    method public void updateFrom(evervolv.content.FontInfo);
-    method public void writeToParcel(android.os.Parcel, int);
-    field public static final android.os.Parcelable.Creator<evervolv.content.FontInfo> CREATOR;
-    field public static final java.lang.String DEFAULT_FONT_NAME = "Roboto";
-    field public static final java.lang.String DEFAULT_FONT_PACKAGE = "android";
-    field public static final java.lang.String DEFAULT_FONT_PATH = "/system/fonts/Roboto-Regular.ttf";
-    field public java.lang.String fontName;
-    field public java.lang.String packageName;
-    field public java.lang.String previewPath;
-  }
-
   public class Intent {
     ctor public Intent();
   }
