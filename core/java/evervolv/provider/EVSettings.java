@@ -1190,6 +1190,15 @@ public final class EVSettings {
         /** @hide */
         public static final Validator HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Swipe to screenshot
+         * @hide
+         */
+        public static final String SWIPE_TO_SCREENSHOT = "swipe_to_screenshot";
+
+        /** @hide */
+        public static final Validator SWIPE_TO_SCREENSHOT_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1322,6 +1331,7 @@ public final class EVSettings {
                     STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
+            VALIDATORS.put(SWIPE_TO_SCREENSHOT, SWIPE_TO_SCREENSHOT_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
