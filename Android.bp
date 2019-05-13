@@ -53,14 +53,11 @@ evervolv_sdk_src = "core/java/evervolv"
 evervolv_sdk_internal_src = "core/java/com/evervolv/internal"
 evervolv_services_src = "services/java"
 
-evervolv_sdk_LOCAL_JAVA_LIBRARIES = [
-    "android-support-annotations",
-    "android-support-v7-preference",
-    "android-support-v7-recyclerview",
-    "android-support-v14-preference",
-]
-
 evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES = [
+    "androidx.annotation_annotation",
+    "androidx.preference_preference",
+    "androidx.recyclerview_recyclerview",
+    "androidx.legacy_legacy-preference-v14",
     "vendor.evervolv.touch-V1.0-java",
 ]
 
@@ -82,7 +79,7 @@ java_library {
     libs: [
         "services",
         "com.evervolv.hardware",
-    ] + evervolv_sdk_LOCAL_JAVA_LIBRARIES,
+    ],
 
     srcs: [
         evervolv_sdk_src + "/**/*.java",
@@ -105,7 +102,6 @@ java_library_static {
     name: "com.evervolv.platform.internal",
     required: ["services"],
     static_libs: ["telephony-ext"] + evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
-    libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
 
     srcs: [
         evervolv_sdk_src + "/**/*.java",
@@ -127,7 +123,6 @@ java_library_static {
 java_library_static {
     name: "com.evervolv.platform.sdk",
     required: ["services"],
-    libs: evervolv_sdk_LOCAL_JAVA_LIBRARIES,
     static_libs: evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
 
     srcs: [

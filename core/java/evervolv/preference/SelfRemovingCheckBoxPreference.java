@@ -16,8 +16,8 @@
 package evervolv.preference;
 
 import android.content.Context;
-import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.PreferenceViewHolder;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 
 /**
