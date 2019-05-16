@@ -54,6 +54,9 @@ public class StyleInterfaceService extends VendorService {
     private IOverlayManager mOverlayService;
     private PackageManager mPackageManager;
 
+    private static final int OVERLAY_SYSTEM = 0;
+    private static final int OVERLAY_ACCENT = 1;
+
     public StyleInterfaceService(Context context) {
         super(context);
         mContext = context;
@@ -115,36 +118,11 @@ public class StyleInterfaceService extends VendorService {
             return false;
         }
 
-        int userId = UserHandle.myUserId();
-
-        // Disable current accent
-        String currentAccent = getAccentInternal();
-
-        try {
-            mOverlayService.setEnabled(currentAccent, false, userId);
-        } catch (RemoteException e) {
-            Log.e(TAG, "Failed to disable current accent", e);
-        }
-
-        if (StyleInterface.ACCENT_DEFAULT.equals(pkgName)) {
-            return EVSettings.System.putString(mContext.getContentResolver(),
-                    EVSettings.System.BERRY_CURRENT_ACCENT, "");
-        }
-
-        // Enable new one
-        try {
-            mOverlayService.setEnabled(pkgName, true, userId);
-            return EVSettings.System.putString(mContext.getContentResolver(),
-                    EVSettings.System.BERRY_CURRENT_ACCENT, pkgName);
-        } catch (RemoteException e) {
-            Log.e(TAG, "Failed to enable new accent", e);
-        }
-        return false;
+        return setOverlayInternal(OVERLAY_ACCENT, pkgName);
     }
 
     private String getAccentInternal() {
-        return EVSettings.System.getString(mContext.getContentResolver(),
-                EVSettings.System.BERRY_CURRENT_ACCENT);
+        return getOverlayInternal(OVERLAY_ACCENT);
     }
 
     private Suggestion getSuggestionInternal(Bitmap source, int[] colors) {
@@ -187,38 +165,65 @@ public class StyleInterfaceService extends VendorService {
     private boolean setDarkOverlayInternal(String overlayName) {
         boolean isDefault = StyleInterface.OVERLAY_DARK_DEFAULT.equals(overlayName);
         boolean isBlack = StyleInterface.OVERLAY_DARK_BLACK.equals(overlayName);
-        int userId = UserHandle.myUserId();
 
         if (!isDefault && !isBlack) {
             Log.e(TAG, overlayName + " is not a valid dark overlay!");
             return false;
         }
 
-        // Disable current overlay
-        String currentOverlay = getDarkOverlayInternal();
+        return setOverlayInternal(OVERLAY_SYSTEM, overlayName);
+    }
+
+    private String getDarkOverlayInternal() {
+        return getOverlayInternal(OVERLAY_SYSTEM);
+    }
+
+    /* Utils */
+
+    private String getOverlaySetting(int overlayType) {
+        switch (overlayType) {
+            case OVERLAY_SYSTEM: // System
+                return EVSettings.System.BERRY_DARK_OVERLAY;
+            case OVERLAY_ACCENT: // Accent
+            default:
+                return EVSettings.System.BERRY_CURRENT_ACCENT;
+        }
+    }
+
+    private boolean setOverlayInternal(int overlayType, String pkgName) {
+        int userId = UserHandle.myUserId();
+
+        // Disable current accent
+        String currentOverlay = getOverlayInternal(overlayType);
 
         try {
             mOverlayService.setEnabled(currentOverlay, false, userId);
         } catch (RemoteException e) {
-            Log.e(TAG, "Failed to disable current dark overlay", e);
+            Log.e(TAG, "Failed to disable current accent", e);
         }
 
+        if (overlayType != OVERLAY_SYSTEM) {
+            if (StyleInterface.ACCENT_DEFAULT.equals(pkgName)) {
+                return EVSettings.System.putString(mContext.getContentResolver(),
+                        getOverlaySetting(overlayType), "");
+            }
+        }
+
+        // Enable new one
         try {
-            mOverlayService.setEnabled(overlayName, true, userId);
+            mOverlayService.setEnabled(pkgName, true, userId);
             return EVSettings.System.putString(mContext.getContentResolver(),
-                    EVSettings.System.BERRY_DARK_OVERLAY, overlayName);
+                    getOverlaySetting(overlayType), pkgName);
         } catch (RemoteException e) {
-            Log.e(TAG, "Failed to change dark overlay");
+            Log.e(TAG, "Failed to enable new accent", e);
         }
         return false;
     }
 
-    private String getDarkOverlayInternal() {
+    private String getOverlayInternal(int overlayType) {
         return EVSettings.System.getString(mContext.getContentResolver(),
-                EVSettings.System.BERRY_DARK_OVERLAY, StyleInterface.OVERLAY_DARK_DEFAULT);
+                getOverlaySetting(overlayType));
     }
-
-    /* Utils */
 
     private int getBestColor(int sourceColor, int[] colors) {
         int best = 0;
