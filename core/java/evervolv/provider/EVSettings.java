@@ -1770,6 +1770,16 @@ public final class EVSettings {
          */
         public static final String APP_PERFORMANCE_PROFILES_ENABLED = "app_perf_profiles_enabled";
 
+        /**
+         * Whether volume panel should appear on the left (or right).
+         * 0 = false (on the right)
+         * 1 = true (on the left)
+         */
+        public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
+
+        public static final Validator VOLUME_PANEL_ON_LEFT_VALIDATOR =
+                sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -1824,6 +1834,7 @@ public final class EVSettings {
                     POWER_MENU_ACTIONS_VALIDATOR);
             VALIDATORS.put(FEATURE_TOUCH_HOVERING, FEATURE_TOUCH_HOVERING_VALIDATOR);
             VALIDATORS.put(VIBRATOR_INTENSITY, VIBRATOR_INTENSITY_VALIDATOR);
+            VALIDATORS.put(VOLUME_PANEL_ON_LEFT, VOLUME_PANEL_ON_LEFT_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
