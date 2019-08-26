@@ -32,6 +32,7 @@ public class Build {
     {
         sdkMap = new SparseArray<String>();
         sdkMap.put(EVERVOLV_VERSION_CODES.ACTINIUM, "Actinium");
+        sdkMap.put(EVERVOLV_VERSION_CODES.BOHRIUM, "Bohrium");
     }
 
     /** Various version strings. */
@@ -61,6 +62,10 @@ public class Build {
          * September 2018: The first version of the platform sdk for Evervolv
          */
         public static final int ACTINIUM = 1;
+        /**
+         * September 2019: Version adds support for Q based features, TBD.
+         */
+        public static final int BOHRIUM = 2;
     }
 
     /**

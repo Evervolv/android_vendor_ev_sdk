@@ -67,7 +67,7 @@ public class SettingsProvider extends ContentProvider {
     public static final String PREF_SETTINGS_VERSION = "settings_version";
 
     /** A build ID string meant for displaying to the user */
-    private static final int SETTINGS_VERSION = Build.EVERVOLV_VERSION_CODES.ACTINIUM;
+    private static final int SETTINGS_VERSION = Build.EVERVOLV_VERSION_CODES.BOHRIUM;
 
     private static final Bundle NULL_SETTING = Bundle.forPair("value", null);
 
