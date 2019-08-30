@@ -63,11 +63,11 @@ evervolv_platform_docs_src_files := \
     $(call all-html-files-under, core/java/evervolv)
 
 evervolv_platform_docs_java_libraries := \
-    androidx.annotation_annotation \
-    androidx.legacy_legacy-support-v4 \
-    androidx.preference_preference \
-    androidx.recyclerview_recyclerview \
-    androidx.legacy_legacy-preference-v14 \
+    android-support-annotations \
+    android-support-v4 \
+    android-support-v7-preference \
+    android-support-v7-recyclerview \
+    android-support-v14-preference \
     com.evervolv.platform.sdk
 
 # SDK version as defined

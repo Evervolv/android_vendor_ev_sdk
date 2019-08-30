@@ -16,8 +16,8 @@
 package evervolv.preference;
 
 import android.content.Context;
-import androidx.preference.ListPreference;
-import androidx.preference.PreferenceViewHolder;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 
 /**
