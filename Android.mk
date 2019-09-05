@@ -112,7 +112,7 @@ LOCAL_DROIDDOC_OPTIONS:= \
 
 LOCAL_UNINSTALLABLE_MODULE := true
 
-include $(BUILD_DROIDDOC)
+#include $(BUILD_DROIDDOC)
 
 # $(gen), i.e. framework.aidl, is also needed while building against the current stub.
 $(full_target): $(evervolv_framework_built) $(gen)
@@ -151,7 +151,7 @@ LOCAL_DROIDDOC_OPTIONS := \
         -since $(EVERVOLV_SRC_API_DIR)/1.txt 1
 
 $(full_target): $(evervolv_framework_built) $(gen)
-include $(BUILD_DROIDDOC)
+#include $(BUILD_DROIDDOC)
 
 include $(call first-makefiles-under,$(LOCAL_PATH))
 
