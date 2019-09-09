@@ -32,9 +32,6 @@ import android.util.Slog;
 
 import evervolv.provider.EVSettings;
 
-import com.evervolv.internal.notification.LedValues;
-import com.evervolv.internal.notification.LightsCapabilities;
-
 public final class BatteryLightHelper {
     private final String TAG = "BatteryLightHelper";
     private final boolean DEBUG = false;

@@ -40,10 +40,6 @@ import android.util.Slog;
 import evervolv.provider.EVSettings;
 import evervolv.util.ColorUtils;
 
-import com.evervolv.internal.notification.LedValues;
-import com.evervolv.internal.notification.LightsCapabilities;
-import com.evervolv.internal.notification.NotificationHelper;
-
 import java.util.Map;
 
 public final class NotificationLightHelper {
