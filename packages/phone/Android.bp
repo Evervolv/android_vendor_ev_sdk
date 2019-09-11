@@ -17,4 +17,7 @@
 java_library_static {
     name: "telephony-evervolv",
     srcs: ["src/**/*.java"],
+    static_libs: [
+        "libphonenumber",
+    ],
 }
