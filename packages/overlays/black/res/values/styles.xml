@@ -34,7 +34,6 @@
     </style>
 
     <style name="Theme.DeviceDefault.Settings" parent="@*android:style/Theme.Material">
-        <item name="android:actionBarTheme">@*android:style/ThemeOverlay.DeviceDefault.ActionBar.Accent</item>
         <item name="android:colorBackground">@*android:color/black</item>
         <item name="android:colorPrimary">@*android:color/black</item>
         <item name="android:colorPrimaryDark">@*android:color/black</item>
