@@ -1567,13 +1567,6 @@ public final class EVSettings {
         }
 
         /**
-         * @hide
-         */
-        public static boolean shouldInterceptSystemProvider(String key) {
-            return false;
-        }
-
-        /**
          * Mapping of validators for all system settings.  This map is used to validate both valid
          * keys as well as validating the values for those keys.
          *
@@ -2229,13 +2222,6 @@ public final class EVSettings {
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
-
-        /**
-         * @hide
-         */
-        public static boolean shouldInterceptSystemProvider(String key) {
-            return false;
-        }
     }
 
     /**
@@ -2635,13 +2621,6 @@ public final class EVSettings {
          */
         public static boolean isLegacySetting(String key) {
             return ArrayUtils.contains(LEGACY_GLOBAL_SETTINGS, key);
-        }
-
-        /**
-         * @hide
-         */
-        public static boolean shouldInterceptSystemProvider(String key) {
-            return false;
         }
     }
 }
