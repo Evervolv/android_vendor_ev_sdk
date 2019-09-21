@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <!-- The feature listed here coincides with the HardwareService declared as
+        part of the external lineage service init in SystemServer. If this xml isn't present
+        on the device, the service will not be published as a binder service!
+    -->
+    <feature name="com.evervolv.hardware" />
+    <library name="com.evervolv.hardware"
+            file="/system/framework/com.evervolv.hardware.jar" />
+</permissions>
