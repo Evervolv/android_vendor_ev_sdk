@@ -98,4 +98,7 @@
     <!-- Alert slider proc nodes paths. -->
     <java-symbol type="string" name="alert_slider_state_path" />
     <java-symbol type="string" name="alert_slider_uevent_match_path" />
+
+    <!-- The location of the devices physical tri state switch -->
+    <java-symbol type="integer" name="config_alertSliderLocation" />
 </resources>
