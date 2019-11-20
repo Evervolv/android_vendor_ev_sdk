@@ -20,14 +20,11 @@
 
     <overlay
         android:targetPackage="android"
+        android:category="android.theme.customization.accent_color"
         android:priority="1" />
 
     <application
         android:hasCode="false"
-        android:label="@*evervolv.platform:string/accent_pink">
+        android:label="@*evervolv.platform:string/accent_pink" />
 
-        <meta-data
-            android:name="berry_accent_preview"
-            android:value="#E91E63" />
-    </application>
 </manifest>
