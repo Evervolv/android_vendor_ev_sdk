@@ -33,17 +33,6 @@ public final class ContextConstants {
 
     /**
      * Use with {@link android.content.Context#getSystemService} to retrieve a
-     * {@link evervolv.app.StyleInterface} interact with system style.
-     *
-     * @see android.content.Context#getSystemService
-     * @see evervolv.app.StyleInterface
-     *
-     * @hide
-     */
-    public static final String STYLE_INTERFACE = "style";
-
-    /**
-     * Use with {@link android.content.Context#getSystemService} to retrieve a
      * {@link evervolv.hardware.HardwareManager} to manage the extended
      * hardware features of the device.
      *
@@ -65,13 +54,6 @@ public final class ContextConstants {
      * Features supported by the Vendor SDK.
      */
     public static class Features {
-        /**
-         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
-         * {@link PackageManager#hasSystemFeature}: The device includes the style service
-         * utilized by the sdk.
-         */
-        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
-        public static final String STYLES = "com.evervolv.style";
         /**
          * Feature for {@link PackageManager#getSystemAvailableFeatures} and
          * {@link PackageManager#hasSystemFeature}: The device includes the hardware abstraction

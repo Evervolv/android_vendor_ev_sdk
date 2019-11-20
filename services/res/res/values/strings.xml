@@ -31,13 +31,6 @@
     <string name="permlab_manageRemotePrefs">manage remote settings</string>
     <string name="permdesc_manageRemotePrefs">Allows an app to manage remote settings</string>
 
-    <!-- Labels for CHANGE_STYLE permission -->
-    <string name="permlab_changeStyle">change system style</string>
-    <!-- this is wrong, but google's package manager uses the android:description
-         attribute as description for the runtime permission request dialog
-         with non-default dangerous permissions -->
-    <string name="permdesc_changeStyle">customize the system colors</string>
-
     <!-- Labels for the HARDWARE_ABSTRACTION_ACCESS permission. -->
     <string name="permlab_useHardwareFramework">use hardware framework</string>
     <string name="permdesc_useHardwareFramework">Allows an app access to the Device hardware framework.</string>

@@ -20,7 +20,6 @@
          should publish as a binder services in its onStart -->
     <string-array name="config_externalVendorServices">
         <item>com.evervolv.platform.internal.HardwareService</item>
-        <item>com.evervolv.platform.internal.StyleInterfaceService</item>
         <item>com.evervolv.platform.internal.PerformanceManagerService</item>
     </string-array>
 
