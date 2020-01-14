@@ -158,6 +158,7 @@
     <dimen name="config_buttonBrightnessSettingDefaultFloat">1.0</dimen>
 
     <!-- Default values for LiveDisplay -->
+    <bool name="config_enableLiveDisplay">true</bool>
     <integer name="config_dayColorTemperature">6500</integer>
     <integer name="config_nightColorTemperature">4800</integer>
     <integer name="config_outdoorAmbientLux">12000</integer>
