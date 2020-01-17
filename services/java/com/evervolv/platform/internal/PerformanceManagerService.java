@@ -155,7 +155,7 @@ public class PerformanceManagerService extends VendorService {
 
                 synchronized (mLock) {
                     mMpctlReady = true;
-                    setPowerProfileLocked(mUserProfile, false);
+                    applyProfileLocked();
                 }
             });
             mWaitMpctlThread.setDaemon(true);
