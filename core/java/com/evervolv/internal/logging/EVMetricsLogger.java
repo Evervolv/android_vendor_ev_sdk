@@ -34,4 +34,8 @@ public class EVMetricsLogger extends MetricsLogger {
     // OPEN: QS Expanded desktop tile
     // CATEGORY: QUICK_SETTINGS
     public static final int QS_EXPANDED_DESKTOP = BASE + 3;
+
+    // OPEN: QS Powershare tile
+    // CATEGORY: QUICK_SETTINGS
+    public static final int TILE_POWERSHARE = BASE + 4;
 }
