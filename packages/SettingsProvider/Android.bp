@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2018 The LineageOS Project
+// Copyright (C) 2018-2020 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,4 +30,15 @@ android_app {
         "androidx.legacy_legacy-preference-v14",
         "com.evervolv.platform.internal",
     ],
+
+    required: [
+        "privapp_whitelist_com.evervolv.evsettings"
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_com.evervolv.evsettings",
+    sub_dir: "permissions",
+    src: "privapp_whitelist_com.evervolv.evsettings.xml",
+    filename_from_src: true,
 }
