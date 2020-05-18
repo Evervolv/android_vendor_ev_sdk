@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Evervolv Themes</string>
+
+    <!-- Default -->
+    <string name="theme_name_default">Default</string>
+    <string name="theme_title_default">@string/theme_name_default</string>
+
+    <!-- Blue -->
+    <string name="theme_name_blue">Blue</string>
+    <string name="theme_title_blue">@string/theme_name_blue</string>
+    <string name="theme_overlay_color_blue">com.evervolv.overlay.accent.blue</string>
+    <string name="theme_overlay_icon_android_blue">com.android.theme.icon_pack.filled.android</string>
+    <string name="theme_overlay_icon_launcher_blue">com.android.theme.icon_pack.filled.launcher</string>
+    <string name="theme_overlay_icon_settings_blue">com.android.theme.icon_pack.filled.settings</string>
+    <string name="theme_overlay_icon_sysui_blue">com.android.theme.icon_pack.filled.systemui</string>
+
+    <!-- Purple -->
+    <string name="theme_name_purple">Purple</string>
+    <string name="theme_title_purple">@string/theme_name_purple</string>
+    <string name="theme_overlay_color_purple">com.android.theme.color.purple</string>
+    <string name="theme_overlay_icon_android_purple">com.android.theme.icon_pack.filled.android</string>
+    <string name="theme_overlay_icon_launcher_purple">com.android.theme.icon_pack.filled.launcher</string>
+    <string name="theme_overlay_icon_settings_purple">com.android.theme.icon_pack.filled.settings</string>
+    <string name="theme_overlay_icon_sysui_purple">com.android.theme.icon_pack.filled.systemui</string>
+
+    <!-- Red -->
+    <string name="theme_name_red">Red</string>
+    <string name="theme_title_red">@string/theme_name_red</string>
+    <string name="theme_overlay_color_red">com.evervolv.overlay.accent.red</string>
+    <string name="theme_overlay_icon_android_red">com.android.theme.icon_pack.filled.android</string>
+    <string name="theme_overlay_icon_launcher_red">com.android.theme.icon_pack.filled.launcher</string>
+    <string name="theme_overlay_icon_settings_red">com.android.theme.icon_pack.filled.settings</string>
+    <string name="theme_overlay_icon_sysui_red">com.android.theme.icon_pack.filled.systemui</string>
 </resources>
