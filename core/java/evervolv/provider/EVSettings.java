@@ -1607,6 +1607,15 @@ public final class EVSettings {
         /** @hide */
         public static final Validator CAMERA_LAUNCH_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Screen off fod
+         * @hide
+         */
+        public static final String FOD_GESTURE = "fod_gesture";
+
+        /** @hide */
+        public static final Validator FOD_GESTURE_VALIDATOR = sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1782,6 +1791,7 @@ public final class EVSettings {
             VALIDATORS.put(ALERT_SLIDER_SILENT_MODE, ALERT_SLIDER_SILENT_MODE_VALIDATOR);
             VALIDATORS.put(CAMERA_SLEEP_ON_RELEASE, CAMERA_SLEEP_ON_RELEASE_VALIDATOR);
             VALIDATORS.put(CAMERA_LAUNCH, CAMERA_LAUNCH_VALIDATOR);
+            VALIDATORS.put(FOD_GESTURE, FOD_GESTURE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
