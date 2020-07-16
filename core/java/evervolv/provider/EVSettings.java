@@ -2226,7 +2226,7 @@ public final class EVSettings {
          * Boolean setting. 0 = off, 1 = on.
          * @hide
          */
-        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_visualizer";
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
         /* @hide */
         public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR =
