@@ -378,6 +378,18 @@ public class LiveDisplayService extends VendorService {
             final TwilightState twilight = mTwilightManager.getLastTwilightState();
             return twilight != null && twilight.isNight();
         }
+
+        @Override
+        public boolean isAntiFlickerEnabled() {
+            return mDHC.isAntiFlickerEnabled();
+        }
+
+        @Override
+        public boolean setAntiFlickerEnabled(boolean enabled) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mDHC.setAntiFlickerEnabled(enabled);
+        }
     };
 
     // Listener for screen on/off events

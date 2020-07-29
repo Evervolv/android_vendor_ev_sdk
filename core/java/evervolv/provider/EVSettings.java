@@ -1789,6 +1789,16 @@ public final class EVSettings {
         public static final Validator DISPLAY_READING_MODE_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * Anti flicker
+         * 0 = 0ff, 1 = on
+         */
+        public static final String DISPLAY_ANTI_FLICKER = "display_anti_flicker";
+
+        /** @hide */
+        public static final Validator DISPLAY_ANTI_FLICKER_VALIDATOR =
+                sBooleanValidator;
+
         // System Settings end
 
         /**
@@ -1978,6 +1988,7 @@ public final class EVSettings {
             VALIDATORS.put(LIVE_DISPLAY_HINTED, LIVE_DISPLAY_HINTED_VALIDATOR);
             VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(DISPLAY_READING_MODE, DISPLAY_READING_MODE_VALIDATOR);
+            VALIDATORS.put(DISPLAY_ANTI_FLICKER, DISPLAY_ANTI_FLICKER_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };

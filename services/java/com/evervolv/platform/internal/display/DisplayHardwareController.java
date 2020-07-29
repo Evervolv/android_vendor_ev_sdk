@@ -52,11 +52,13 @@ public class DisplayHardwareController extends LiveDisplayFeature {
     private final boolean mUseCABC;
     private final boolean mUseReaderMode;
     private final boolean mUseDisplayModes;
+    private final boolean mUseAntiFlicker;
 
     // default values
     private final boolean mDefaultAutoContrast;
     private final boolean mDefaultColorEnhancement;
     private final boolean mDefaultCABC;
+    private final boolean mDefaultAntiFlicker;
 
     // color adjustment holders
     private final float[] mAdditionalAdjustment = getDefaultAdjustment();
@@ -77,6 +79,8 @@ public class DisplayHardwareController extends LiveDisplayFeature {
             EVSettings.System.getUriFor(EVSettings.System.DISPLAY_CABC);
     private static final Uri DISPLAY_READING_MODE =
             EVSettings.System.getUriFor(EVSettings.System.DISPLAY_READING_MODE);
+    private static final Uri DISPLAY_ANTI_FLICKER =
+            EVSettings.System.getUriFor(EVSettings.System.DISPLAY_ANTI_FLICKER);
 
     public DisplayHardwareController(Context context, Handler handler) {
         super(context, handler);
@@ -106,6 +110,11 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         mUseReaderMode = mHardware
                 .isSupported(HardwareManager.FEATURE_READING_ENHANCEMENT);
 
+        mUseAntiFlicker = mHardware
+                .isSupported(HardwareManager.FEATURE_ANTI_FLICKER);
+        mDefaultAntiFlicker = mContext.getResources().getBoolean(
+                com.evervolv.platform.internal.R.bool.config_defaultAntiFlicker);
+
         if (mUseColorAdjustment) {
             mMaxColor = mHardware.getDisplayColorCalibrationMax();
             copyColors(getColorAdjustment(), mColorAdjustment);
@@ -132,6 +141,9 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         }
         if (mUseReaderMode) {
             settings.add(DISPLAY_READING_MODE);
+        }
+        if (mUseAntiFlicker) {
+            settings.add(DISPLAY_ANTI_FLICKER);
         }
 
         if (settings.size() == 0) {
@@ -161,8 +173,11 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         if (mUseReaderMode) {
             caps.set(LiveDisplayManager.FEATURE_READING_ENHANCEMENT);
         }
+        if (mUseAntiFlicker) {
+            caps.set(LiveDisplayManager.FEATURE_ANTI_FLICKER);
+        }
         return mUseAutoContrast || mUseColorEnhancement || mUseCABC || mUseColorAdjustment ||
-            mUseDisplayModes || mUseReaderMode;
+            mUseDisplayModes || mUseReaderMode || mUseAntiFlicker;
     }
 
     @Override
@@ -180,6 +195,9 @@ public class DisplayHardwareController extends LiveDisplayFeature {
             copyColors(getColorAdjustment(), mColorAdjustment);
             updateColorAdjustment();
         }
+        if (uri == null || uri.equals(DISPLAY_ANTI_FLICKER)) {
+            updateAntiFlicker();
+        }
     }
 
     private synchronized void updateHardware() {
@@ -187,6 +205,7 @@ public class DisplayHardwareController extends LiveDisplayFeature {
             updateCABCMode();
             updateAutoContrast();
             updateColorEnhancement();
+            updateAntiFlicker();
         }
     }
 
@@ -216,6 +235,7 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         pw.println("  mUseCABC=" + mUseCABC);
         pw.println("  mUseDisplayModes=" + mUseDisplayModes);
         pw.println("  mUseReaderMode=" + mUseReaderMode);
+        pw.println("  mUseAntiFlicker=" + mUseAntiFlicker);
         pw.println();
         pw.println("  DisplayHardwareController State:");
         pw.println("    mAutoContrast=" + isAutoContrastEnabled());
@@ -276,6 +296,16 @@ public class DisplayHardwareController extends LiveDisplayFeature {
         if (validateColors(rgb)) {
             animateDisplayColor(rgb);
         }
+    }
+
+    /**
+     * Anti flicker mode
+     */
+    private void updateAntiFlicker() {
+        if (!mUseAntiFlicker) {
+            return;
+        }
+        mHardware.set(HardwareManager.FEATURE_ANTI_FLICKER, isAntiFlickerEnabled());
     }
 
     /**
@@ -510,5 +540,18 @@ public class DisplayHardwareController extends LiveDisplayFeature {
             dst[1] = src[1];
             dst[2] = src[2];
         }
+    }
+
+    boolean isAntiFlickerEnabled() {
+        return mUseAntiFlicker &&
+                getBoolean(EVSettings.System.DISPLAY_ANTI_FLICKER, mDefaultAntiFlicker);
+    }
+
+    boolean setAntiFlickerEnabled(boolean enabled) {
+        if (!mUseAntiFlicker) {
+            return false;
+        }
+        putBoolean(EVSettings.System.DISPLAY_ANTI_FLICKER, enabled);
+        return true;
     }
 }

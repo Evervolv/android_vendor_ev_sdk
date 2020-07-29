@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2018-2019 The LineageOS Project
+// Copyright (C) 2018-2021 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -62,6 +62,7 @@ java_defaults {
         "androidx.legacy_legacy-preference-v14",
         "vendor.evervolv.touch-V1.0-java",
         "vendor.lineage.livedisplay-V2.0-java",
+        "vendor.lineage.livedisplay-V2.1-java",
     ],
     aidl: {
         local_include_dirs: ["core/java"],
