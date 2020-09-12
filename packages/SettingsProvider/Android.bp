@@ -33,7 +33,7 @@ android_app {
     ],
 
     required: [
-        "privapp_whitelist_com.evervolv.evsettings"
+        "privapp_whitelist_com.evervolv.evsettings",
     ],
 }
 

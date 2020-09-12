@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-java_library_static {
+java_library {
     name: "telephony-evervolv",
     srcs: ["src/**/*.java"],
     static_libs: [
