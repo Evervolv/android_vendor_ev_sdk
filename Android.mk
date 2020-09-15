@@ -1,5 +1,5 @@
 # Copyright (C) 2015 The CyanogenMod Project
-# Copyright (C) 2017-2018 The LineageOS Project
+# Copyright (C) 2017-2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
 evervolv_stub_packages := evervolv.app:evervolv.content:evervolv.hardware:evervolv.os:evervolv.preference:evervolv.provider:evervolv.platform:evervolv.power:evervolv.util:evervolv.style
 
 evervolv_framework_module := $(LOCAL_INSTALLED_MODULE)
