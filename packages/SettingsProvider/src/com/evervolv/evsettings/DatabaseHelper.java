@@ -168,6 +168,27 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             }
         }
 
+        if (upgradeVersion < 3) {
+            // Update button brightness range
+            if (mUserHandle == UserHandle.USER_OWNER) {
+                db.beginTransaction();
+                SQLiteStatement stmt = null;
+                try {
+                    stmt = db.compileStatement(
+                            "UPDATE system SET value=round(value / 255.0, 2) WHERE name=?");
+                    stmt.bindString(1, EVSettings.System.BUTTON_BRIGHTNESS);
+                    stmt.execute();
+                    db.setTransactionSuccessful();
+                } catch (SQLiteDoneException ex) {
+                    // key is not set
+                } finally {
+                    if (stmt != null) stmt.close();
+                    db.endTransaction();
+                }
+            }
+            upgradeVersion = 3;
+        }
+
         if (upgradeVersion < newVersion) {
             Log.w(TAG, "Got stuck trying to upgrade db. Old version: " + oldVersion
                     + ", version stuck at: " +  upgradeVersion + ", new version: "

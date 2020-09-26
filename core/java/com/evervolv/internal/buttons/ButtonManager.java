@@ -48,8 +48,8 @@ public final class ButtonManager {
     private boolean mVolBtnMusicControls = false;
 
     private int mButtonTimeout;
-    private int mButtonBrightness;
-    private int mButtonBrightnessDefault;
+    private float mButtonBrightness;
+    private float mButtonBrightnessDefault;
 
     private class ButtonHandler extends Handler {
         @Override
@@ -72,8 +72,8 @@ public final class ButtonManager {
         mContext = context;
         mHandler = new ButtonHandler();
 
-        mButtonBrightnessDefault = mContext.getResources().getInteger(
-                com.evervolv.platform.internal.R.integer.config_buttonBrightnessSettingDefault);
+        mButtonBrightnessDefault = mContext.getResources().getFloat(
+                com.evervolv.platform.internal.R.dimen.config_buttonBrightnessSettingDefaultFloat);
 
         SettingsObserver observer = new SettingsObserver(new Handler());
         observer.observe();
@@ -188,13 +188,17 @@ public final class ButtonManager {
                     resolver, EVSettings.System.BUTTON_BACKLIGHT_TIMEOUT,
                     DEFAULT_BUTTON_ON_DURATION, UserHandle.USER_CURRENT);
 
-            mButtonBrightness = EVSettings.System.getIntForUser(
+            mButtonBrightness = EVSettings.System.getFloatForUser(
                     resolver, EVSettings.System.BUTTON_BRIGHTNESS, 
                     mButtonBrightnessDefault, UserHandle.USER_CURRENT);
         }
     }
 
-    public int getButtonBrightness() {
+    public float getButtonBrightnessDefault() {
+        return mButtonBrightnessDefault;
+    }
+
+    public float getButtonBrightness() {
         return mButtonBrightness;
     }
 
