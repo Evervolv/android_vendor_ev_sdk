@@ -79,7 +79,6 @@ public class HardwareService extends VendorService {
         super(context);
         mContext = context;
         mHardwareImpl = getImpl(context);
-        publishBinderService(ContextConstants.HARDWARE_MANAGER, mService);
     }
 
     @Override
@@ -99,6 +98,7 @@ public class HardwareService extends VendorService {
 
     @Override
     public void onStart() {
+        publishBinderService(ContextConstants.HARDWARE_MANAGER, mService);
     }
 
     private final IBinder mService = new IHardwareService.Stub() {
