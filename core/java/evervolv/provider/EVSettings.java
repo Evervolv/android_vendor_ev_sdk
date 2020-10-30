@@ -1616,6 +1616,29 @@ public final class EVSettings {
         /** @hide */
         public static final Validator FOD_GESTURE_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Adaptive playback
+         * Automatically pause media when the volume is muted and
+         * will resume automatically when volume is restored.
+         *   0 = disabled
+         *   1 = enabled
+         * @hide
+         */
+        public static final String ADAPTIVE_PLAYBACK_ENABLED = "adaptive_playback_enabled";
+
+        /** @hide */
+        public static final Validator ADAPTIVE_PLAYBACK_ENABLED_VALIDATOR = sBooleanValidator;
+
+        /**
+         * Adaptive playback's timeout in ms
+         * @hide
+         */
+        public static final String ADAPTIVE_PLAYBACK_TIMEOUT = "adaptive_playback_timeout";
+
+        /** @hide */
+        public static final Validator ADAPTIVE_PLAYBACK_TIMEOUT_VALIDATOR =
+                sNonNegativeIntegerValidator;
+
         // System Settings end
 
         /**
@@ -1792,6 +1815,8 @@ public final class EVSettings {
             VALIDATORS.put(CAMERA_SLEEP_ON_RELEASE, CAMERA_SLEEP_ON_RELEASE_VALIDATOR);
             VALIDATORS.put(CAMERA_LAUNCH, CAMERA_LAUNCH_VALIDATOR);
             VALIDATORS.put(FOD_GESTURE, FOD_GESTURE_VALIDATOR);
+            VALIDATORS.put(ADAPTIVE_PLAYBACK_ENABLED, ADAPTIVE_PLAYBACK_ENABLED_VALIDATOR);
+            VALIDATORS.put(ADAPTIVE_PLAYBACK_TIMEOUT, ADAPTIVE_PLAYBACK_TIMEOUT_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
