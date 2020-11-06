@@ -58,8 +58,10 @@ public class Intent {
      * toggled elsewhere in the settings (ie profiles, immersive desktop, etc) so we don't have
      * to do constant lookups while we wait for the menu to be created. Getting the values once
      * when necessary is enough.
-     *@hide
+     * @deprecated
+     * @hide
      */
+    @Deprecated
     public static final String ACTION_UPDATE_POWER_MENU =
             "evervolv.intent.action.UPDATE_POWER_MENU";
 
