@@ -22,3 +22,17 @@ java_library {
         "libphonenumber",
     ],
 }
+
+// Sensitive Phone Numbers schema
+// =============================================================
+filegroup {
+    name: "spn-schema",
+    srcs: ["SpnInfo.xsd"],
+}
+
+xsd_config {
+    name: "spn-info",
+    srcs: [":spn-schema"],
+    api_dir: "schema",
+    package_name: "com.evervolv.internal.phone.spn",
+}
