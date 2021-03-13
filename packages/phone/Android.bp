@@ -16,6 +16,7 @@
 
 java_library {
     name: "telephony-evervolv",
+    sdk_version: "current",
     srcs: ["src/**/*.java"],
     static_libs: [
         "libphonenumber",
