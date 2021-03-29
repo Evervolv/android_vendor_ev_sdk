@@ -18,7 +18,6 @@
 package com.evervolv.internal.util;
 
 /* Master list of all actions for the power menu */
-@Deprecated
 public class PowerMenuConstants {
     public static final String GLOBAL_ACTION_KEY_POWER = "power";
     public static final String GLOBAL_ACTION_KEY_RESTART = "restart";
