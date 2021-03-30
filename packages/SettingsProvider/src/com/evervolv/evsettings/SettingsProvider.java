@@ -63,7 +63,7 @@ public class SettingsProvider extends ContentProvider {
     public static final String PREF_SETTINGS_VERSION = "settings_version";
 
     /** A build ID string meant for displaying to the user */
-    private static final int SETTINGS_VERSION = Build.EVERVOLV_VERSION_CODES.BOHRIUM;
+    private static final int SETTINGS_VERSION = Build.CURRENT_VERSION;
 
     private static final Bundle NULL_SETTING = Bundle.forPair("value", null);
 
@@ -149,7 +149,7 @@ public class SettingsProvider extends ContentProvider {
     private void migrateEVSettingsForExistingUsersIfNeeded() {
         int version = mSharedPrefs.getInt(PREF_SETTINGS_VERSION, 0);
 
-        if (version < Build.EVERVOLV_VERSION_CODES.ACTINIUM) {
+        if (version < Build.CURRENT_VERSION) {
             long startTime = System.currentTimeMillis();
 
             for (UserInfo user : mUserManager.getUsers()) {

@@ -33,6 +33,7 @@ public class Build {
         sdkMap = new SparseArray<String>();
         sdkMap.put(EVERVOLV_VERSION_CODES.ACTINIUM, "Actinium");
         sdkMap.put(EVERVOLV_VERSION_CODES.BOHRIUM, "Bohrium");
+        sdkMap.put(EVERVOLV_VERSION_CODES.COBALT, "Cobalt");
     }
 
     /** Various version strings. */
@@ -66,7 +67,16 @@ public class Build {
          * September 2019: Version adds support for Q based features, TBD.
          */
         public static final int BOHRIUM = 2;
+        /**
+         * March 2021: Version adds support for R based features, TBD.
+         */
+        public static final int COBALT = 3;
     }
+
+    /**
+     * Match the latest code available in {@link EVERVOLV_VERSION_CODES}
+     */
+    public static final int CURRENT_VERSION = EVERVOLV_VERSION_CODES.COBALT;
 
     /**
      * Retrieve the name for the SDK int

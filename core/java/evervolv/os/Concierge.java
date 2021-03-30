@@ -18,7 +18,7 @@ package evervolv.os;
 
 import android.os.Parcel;
 
-import evervolv.os.Build.EVERVOLV_VERSION_CODES;
+import evervolv.os.Build;
 
 /**
  * Simply, Concierge handles your parcels and makes sure they get marshalled and unmarshalled
@@ -64,7 +64,7 @@ public final class Concierge {
      * {@link LINEAGE_VERSION_CODES}
      * @hide
      */
-    public static final int PARCELABLE_VERSION = EVERVOLV_VERSION_CODES.ACTINIUM;
+    public static final int PARCELABLE_VERSION = Build.CURRENT_VERSION;
 
     /**
      * Tell the concierge to receive our parcel, so we can get information from it.

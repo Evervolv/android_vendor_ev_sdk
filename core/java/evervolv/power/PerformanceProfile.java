@@ -53,10 +53,6 @@ public class PerformanceProfile implements Parcelable, Comparable<PerformancePro
         mName = in.readString();
         mDescription = in.readString();
 
-        if (parcelableVersion >= Build.EVERVOLV_VERSION_CODES.ACTINIUM) {
-            // nothing yet
-        }
-
         parcelInfo.complete();
     }
 
