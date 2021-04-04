@@ -51,6 +51,13 @@ public final class ContextConstants {
     public static final String PERFORMANCE_SERVICE = "ev_performance";
 
     /**
+     * Update power menu (GlobalActions)
+     *
+     * @hide
+     */
+    public static final String GLOBAL_ACTIONS_SERVICE = "ev_globalactions";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
@@ -68,6 +75,14 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String PERFORMANCE = "com.evervolv.performance";
+
+        /**
+         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
+         * {@link PackageManager#hasSystemFeature}: The device includes the lineage globalactions
+         * service utilized by the lineage sdk and LineageParts.
+         */
+        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
+        public static final String GLOBAL_ACTIONS = "com.evervolv.globalactions";
 
         /**
          * Feature for {@link PackageManager#getSystemAvailableFeatures} and

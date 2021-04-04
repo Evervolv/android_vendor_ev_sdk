@@ -33,6 +33,12 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "com.evervolv.globalactions.xml",
+    sub_dir: "permissions",
+    src: "com.evervolv.globalactions.xml",
+}
+
+prebuilt_etc {
     name: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",
     sub_dir: "permissions",
     src: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",

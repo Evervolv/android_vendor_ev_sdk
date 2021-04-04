@@ -21,6 +21,7 @@
     <string-array name="config_externalVendorServices">
         <item>com.evervolv.platform.internal.HardwareService</item>
         <item>com.evervolv.platform.internal.PerformanceManagerService</item>
+        <item>com.evervolv.platform.internal.GlobalActionService</item>
     </string-array>
 
     <!-- The LineageSystemServer class that is invoked from Android's SystemServer -->
