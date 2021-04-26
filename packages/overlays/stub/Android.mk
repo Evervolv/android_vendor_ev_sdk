@@ -26,4 +26,17 @@ LOCAL_MANIFEST_FILE := AndroidManifest.xml
 LOCAL_PACKAGE_NAME := PlatformThemesStub
 LOCAL_SDK_VERSION := current
 
+LOCAL_REQUIRED_MODULES := \
+    PlatformBlackAccent \
+    PlatformBlueAccent \
+    PlatformCyanAccent \
+    PlatformGreenAccent \
+    PlatformOrangeAccent \
+    PlatformPinkAccent \
+    PlatformRedAccent \
+    PlatformYellowAccent \
+    PlatformBlackTheme \
+    PlatformLatoFont \
+    PlatformRubikFont
+
 include $(BUILD_PACKAGE)
