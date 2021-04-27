@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2018-2020 The LineageOS Project
+// Copyright (C) 2018-2019 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,17 +49,31 @@ android_app {
 // The Evervolv Platform Framework Library
 // ============================================================
 
-evervolv_sdk_src = "core/java/evervolv"
-evervolv_sdk_internal_src = "core/java/com/evervolv/internal"
-evervolv_services_src = "services/java"
+java_defaults {
+    name: "com.evervolv.platform-defaults",
+    srcs: [
+        "core/java/evervolv/**/*.java",
+        "core/java/evervolv/**/I*.aidl",
+    ],
+    static_libs: [
+        "androidx.annotation_annotation",
+        "androidx.preference_preference",
+        "androidx.recyclerview_recyclerview",
+        "androidx.legacy_legacy-preference-v14",
+        "vendor.evervolv.touch-V1.0-java",
+    ],
+    aidl: {
+        local_include_dirs: ["core/java"],
+    },
+}
 
-evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES = [
-    "androidx.annotation_annotation",
-    "androidx.preference_preference",
-    "androidx.recyclerview_recyclerview",
-    "androidx.legacy_legacy-preference-v14",
-    "vendor.evervolv.touch-V1.0-java",
-]
+java_defaults {
+    name: "com.evervolv.internal-defaults",
+    srcs: [
+        "core/java/com/evervolv/internal/**/*.java",
+        "core/java/com/evervolv/internal/**/I*.aidl",
+    ],
+}
 
 // READ ME: ########################################################
 //
@@ -74,27 +88,14 @@ evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES = [
 
 java_library {
     name: "com.evervolv.platform",
+    defaults: [
+        "com.evervolv.platform-defaults",
+        "com.evervolv.internal-defaults",
+    ],
     installable: true,
     sdk_version: "core_platform",
-    static_libs: evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
-
-    libs: [
-        "framework",
-        "services",
-    ],
-
-    srcs: [
-        evervolv_sdk_src + "/**/*.java",
-        evervolv_sdk_internal_src + "/**/*.java",
-        evervolv_services_src + "/**/*.java",
-        evervolv_sdk_src + "/**/I*.aidl",
-        evervolv_sdk_internal_src + "/**/I*.aidl",
-    ],
-
-    // Include aidl files from evervolv.app namespace as well as internal src aidl files
-    aidl: {
-        local_include_dirs: ["core/java"],
-    },
+    srcs: ["services/java/**/*.java"],
+    libs: ["framework", "services"],
 }
 
 // Full target for use by platform apps
@@ -102,19 +103,11 @@ java_library {
 
 java_library {
     name: "com.evervolv.platform.internal",
-    required: ["services"],
-    static_libs: evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
-
-    srcs: [
-        evervolv_sdk_src + "/**/*.java",
-        evervolv_sdk_internal_src + "/**/*.java",
-        evervolv_sdk_src + "/**/I*.aidl",
-        evervolv_sdk_internal_src + "/**/I*.aidl",
+    defaults: [
+        "com.evervolv.platform-defaults",
+        "com.evervolv.internal-defaults",
     ],
-
-    aidl: {
-        local_include_dirs: ["core/java"],
-    },
+    required: ["services"],
 }
 
 // The SDK
@@ -124,19 +117,6 @@ java_library {
 
 java_library {
     name: "com.evervolv.platform.sdk",
+    defaults: ["com.evervolv.platform-defaults"],
     required: ["services"],
-    static_libs: evervolv_sdk_LOCAL_STATIC_JAVA_LIBRARIES,
-
-    srcs: [
-        evervolv_sdk_src + "/**/*.java",
-        evervolv_sdk_src + "/**/I*.aidl",
-    ],
-
-    aidl: {
-        local_include_dirs: ["core/java"],
-    },
 }
-
-subdirs = [
-    "core/*",
-]
