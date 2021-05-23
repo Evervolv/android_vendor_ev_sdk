@@ -109,6 +109,15 @@ public class PerformanceManagerService extends VendorService {
     // interested in gleaning global battery saver state.
     private static final int SERVICE_TYPE_DUMMY = ServiceType.LOCATION;
 
+    private static final String PERF_SERVICE_NAMES[] = {
+        "perfd",
+        "vendor.perfd",
+        "perf-hal-1-0",
+        "perf-hal-2-0",
+        "perf-hal-2-1",
+        "perf-hal-2-2",
+    };
+
     public PerformanceManagerService(Context context) {
         super(context);
 
@@ -132,11 +141,15 @@ public class PerformanceManagerService extends VendorService {
                         continue;
                     }
 
-                    if (SystemProperties.get("init.svc.perfd").equals("running") ||
-                            SystemProperties.get("init.svc.vendor.perfd").equals("running") ||
-                            SystemProperties.get("init.svc.perf-hal-1-0").equals("running") ||
-                            SystemProperties.get("init.svc.perf-hal-2-0").equals("running") ||
-                            SystemProperties.get("init.svc.mpdecision").equals("running")) {
+                    boolean serviceRunning = false;
+                    for (String service : PERF_SERVICE_NAMES) {
+                        if (SystemProperties.get("init.svc." + service).equals("running")) {
+                            serviceRunning = true;
+                            break;
+                        }
+                    }
+
+                    if (serviceRunning) {
                         break;
                     }
 
@@ -163,6 +176,10 @@ public class PerformanceManagerService extends VendorService {
         } else {
             mWaitMpctlThread = null;
         }
+    }
+
+    private boolean isPerfStarted() {
+        return false;
     }
 
     private class PerformanceSettingsObserver extends ContentObserver {
