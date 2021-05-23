@@ -39,7 +39,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import evervolv.app.ContextConstants;
 import evervolv.hardware.HardwareManager;
+import evervolv.power.PerformanceManager;
 import evervolv.platform.R;
 
 /**
@@ -176,6 +178,10 @@ public class ConstraintsHelper {
                 if (rFeature.startsWith("hardware:")) {
                     if (!HardwareManager.getInstance(mContext).isSupported(
                             rFeature.substring("hardware:".length()))) {
+                        return false;
+                    }
+                } else if (rFeature.equals(ContextConstants.Features.PERFORMANCE)) {
+                    if (PerformanceManager.getInstance(mContext).getNumberOfProfiles() <= 0) {
                         return false;
                     }
                 } else if (!hasSystemFeature(mContext, rFeature)) {
