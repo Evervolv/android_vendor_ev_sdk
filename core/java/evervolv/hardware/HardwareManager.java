@@ -32,6 +32,7 @@ import evervolv.app.ContextConstants;
 import evervolv.hardware.HIDLHelper;
 import evervolv.hardware.TouchscreenGesture;
 
+import vendor.evervolv.touch.V1_0.IHighTouchPollingRate;
 import vendor.evervolv.touch.V1_0.IGloveMode;
 import vendor.evervolv.touch.V1_0.IKeyDisabler;
 import vendor.evervolv.touch.V1_0.IKeySwapper;
@@ -172,6 +173,12 @@ public final class HardwareManager {
     @VisibleForTesting
     public static final int FEATURE_ANTI_FLICKER = 0x4000;
 
+    /**
+     * Anti flicker mode
+     */
+    @VisibleForTesting
+    public static final int FEATURE_HIGH_TOUCH_POLLING_RATE = 0x8000;
+
     private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
         FEATURE_ADAPTIVE_BACKLIGHT,
         FEATURE_ANTI_FLICKER,
@@ -182,7 +189,8 @@ public final class HardwareManager {
         FEATURE_KEY_SWAP,
         FEATURE_READING_ENHANCEMENT,
         FEATURE_SUNLIGHT_ENHANCEMENT,
-        FEATURE_TOUCH_HOVERING
+        FEATURE_TOUCH_HOVERING,
+        FEATURE_HIGH_TOUCH_POLLING_RATE
     );
 
     /**
@@ -301,6 +309,8 @@ public final class HardwareManager {
                     return IDisplayColorCalibration.getService(true);
                 case FEATURE_DISPLAY_MODES:
                     return IDisplayModes.getService(true);
+                case FEATURE_HIGH_TOUCH_POLLING_RATE:
+                    return IHighTouchPollingRate.getService(true);
                 case FEATURE_HIGH_TOUCH_SENSITIVITY:
                     return IGloveMode.getService(true);
                 case FEATURE_KEY_DISABLE:
@@ -373,6 +383,9 @@ public final class HardwareManager {
                     case FEATURE_COLOR_ENHANCEMENT:
                         IColorEnhancement colorEnhancement = (IColorEnhancement) obj;
                         return colorEnhancement.isEnabled();
+                    case FEATURE_HIGH_TOUCH_POLLING_RATE:
+                        IHighTouchPollingRate highTouchPollingRate = (IHighTouchPollingRate) obj;
+                        return highTouchPollingRate.isEnabled();
                     case FEATURE_HIGH_TOUCH_SENSITIVITY:
                         IGloveMode gloveMode = (IGloveMode) obj;
                         return gloveMode.isEnabled();
@@ -428,6 +441,9 @@ public final class HardwareManager {
                     case FEATURE_COLOR_ENHANCEMENT:
                         IColorEnhancement colorEnhancement = (IColorEnhancement) obj;
                         return colorEnhancement.setEnabled(enable);
+                    case FEATURE_HIGH_TOUCH_POLLING_RATE:
+                        IHighTouchPollingRate highTouchPollingRate = (IHighTouchPollingRate) obj;
+                        return highTouchPollingRate.setEnabled(enable);
                     case FEATURE_HIGH_TOUCH_SENSITIVITY:
                         IGloveMode gloveMode = (IGloveMode) obj;
                         return gloveMode.setEnabled(enable);

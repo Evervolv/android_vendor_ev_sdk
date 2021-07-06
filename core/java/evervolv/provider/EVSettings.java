@@ -1246,6 +1246,17 @@ public final class EVSettings {
         public static final Validator STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 2);
 
+        /**
+         * Whether the HighTouchPollingRate is activated or not.
+         * 0 = off, 1 = on
+         */
+        public static final String HIGH_TOUCH_POLLING_RATE_ENABLE =
+                "high_touch_polling_rate_enable";
+
+        /** @hide */
+        public static final Validator HIGH_TOUCH_POLLING_RATE_ENABLE_VALIDATOR =
+                sBooleanValidator;
+
          /**
          * Whether the HighTouchSensitivity is activated or not.
          * 0 = off, 1 = on
@@ -1950,6 +1961,8 @@ public final class EVSettings {
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_QUICK_QS_PULLDOWN,
                     STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
+            VALIDATORS.put(HIGH_TOUCH_POLLING_RATE_ENABLE,
+                    HIGH_TOUCH_POLLING_RATE_ENABLE_VALIDATOR);
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE,
                     HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
             VALIDATORS.put(SWIPE_TO_SCREENSHOT, SWIPE_TO_SCREENSHOT_VALIDATOR);
