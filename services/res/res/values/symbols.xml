@@ -129,6 +129,8 @@
     <java-symbol type="string" name="live_display_hint" />
     <java-symbol type="string" name="live_display_auto" />
     <java-symbol type="string" name="live_display_auto_summary" />
+    <java-symbol type="string" name="live_display_off" />
+    <java-symbol type="string" name="live_display_off_summary" />
     <java-symbol type="string" name="live_display_day" />
     <java-symbol type="string" name="live_display_day_summary" />
     <java-symbol type="string" name="live_display_night" />
