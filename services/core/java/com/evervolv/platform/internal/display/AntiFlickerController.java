@@ -29,6 +29,8 @@ import evervolv.provider.EVSettings;
 
 import java.util.ArrayList;
 
+import static evervolv.hardware.LiveDisplayManager.MODE_AUTO;
+
 public class AntiFlickerController extends LiveDisplayFeature {
 
     private static final String TAG = "AntiFlickerController";
@@ -92,6 +94,11 @@ public class AntiFlickerController extends LiveDisplayFeature {
     }
 
     @Override
+    protected void onTwilightUpdated() {
+        updateAntiFlicker();
+    }
+
+    @Override
     public void dump(PrintWriter pw) {
         pw.println();
         pw.println("AntiFlickerController Configuration:");
@@ -109,8 +116,15 @@ public class AntiFlickerController extends LiveDisplayFeature {
     }
 
     boolean isAntiFlickerEnabled() {
-        return mUseAntiFlicker &&
-                getBoolean(EVSettings.System.DISPLAY_ANTI_FLICKER, mDefaultAntiFlicker);
+        if (!mUseAntiFlicker) {
+            return false;
+        }
+
+        final int currentMode = getInt(EVSettings.System.DISPLAY_ANTI_FLICKER, 0);
+        if (currentMode == MODE_AUTO) {
+            return isNight();
+        }
+        return currentMode == 1;
     }
 
     boolean setAntiFlickerEnabled(boolean enabled) {
