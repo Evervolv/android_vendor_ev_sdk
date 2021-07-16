@@ -87,6 +87,7 @@ public class LiveDisplayService extends VendorService {
 
     private final List<LiveDisplayFeature> mFeatures = new ArrayList<LiveDisplayFeature>();
 
+    private AntiFlickerController mAFC;
     private ColorTemperatureController mCTC;
     private DisplayHardwareController mDHC;
     private OutdoorModeController mOMC;
@@ -152,6 +153,9 @@ public class LiveDisplayService extends VendorService {
             mTwilightManager = getLocalService(TwilightManager.class);
         } else if (phase == PHASE_BOOT_COMPLETED) {
             mAwaitingNudge = getSunsetCounter() < 1;
+
+            mAFC = new AntiFlickerController(mContext, mHandler);
+            mFeatures.add(mAFC);
 
             mDHC = new DisplayHardwareController(mContext, mHandler);
             mFeatures.add(mDHC);
@@ -381,14 +385,14 @@ public class LiveDisplayService extends VendorService {
 
         @Override
         public boolean isAntiFlickerEnabled() {
-            return mDHC.isAntiFlickerEnabled();
+            return mAFC.isAntiFlickerEnabled();
         }
 
         @Override
         public boolean setAntiFlickerEnabled(boolean enabled) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mDHC.setAntiFlickerEnabled(enabled);
+            return mAFC.setAntiFlickerEnabled(enabled);
         }
     };
 
