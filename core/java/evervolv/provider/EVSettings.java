@@ -1813,6 +1813,20 @@ public final class EVSettings {
         public static final Validator DISPLAY_ANTI_FLICKER_VALIDATOR =
                 sBooleanValidator;
 
+        /**
+         * The user selected preferred refresh rate in frames per second.
+         *
+         * This defines the refresh rate at which UI will run, provided it
+         * falls in the range of minimum and peak refresh rate.
+         *
+         * If this isn't set, the system falls back to a device specific default.
+         */
+        public static final String PREFERRED_REFRESH_RATE = "preferred_refresh_rate";
+
+        /** @hide */
+        public static final Validator PREFERRED_REFRESH_RATE_VALIDATOR =
+                new InclusiveFloatRangeValidator(0, 240);
+
         // System Settings end
 
         /**
@@ -2003,6 +2017,7 @@ public final class EVSettings {
             VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(DISPLAY_READING_MODE, DISPLAY_READING_MODE_VALIDATOR);
             VALIDATORS.put(DISPLAY_ANTI_FLICKER, DISPLAY_ANTI_FLICKER_VALIDATOR);
+            VALIDATORS.put(PREFERRED_REFRESH_RATE, PREFERRED_REFRESH_RATE_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
