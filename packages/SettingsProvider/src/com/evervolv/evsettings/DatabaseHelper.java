@@ -279,6 +279,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     R.bool.def_lockscreen_visualizer);
             loadBooleanSetting(stmt, EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA,
                     R.bool.def_lockscreen_media_metadata);
+            loadBooleanSetting(stmt, EVSettings.Secure.VOLUME_PANEL_ON_LEFT,
+                    R.bool.def_volume_panel_on_left);
         } finally {
             if (stmt != null) stmt.close();
         }

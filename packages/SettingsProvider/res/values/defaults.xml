@@ -44,4 +44,7 @@
     <!-- Default for EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA -->
     <bool name="def_lockscreen_media_metadata">false</bool>
 
+    <!-- Default for EVSettings.Secure.VOLUME_PANEL_ON_LEFT -->
+    <bool name="def_volume_panel_on_left">false</bool>
+
 </resources>
