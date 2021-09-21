@@ -162,6 +162,10 @@
          causes a poor experience. -->
     <java-symbol type="bool" name="config_fingerprintWakeAndUnlock" />
 
+    <!-- Device keys user-customisable behavior -->
+    <java-symbol type="array" name="keyhandler_keycodes" />
+    <java-symbol type="array" name="keyhandler_packages" />
+
     <!-- Whether to cleanup fingerprints upon connection to the daemon and when
          user switches -->
     <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
