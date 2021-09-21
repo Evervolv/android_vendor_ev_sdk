@@ -76,9 +76,7 @@
         <item>193</item> <!-- KEYCODE_BUTTON_6 -->
         <item>194</item> <!-- KEYCODE_BUTTON_7 -->
         <item>195</item> <!-- KEYCODE_BUTTON_8 -->
-        <item>219</item> <!-- KEYCODE_ASSIST -->
         <item>225</item> <!-- KEYCODE_PAIRING -->
-        <item>231</item> <!-- KEYCODE_VOICE_ASSIST -->
         <item>187</item> <!-- KEYCODE_SWITCH -->
     </integer-array>
 
@@ -86,15 +84,13 @@
          Order & size must match with keyhandler_keycodes -->
     <string-array name="keyhandler_packages">
         <item>com.google.android.tv</item>
-        <item>com.android.tv.settings</item>
+        <item>android.settings.SETTINGS</item> <!-- This is an intent -->
         <item>com.google.android.youtube.tv</item>
         <item>com.netflix.ninja</item>
         <item>com.disney.disneyplus</item>
         <item>com.hbo.hbonow</item>
         <item>com.android.vending</item>
-        <item>com.google.android.katniss</item>
         <item>com.google.android.intent.action.CONNECT_INPUT</item>
-        <item>com.google.android.katniss</item>
         <item>org.lineageos.tv.launcher.SYSTEM_OPTIONS</item>
     </string-array>
 </resources>
