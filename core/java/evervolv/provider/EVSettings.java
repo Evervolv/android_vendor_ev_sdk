@@ -203,7 +203,7 @@ public final class EVSettings {
                 arg.putString(Settings.NameValueTable.VALUE, value);
                 arg.putInt(CALL_METHOD_USER_KEY, userId);
                 IContentProvider cp = lazyGetProvider(cr);
-                cp.call(cr.getPackageName(), cr.getAttributionTag(),
+                cp.call(cr.getAttributionSource(),
                         AUTHORITY, mCallSetCommand, name, arg);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't set key " + name + " in " + mUri, e);
@@ -261,7 +261,7 @@ public final class EVSettings {
                         args = new Bundle();
                         args.putInt(CALL_METHOD_USER_KEY, userId);
                     }
-                    Bundle b = cp.call(cr.getPackageName(), cr.getAttributionTag(),
+                    Bundle b = cp.call(cr.getAttributionSource(),
                             AUTHORITY, mCallGetCommand, name, args);
                     if (b != null) {
                         String value = b.getPairValue();
@@ -289,7 +289,7 @@ public final class EVSettings {
             try {
                 Bundle queryArgs = ContentResolver.createSqlQueryBundle(
                         NAME_EQ_PLACEHOLDER, new String[]{name}, null);
-                c = cp.query(cr.getPackageName(), cr.getAttributionTag(), mUri,
+                c = cp.query(cr.getAttributionSource(), mUri,
                         SELECT_VALUE_PROJECTION, queryArgs, null);
                 if (c == null) {
                     Log.w(TAG, "Can't get key " + name + " from " + mUri);

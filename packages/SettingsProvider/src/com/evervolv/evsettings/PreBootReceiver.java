@@ -40,9 +40,9 @@ public class PreBootReceiver extends BroadcastReceiver{
         IContentProvider contentProvider = contentResolver.acquireProvider(
                 EVSettings.AUTHORITY);
 
-        try{
-            contentProvider.call(contentResolver.getPackageName(),
-                    contentResolver.getAttributionTag(), EVSettings.AUTHORITY,
+        try {
+            contentProvider.call(contentResolver.getAttributionSource(),
+                    EVSettings.AUTHORITY,
                     EVSettings.CALL_METHOD_MIGRATE_SETTINGS, null, null);
         } catch (RemoteException ex) {
             Log.w(TAG, "Failed to trigger settings migration due to RemoteException");
