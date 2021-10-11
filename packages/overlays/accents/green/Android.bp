@@ -1,5 +1,0 @@
-runtime_resource_overlay {
-    name: "PlatformGreenAccent",
-    theme: "PlatformGreenAccent",
-    product_specific: true,
-}

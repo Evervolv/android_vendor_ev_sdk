@@ -1,8 +1,0 @@
-runtime_resource_overlay {
-    name: "PlatformCyanAccent",
-    theme: "PlatformCyanAccent",
-    overrides: [
-        "AccentColorOceanOverlay",
-    ],
-    product_specific: true,
-}
