@@ -1,8 +1,0 @@
-runtime_resource_overlay {
-    name: "PlatformBlackAccent",
-    theme: "PlatformBlackAccent",
-    overrides: [
-        "AccentColorBlackOverlay",
-    ],
-    product_specific: true,
-}
