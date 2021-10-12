@@ -68,6 +68,8 @@ java_defaults {
     srcs: [
         "core/java/evervolv/**/*.java",
         "core/java/evervolv/**/I*.aidl",
+        // For the generated R.java and Manifest.java
+        ":com.evervolv.platform-res{.aapt.srcjar}",
     ],
     static_libs: [
         "androidx.annotation_annotation",
