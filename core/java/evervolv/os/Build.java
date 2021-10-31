@@ -34,6 +34,7 @@ public class Build {
         sdkMap.put(EVERVOLV_VERSION_CODES.ACTINIUM, "Actinium");
         sdkMap.put(EVERVOLV_VERSION_CODES.BOHRIUM, "Bohrium");
         sdkMap.put(EVERVOLV_VERSION_CODES.COBALT, "Cobalt");
+        sdkMap.put(EVERVOLV_VERSION_CODES.DUBNIUM, "Dubnium");
     }
 
     /** Various version strings. */
@@ -71,12 +72,16 @@ public class Build {
          * March 2021: Version adds support for R based features, TBD.
          */
         public static final int COBALT = 3;
+        /**
+         * October 2021: Version adds support for S based features, TBD.
+         */
+        public static final int DUBNIUM = 4;
     }
 
     /**
      * Match the latest code available in {@link EVERVOLV_VERSION_CODES}
      */
-    public static final int CURRENT_VERSION = EVERVOLV_VERSION_CODES.COBALT;
+    public static final int CURRENT_VERSION = EVERVOLV_VERSION_CODES.DUBNIUM;
 
     /**
      * Retrieve the name for the SDK int
