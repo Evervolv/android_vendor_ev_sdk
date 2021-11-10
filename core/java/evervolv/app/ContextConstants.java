@@ -44,13 +44,6 @@ public final class ContextConstants {
     public static final String HARDWARE_MANAGER = "ev_hardware_manager";
 
     /**
-     * Control device power profile and characteristics.
-     *
-     * @hide
-     */
-    public static final String PERFORMANCE_SERVICE = "ev_performance";
-
-    /**
      * Update power menu (GlobalActions)
      *
      * @hide
@@ -86,13 +79,6 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String HARDWARE_ABSTRACTION = "com.evervolv.hardware";
-        /**
-         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
-         * {@link PackageManager#hasSystemFeature}: The device includes the hardware abstraction
-         * framework service utilized by the sdk.
-         */
-        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
-        public static final String PERFORMANCE = "com.evervolv.performance";
 
         /**
          * Feature for {@link PackageManager#getSystemAvailableFeatures} and
