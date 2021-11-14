@@ -17,6 +17,7 @@ prebuilt_etc {
     name: "com.evervolv.platform.xml",
     sub_dir: "permissions",
     src: "com.evervolv.platform.xml",
+    product_specific: true,
 }
 
 // SDK feature permission files
@@ -24,28 +25,33 @@ prebuilt_etc {
     name: "com.evervolv.hardware.xml",
     sub_dir: "permissions",
     src: "com.evervolv.hardware.xml",
+    product_specific: true,
 }
 
 prebuilt_etc {
     name: "com.evervolv.livedisplay.xml",
     sub_dir: "permissions",
     src: "com.evervolv.livedisplay.xml",
+    product_specific: true,
 }
 
 prebuilt_etc {
     name: "com.evervolv.performance.xml",
     sub_dir: "permissions",
     src: "com.evervolv.performance.xml",
+    product_specific: true,
 }
 
 prebuilt_etc {
     name: "com.evervolv.globalactions.xml",
     sub_dir: "permissions",
     src: "com.evervolv.globalactions.xml",
+    product_specific: true,
 }
 
 prebuilt_etc {
     name: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",
     sub_dir: "permissions",
     src: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",
+    product_specific: true,
 }
