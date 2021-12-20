@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2015 The CyanogenMod Project
- * Copyright (C) 2019 The LineageOS Project
+ *               2017-2019,2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -745,15 +745,26 @@ public class SettingsProvider extends ContentProvider {
      * @throws SecurityException if the caller is forbidden to write.
      */
     private void checkWritePermissions(String tableName) {
-        if ((DatabaseHelper.TableNames.TABLE_SECURE.equals(tableName) ||
-                DatabaseHelper.TableNames.TABLE_GLOBAL.equals(tableName)) &&
+        final String callingPackage = getCallingPackage();
+        final boolean granted = PackageManager.PERMISSION_GRANTED ==
                 getContext().checkCallingOrSelfPermission(
-                        evervolv.platform.Manifest.permission.WRITE_SECURE_SETTINGS) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            throw new SecurityException(
-                    String.format("Permission denial: writing to evervolv secure settings requires %1$s",
-                            evervolv.platform.Manifest.permission.WRITE_SECURE_SETTINGS));
+                        evervolv.platform.Manifest.permission.WRITE_SECURE_SETTINGS);
+        final boolean protectedTable =
+                DatabaseHelper.TableNames.TABLE_SECURE.equals(tableName) ||
+                DatabaseHelper.TableNames.TABLE_GLOBAL.equals(tableName);
+        // If the permission is granted simply return, no further checks are needed.
+        if (granted) {
+            return;
         }
+        // If the caller doesn't hold WRITE_SECURE_SETTINGS and isn't a protected table,
+        // we verify whether this operation is allowed for the calling package through appops.
+        if (!protectedTable && Settings.checkAndNoteWriteSettingsOperation(getContext(),
+                Binder.getCallingUid(), callingPackage, getCallingAttributionTag(), true)) {
+            return;
+        }
+        throw new SecurityException(
+                String.format("Permission denial: writing to evervolv secure settings requires %1$s",
+                        evervolv.platform.Manifest.permission.WRITE_SECURE_SETTINGS));
     }
 
     /**
