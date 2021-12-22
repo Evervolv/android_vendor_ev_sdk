@@ -578,7 +578,9 @@ public class SettingsProvider extends ContentProvider {
         // Validate value if inserting int System table
         final String name = values.getAsString(Settings.NameValueTable.NAME);
         final String value = values.getAsString(Settings.NameValueTable.VALUE);
-        if (DatabaseHelper.TableNames.TABLE_SYSTEM.equals(tableName)) {
+        if (DatabaseHelper.TableNames.TABLE_GLOBAL.equals(tableName)) {
+            validateGlobalSettingNameValue(name, value);
+        } else if (DatabaseHelper.TableNames.TABLE_SYSTEM.equals(tableName)) {
             validateSystemSettingNameValue(name, value);
         } else if (DatabaseHelper.TableNames.TABLE_SECURE.equals(tableName)) {
             validateSecureSettingValue(name, value);
@@ -653,7 +655,9 @@ public class SettingsProvider extends ContentProvider {
         // Validate value if updating System table
         final String name = values.getAsString(Settings.NameValueTable.NAME);
         final String value = values.getAsString(Settings.NameValueTable.VALUE);
-        if (DatabaseHelper.TableNames.TABLE_SYSTEM.equals(tableName)) {
+        if (DatabaseHelper.TableNames.TABLE_GLOBAL.equals(tableName)) {
+            validateGlobalSettingNameValue(name, value);
+        } else if (DatabaseHelper.TableNames.TABLE_SYSTEM.equals(tableName)) {
             validateSystemSettingNameValue(name, value);
         } else if (DatabaseHelper.TableNames.TABLE_SECURE.equals(tableName)) {
             validateSecureSettingValue(name, value);
@@ -863,6 +867,17 @@ public class SettingsProvider extends ContentProvider {
             Binder.restoreCallingIdentity(oldId);
         }
         if (LOCAL_LOGV) Log.v(TAG, "notifying for " + notifyTarget + ": " + uri);
+    }
+
+    private void validateGlobalSettingNameValue(String name, String value) {
+        EVSettings.Validator validator = EVSettings.Global.VALIDATORS.get(name);
+
+        // Not all global settings have validators, but if a validator exists, the validate method
+        // should return true
+        if (validator != null && !validator.validate(value)) {
+            throw new IllegalArgumentException("Invalid value: " + value
+                    + " for setting: " + name);
+        }
     }
 
     private void validateSystemSettingNameValue(String name, String value) {
