@@ -41,10 +41,3 @@ prebuilt_etc {
     src: "com.evervolv.globalactions.xml",
     product_specific: true,
 }
-
-prebuilt_etc {
-    name: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",
-    sub_dir: "permissions",
-    src: "vendor.evervolv.biometrics.fingerprint.inscreen.xml",
-    product_specific: true,
-}
