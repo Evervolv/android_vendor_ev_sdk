@@ -248,9 +248,7 @@ public final class EVSettings {
 
                         mValues.clear();
                         mValuesVersion = newValuesVersion;
-                    }
-
-                    if (mValues.containsKey(name)) {
+                    } else if (mValues.containsKey(name)) {
                         return mValues.get(name);  // Could be null, that's OK -- negative caching
                     }
                 }
