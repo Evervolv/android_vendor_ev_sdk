@@ -28,7 +28,7 @@ public final class PowerMenuUtils {
         boolean keyguardLocked = km.inKeyguardRestrictedInputMode() && km.isKeyguardSecure();
         boolean advancedRestartEnabled = EVSettings.Secure.getInt(context.getContentResolver(),
                 EVSettings.Secure.ADVANCED_REBOOT, 0) == 1;
-        boolean isPrimaryUser = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
+        boolean isPrimaryUser = UserHandle.getCallingUserId() == UserHandle.USER_SYSTEM;
 
         return advancedRestartEnabled && !keyguardLocked && isPrimaryUser;
     }

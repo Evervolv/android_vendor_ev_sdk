@@ -78,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
      * @return The database path string
      */
     private static String dbNameForUser(Context context, int userId, String baseName) {
-        if (userId == UserHandle.USER_OWNER) {
+        if (userId == UserHandle.USER_SYSTEM) {
             return context.getDatabasePath(baseName).getPath();
         } else {
             // Place the database in the user-specific data tree so that it's
@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             createDbTable(db, TableNames.TABLE_SYSTEM);
             createDbTable(db, TableNames.TABLE_SECURE);
 
-            if (mUserHandle == UserHandle.USER_OWNER) {
+            if (mUserHandle == UserHandle.USER_SYSTEM) {
                 createDbTable(db, TableNames.TABLE_GLOBAL);
             }
 
@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         if (upgradeVersion < 3) {
             // Update button brightness range
-            if (mUserHandle == UserHandle.USER_OWNER) {
+            if (mUserHandle == UserHandle.USER_SYSTEM) {
                 db.beginTransaction();
                 SQLiteStatement stmt = null;
                 try {
@@ -197,7 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             dropDbTable(db, TableNames.TABLE_SYSTEM);
             dropDbTable(db, TableNames.TABLE_SECURE);
 
-            if (mUserHandle == UserHandle.USER_OWNER) {
+            if (mUserHandle == UserHandle.USER_SYSTEM) {
                 dropDbTable(db, TableNames.TABLE_GLOBAL);
             }
 
@@ -262,7 +262,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         loadSystemSettings(db);
         loadSecureSettings(db);
         // The global table only exists for the 'owner' user
-        if (mUserHandle == UserHandle.USER_OWNER) {
+        if (mUserHandle == UserHandle.USER_SYSTEM) {
             loadGlobalSettings(db);
         }
     }

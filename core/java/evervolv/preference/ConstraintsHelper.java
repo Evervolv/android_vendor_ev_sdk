@@ -142,7 +142,7 @@ public class ConstraintsHelper {
 
             // Check if the current user is an owner
             boolean rOwner = a.getBoolean(R.styleable.SelfRemovingPreference_requiresOwner, false);
-            if (rOwner && UserHandle.myUserId() != UserHandle.USER_OWNER) {
+            if (rOwner && UserHandle.myUserId() != UserHandle.USER_SYSTEM) {
                 return false;
             }
 
