@@ -239,7 +239,7 @@ public final class EVSettings {
                 long newValuesVersion = SystemProperties.getLong(mVersionSystemProperty, 0);
 
                 // Our own user's settings data uses a client-side cache
-                synchronized (this) {
+                synchronized (NameValueCache.this) {
                     if (mValuesVersion != newValuesVersion) {
                         if (LOCAL_LOGV || false) {
                             Log.v(TAG, "invalidate [" + mUri.getLastPathSegment() + "]: current "
@@ -276,7 +276,7 @@ public final class EVSettings {
                         String value = b.getPairValue();
                         // Don't update our cache for reads of other users' data
                         if (isSelf) {
-                            synchronized (this) {
+                            synchronized (NameValueCache.this) {
                                 mValues.put(name, value);
                             }
                         } else {
@@ -306,7 +306,7 @@ public final class EVSettings {
                 }
 
                 String value = c.moveToNext() ? c.getString(0) : null;
-                synchronized (this) {
+                synchronized (NameValueCache.this) {
                     mValues.put(name, value);
                 }
                 if (LOCAL_LOGV) {
