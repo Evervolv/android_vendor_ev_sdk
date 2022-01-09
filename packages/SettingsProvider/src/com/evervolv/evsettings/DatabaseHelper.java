@@ -221,6 +221,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             upgradeVersion = 6;
         }
 
+        if (upgradeVersion < 7) {
+            // Reset edge light color mode, the feature is not available.
+            int edgeLightColorModeDefault = mContext.getResources().getInteger(R.integer.def_edge_light_color_mode);
+            int edgeLightColorMode = Settings.System.getInt(mContext.getContentResolver(),
+                    EVSettings.System.EDGE_LIGHT_COLOR_MODE, edgeLightColorModeDefault);
+            if (edgeLightColorMode != edgeLightColorModeDefault) {
+                EVSettings.System.putInt(mContext.getContentResolver(),
+                        EVSettings.System.EDGE_LIGHT_COLOR_MODE, edgeLightColorModeDefault);
+            }
+            upgradeVersion = 7;
+        }
+
         if (upgradeVersion < newVersion) {
             Log.w(TAG, "Got stuck trying to upgrade db. Old version: " + oldVersion
                     + ", version stuck at: " +  upgradeVersion + ", new version: "
@@ -352,6 +364,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
             loadBooleanSetting(stmt, EVSettings.System.LOCKSCREEN_ROTATION,
                     R.bool.def_lockscreen_rotation);
+
+            loadBooleanSetting(stmt, EVSettings.System.EDGE_LIGHT_ENABLED,
+                    R.bool.def_edge_light_enabled);
+
+            loadBooleanSetting(stmt, EVSettings.System.EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE,
+                    R.bool.def_edge_light_always_trigger_on_pulse);
+
+            loadBooleanSetting(stmt, EVSettings.System.EDGE_LIGHT_REPEAT_ANIMATION,
+                    R.bool.def_edge_light_repeat_animation);
+
+            loadIntegerSetting(stmt, EVSettings.System.EDGE_LIGHT_COLOR_MODE,
+                    R.integer.def_edge_light_color_mode);
         } finally {
             if (stmt != null) stmt.close();
         }

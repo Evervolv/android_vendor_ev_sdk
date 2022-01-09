@@ -1899,6 +1899,65 @@ public final class EVSettings {
         public static final Validator CHARGING_CONTROL_LIMIT_VALIDATOR =
                 new InclusiveIntegerRangeValidator(70, 100);
 
+        /**
+         * Whether edge light is enabled.
+         * Default 0
+         * @hide
+         */
+        public static final String EDGE_LIGHT_ENABLED = "edge_light_enabled";
+
+        /** @hide */
+        public static final Validator EDGE_LIGHT_ENABLED_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Whether to show edge light for all pulse events and not just for notifications.
+         * Default 0
+         * @hide
+         */
+        public static final String EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE = "edge_light_always_trigger_on_pulse";
+
+        /** @hide */
+        public static final Validator EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Whether to repeat edge light animation until pulse timeout.
+         * Default 0
+         * @hide
+         */
+        public static final String EDGE_LIGHT_REPEAT_ANIMATION = "edge_light_repeat_animation";
+
+        /** @hide */
+        public static final Validator EDGE_LIGHT_REPEAT_ANIMATION_VALIDATOR =
+                sBooleanValidator;
+
+        /**
+         * Color mode of edge light.
+         * 0: Accent
+         * 1: Notification
+         * 2: Wallpaper
+         * 3: Custom
+         * Default 0
+         * @hide
+         */
+        public static final String EDGE_LIGHT_COLOR_MODE = "edge_light_color_mode";
+
+        /** @hide */
+        public static final Validator EDGE_LIGHT_COLOR_MODE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 3);
+
+        /**
+         * Custom color (hex value) for edge light.
+         * Default #FFFFFF
+         * @hide
+         */
+        public static final String EDGE_LIGHT_CUSTOM_COLOR = "edge_light_custom_color";
+
+        /** @hide */
+        public static final Validator EDGE_LIGHT_CUSTOM_COLOR_VALIDATOR =
+                sNonNullStringValidator;
+
         // System Settings end
 
         /**
@@ -2057,6 +2116,12 @@ public final class EVSettings {
             VALIDATORS.put(CHARGING_CONTROL_START_TIME, CHARGING_CONTROL_START_TIME_VALIDATOR);
             VALIDATORS.put(CHARGING_CONTROL_TARGET_TIME, CHARGING_CONTROL_TARGET_TIME_VALIDATOR);
             VALIDATORS.put(CHARGING_CONTROL_LIMIT, CHARGING_CONTROL_LIMIT_VALIDATOR);
+            VALIDATORS.put(EDGE_LIGHT_ENABLED, EDGE_LIGHT_ENABLED_VALIDATOR);
+            VALIDATORS.put(EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE,
+                    EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE_VALIDATOR);
+            VALIDATORS.put(EDGE_LIGHT_REPEAT_ANIMATION, EDGE_LIGHT_REPEAT_ANIMATION_VALIDATOR);
+            VALIDATORS.put(EDGE_LIGHT_COLOR_MODE, EDGE_LIGHT_COLOR_MODE_VALIDATOR);
+            VALIDATORS.put(EDGE_LIGHT_CUSTOM_COLOR, EDGE_LIGHT_CUSTOM_COLOR_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         };
