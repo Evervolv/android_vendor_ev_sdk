@@ -98,13 +98,5 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String LIVEDISPLAY = "com.evervolv.livedisplay";
-
-        /**
-         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
-         * {@link PackageManager#hasSystemFeature}: The device includes the Lineage
-         * fingerprint in screen utilized by the lineage sdk.
-         */
-        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
-        public static final String FOD = "vendor.evervolv.biometrics.fingerprint.inscreen";
     }
 }
