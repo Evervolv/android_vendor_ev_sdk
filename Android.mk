@@ -16,7 +16,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-evervolv_stub_packages := evervolv.app:evervolv.content:evervolv.hardware:evervolv.os:evervolv.preference:evervolv.provider:evervolv.platform:evervolv.power:evervolv.util:evervolv.style
+evervolv_stub_packages := evervolv.app:evervolv.content:evervolv.hardware:evervolv.os:evervolv.preference:evervolv.provider:evervolv.platform:evervolv.power:evervolv.util
 
 evervolv_framework_module := $(LOCAL_INSTALLED_MODULE)
 
