@@ -36,13 +36,6 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "com.evervolv.performance.xml",
-    sub_dir: "permissions",
-    src: "com.evervolv.performance.xml",
-    product_specific: true,
-}
-
-prebuilt_etc {
     name: "com.evervolv.globalactions.xml",
     sub_dir: "permissions",
     src: "com.evervolv.globalactions.xml",

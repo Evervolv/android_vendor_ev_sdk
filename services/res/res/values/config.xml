@@ -20,7 +20,6 @@
          should publish as a binder services in its onStart -->
     <string-array name="config_externalVendorServices">
         <item>com.evervolv.platform.internal.HardwareService</item>
-        <item>com.evervolv.platform.internal.PerformanceManagerService</item>
         <item>com.evervolv.platform.internal.GlobalActionService</item>
         <item>com.evervolv.platform.internal.display.LiveDisplayService</item>
     </string-array>
@@ -81,10 +80,6 @@
         <item>restart_recovery</item>
         <item>restart_bootloader</item>
     </string-array>
-
-    <!-- Whether device needs to wait for Qualcomm MPCTL service to start
-         before setting power profiles on boot. -->
-    <bool name="config_waitForMpctlOnBoot">false</bool>
 
     <!-- The list of vendor package signatures that should also be considered
          platform signatures, specifically for use on devices with a vendor partition. -->

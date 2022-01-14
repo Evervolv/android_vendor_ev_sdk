@@ -54,13 +54,6 @@
                 android:description="@string/permdesc_useHardwareFramework"
                 android:protectionLevel="signature|privileged" />
 
-    <!-- Allows low-level access to performance management.
-         <p>Not for use by third-party applications. -->
-    <permission android:name="evervolv.permission.PERFORMANCE_ACCESS"
-                android:label="@string/permlab_perfAccess"
-                android:description="@string/permdesc_perfAccess"
-                android:protectionLevel="signature|privileged" />
-
     <!-- Allows an application to manage LiveDisplay -->
     <permission android:name="evervolv.permission.MANAGE_LIVEDISPLAY"
                 android:label="@string/permlab_manageLiveDisplay"

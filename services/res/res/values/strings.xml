@@ -47,23 +47,6 @@
     <string name="accent_red">Tomato</string>
     <string name="accent_yellow">Banana</string>
 
-    <!-- Performance manager permission title -->
-    <string name="permlab_perfAccess">access performance manager</string>
-    <!-- Performance manager permission description -->
-    <string name="permdesc_perfAccess">Allows an app to access the performance service. Should never be needed for normal apps</string>
-
-    <!-- Performance profiles -->
-    <string name="perf_profile_pwrsv">Power save</string>
-    <string name="perf_profile_bal">Balanced</string>
-    <string name="perf_profile_perf">Performance</string>
-    <string name="perf_profile_bias_power">Efficiency</string>
-    <string name="perf_profile_bias_perf">Quick</string>
-    <string name="perf_profile_pwrsv_summary">Maximum power savings, reduces device performance</string>
-    <string name="perf_profile_bal_summary">Balance of optimal performance and power characteristics</string>
-    <string name="perf_profile_perf_summary">High performance mode. Useful for applications requiring low latency and highest throughput when power consumption is not a concern</string>
-    <string name="perf_profile_bias_power_summary">Favor power savings. Limit maximum CPU power and optimize for power saving at the cost of higher latency</string>
-    <string name="perf_profile_bias_perf_summary">Favor performance. Reduces latency with slightly increased power consumption</string>
-
     <!-- About phone screen, status item label -->
     <string name="platform_version">Evervolv SDK</string>
 
