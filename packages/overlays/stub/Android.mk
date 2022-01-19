@@ -43,7 +43,8 @@ LOCAL_REQUIRED_MODULES := \
     PlatformRedAccent \
     PlatformYellowAccent \
     PlatformBlackTheme \
-    PlatformLatoFont \
-    PlatformRubikFont
+    fonts_customization.xml \
+    FontLatoOverlay \
+    FontLatoOverlay
 
 include $(BUILD_PACKAGE)
