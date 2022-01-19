@@ -27,6 +27,13 @@ LOCAL_PACKAGE_NAME := PlatformThemesStub
 LOCAL_SDK_VERSION := current
 
 LOCAL_REQUIRED_MODULES := \
+    IconShapePebbleOverlay \
+    IconShapeRoundedRectOverlay \
+    IconShapeSquareOverlay \
+    IconShapeSquircleOverlay \
+    IconShapeTaperedRectOverlay \
+    IconShapeTeardropOverlay \
+    IconShapeVesselOverlay \
     PlatformBlackAccent \
     PlatformBlueAccent \
     PlatformCyanAccent \
