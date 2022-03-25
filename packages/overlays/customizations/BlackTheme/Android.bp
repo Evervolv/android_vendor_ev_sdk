@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "PlatformBlackTheme",
+    theme: "PlatformBlackTheme",
+    product_specific: true,
+}

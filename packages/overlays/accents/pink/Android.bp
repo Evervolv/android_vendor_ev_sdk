@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "PlatformPinkAccent",
+    theme: "PlatformPinkAccent",
+    product_specific: true,
+}
