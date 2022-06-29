@@ -29,6 +29,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.os.Environment;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -196,6 +197,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     EVSettings.Secure.BERRY_BLACK_THEME
             }, true);
             upgradeVersion = 4;
+        }
+
+        if (upgradeVersion < 5) {
+            // Set default value based on config_fingerprintWakeAndUnlock
+            boolean fingerprintWakeAndUnlock = mContext.getResources().getBoolean(
+                    com.evervolv.platform.internal.R.bool.config_fingerprintWakeAndUnlock);
+            // Previously Settings.Secure.SFPS_REQUIRE_SCREEN_ON_TO_AUTH_ENABLED
+            Integer oldSetting = Settings.Secure.getInt(mContext.getContentResolver(),
+                    "sfps_require_screen_on_to_auth_enabled", fingerprintWakeAndUnlock ? 0 : 1);
+            // Flip value
+            Settings.Secure.putInt(mContext.getContentResolver(),
+                    Settings.Secure.SFPS_PERFORMANT_AUTH_ENABLED, oldSetting.equals(1) ? 0 : 1);
+            upgradeVersion = 5;
         }
 
         if (upgradeVersion < newVersion) {
