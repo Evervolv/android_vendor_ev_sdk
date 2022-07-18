@@ -5,6 +5,8 @@
     <!-- Default -->
     <string name="theme_name_default">Default</string>
     <string name="theme_title_default">@string/theme_name_default</string>
+    <string name="default_color_name">@string/theme_name_default</string>
+    <string name="bundle_name_default">@string/theme_name_default</string>
 
     <!-- Blue -->
     <string name="theme_name_blue">Blue</string>
@@ -14,22 +16,29 @@
     <string name="theme_overlay_icon_launcher_blue">com.android.theme.icon_pack.filled.launcher</string>
     <string name="theme_overlay_icon_settings_blue">com.android.theme.icon_pack.filled.settings</string>
     <string name="theme_overlay_icon_sysui_blue">com.android.theme.icon_pack.filled.systemui</string>
+    <string name="bundle1_color_name">@string/theme_name_blue</string>
+    <string name="bundle_name_bundle1">@string/theme_name_blue</string>
 
-    <!-- Purple -->
-    <string name="theme_name_purple">Purple</string>
-    <string name="theme_title_purple">@string/theme_name_purple</string>
-    <string name="theme_overlay_color_purple">com.android.theme.color.purple</string>
-    <string name="theme_overlay_icon_android_purple">com.android.theme.icon_pack.filled.android</string>
-    <string name="theme_overlay_icon_launcher_purple">com.android.theme.icon_pack.filled.launcher</string>
-    <string name="theme_overlay_icon_settings_purple">com.android.theme.icon_pack.filled.settings</string>
-    <string name="theme_overlay_icon_sysui_purple">com.android.theme.icon_pack.filled.systemui</string>
+    <!-- Orange -->
+    <string name="theme_name_orange">Orange</string>
+    <string name="theme_title_orange">@string/theme_name_orange</string>
+    <string name="theme_overlay_color_orange">com.android.theme.color.orange</string>
+    <string name="theme_overlay_icon_android_orange">com.android.theme.icon_pack.filled.android</string>
+    <string name="theme_overlay_icon_launcher_orange">com.android.theme.icon_pack.filled.launcher</string>
+    <string name="theme_overlay_icon_settings_orange">com.android.theme.icon_pack.filled.settings</string>
+    <string name="theme_overlay_icon_sysui_orange">com.android.theme.icon_pack.filled.systemui</string>
+    <string name="bundle2_color_name">@string/theme_name_orange</string>
+    <string name="bundle_name_bundle2">@string/theme_name_orange</string>
 
-    <!-- Red -->
-    <string name="theme_name_red">Red</string>
-    <string name="theme_title_red">@string/theme_name_red</string>
-    <string name="theme_overlay_color_red">com.evervolv.overlay.accent.red</string>
-    <string name="theme_overlay_icon_android_red">com.android.theme.icon_pack.filled.android</string>
-    <string name="theme_overlay_icon_launcher_red">com.android.theme.icon_pack.filled.launcher</string>
-    <string name="theme_overlay_icon_settings_red">com.android.theme.icon_pack.filled.settings</string>
-    <string name="theme_overlay_icon_sysui_red">com.android.theme.icon_pack.filled.systemui</string>
+    <!-- Green -->
+    <string name="theme_name_green">Green</string>
+    <string name="theme_title_green">@string/theme_name_green</string>
+    <string name="theme_overlay_color_green">com.evervolv.overlay.accent.green</string>
+    <string name="theme_overlay_icon_android_green">com.android.theme.icon_pack.filled.android</string>
+    <string name="theme_overlay_icon_launcher_green">com.android.theme.icon_pack.filled.launcher</string>
+    <string name="theme_overlay_icon_settings_green">com.android.theme.icon_pack.filled.settings</string>
+    <string name="theme_overlay_icon_sysui_green">com.android.theme.icon_pack.filled.systemui</string>
+    <string name="bundle3_color_name">@string/theme_name_green</string>
+    <string name="bundle_name_bundle3">@string/theme_name_green</string>
+
 </resources>
