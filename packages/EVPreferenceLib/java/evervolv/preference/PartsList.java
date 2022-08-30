@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evervolv.internal.parts;
+package evervolv.preference;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -42,8 +42,8 @@ import static com.android.internal.R.styleable.Preference_icon;
 import static com.android.internal.R.styleable.Preference_key;
 import static com.android.internal.R.styleable.Preference_summary;
 import static com.android.internal.R.styleable.Preference_title;
-import static evervolv.platform.R.styleable.Searchable;
-import static evervolv.platform.R.styleable.Searchable_xmlRes;
+import static evervolv.preference.R.styleable.Searchable;
+import static evervolv.preference.R.styleable.Searchable_xmlRes;
 
 public class PartsList {
 

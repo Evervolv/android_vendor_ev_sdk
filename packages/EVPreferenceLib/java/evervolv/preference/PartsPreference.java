@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evervolv.internal.parts;
+
+package evervolv.preference;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
-
-import evervolv.preference.RemotePreference;
 
 /**
  * A link to a remote preference screen which can be used with a minimum amount

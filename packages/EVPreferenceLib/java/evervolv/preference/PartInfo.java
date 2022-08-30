@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evervolv.internal.parts;
+package evervolv.preference;
 
 import android.content.Intent;
 import android.os.Parcel;

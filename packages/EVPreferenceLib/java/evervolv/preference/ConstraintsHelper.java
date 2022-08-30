@@ -41,7 +41,9 @@ import java.util.Set;
 
 import evervolv.app.ContextConstants;
 import evervolv.hardware.HardwareManager;
-import evervolv.platform.R;
+
+import static evervolv.preference.R.styleable.SelfRemovingPreference_minSummaryLines;
+import static evervolv.preference.R.styleable.SelfRemovingPreference_replacesKey;
 
 /**
  * Helpers for checking if a device supports various features.
@@ -75,8 +77,8 @@ public class ConstraintsHelper {
 
         TypedArray a = context.getResources().obtainAttributes(attrs,
                 R.styleable.SelfRemovingPreference);
-        mSummaryMinLines = a.getInteger(R.styleable.SelfRemovingPreference_minSummaryLines, -1);
-        mReplacesKey = a.getString(R.styleable.SelfRemovingPreference_replacesKey);
+        mSummaryMinLines = a.getInteger(SelfRemovingPreference_minSummaryLines, -1);
+        mReplacesKey = a.getString(SelfRemovingPreference_replacesKey);
         setAvailable(checkConstraints());
 
         Log.d(TAG, "construct key=" + mPref.getKey() + " available=" + mAvailable);

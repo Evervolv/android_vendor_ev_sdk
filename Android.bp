@@ -50,7 +50,6 @@ android_app {
     ],
 
     resource_dirs: [
-        "core/res/res",
         "services/res/res",
     ],
 
@@ -71,10 +70,6 @@ java_defaults {
         ":com.evervolv.platform-res{.aapt.srcjar}",
     ],
     static_libs: [
-        "androidx.annotation_annotation",
-        "androidx.preference_preference",
-        "androidx.recyclerview_recyclerview",
-        "androidx.legacy_legacy-preference-v14",
         "vendor.evervolv.touch-V1.0-java",
         "vendor.lineage.livedisplay-V2.0-java",
         "vendor.lineage.livedisplay-V2.1-java",

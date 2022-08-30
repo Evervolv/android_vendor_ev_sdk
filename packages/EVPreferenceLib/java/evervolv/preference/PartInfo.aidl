@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.evervolv.internal.parts;
+package evervolv.preference;
 
 parcelable PartInfo;
