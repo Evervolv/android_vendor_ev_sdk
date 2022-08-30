@@ -47,9 +47,6 @@
     <string name="accent_red">Tomato</string>
     <string name="accent_yellow">Banana</string>
 
-    <!-- About phone screen, status item label -->
-    <string name="platform_version">Evervolv SDK</string>
-
     <!-- Status bar network traffic monitor strings -->
     <string name="kilobitspersecond_short">kb/s</string>
     <string name="megabitspersecond_short">Mb/s</string>

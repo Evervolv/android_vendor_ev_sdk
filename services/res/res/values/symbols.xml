@@ -58,14 +58,9 @@
     <java-symbol type="string" name="accent_red" />
     <java-symbol type="string" name="accent_yellow" />
 
-    <!-- About phone screen, status item label -->
-    <java-symbol type="string" name="platform_version" />
-
-    <java-symbol type="array" name="config_vendorPlatformSignatures" />
     <!-- The list of vendor package signatures that should also be considered
          platform signatures, specifically for use on devices with a vendor partition. -->
-    <string-array name="config_vendorPlatformSignatures">
-    </string-array>
+    <java-symbol type="array" name="config_vendorPlatformSignatures" />
 
     <!-- On-device lights (LED) capabilities -->
     <java-symbol type="integer" name="config_deviceLightCapabilities" />
