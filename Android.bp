@@ -43,6 +43,10 @@ android_app {
         // Allow overlay to add resource
         "--auto-add-overlay",
 
+        // Framework resources benefit tremendously from enabling sparse encoding, saving tens
+        // of MBs in size and RAM use.
+        "--enable-sparse-encoding",
+
         // Tell aapt to create "extending (non-application)" resource IDs,
         // since these resources will be used by many apps.
         "--allow-reserved-package-id",
