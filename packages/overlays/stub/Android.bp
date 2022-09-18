@@ -54,4 +54,5 @@ android_app {
         "FontLatoOverlay",
         "FontLatoOverlay",
     ],
+    product_specific: true,
 }
