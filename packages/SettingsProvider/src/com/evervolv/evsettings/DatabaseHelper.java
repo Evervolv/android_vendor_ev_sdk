@@ -189,6 +189,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             upgradeVersion = 3;
         }
 
+        if (upgradeVersion < 4) {
+            // Move berry_black_theme to secure
+            moveSettingsToNewTable(db, TableNames.TABLE_SYSTEM,
+                    TableNames.TABLE_SECURE, new String[] {
+                    EVSettings.Secure.BERRY_BLACK_THEME
+            }, true);
+            upgradeVersion = 4;
+        }
+
         if (upgradeVersion < newVersion) {
             Log.w(TAG, "Got stuck trying to upgrade db. Old version: " + oldVersion
                     + ", version stuck at: " +  upgradeVersion + ", new version: "

@@ -1218,15 +1218,6 @@ public final class EVSettings {
                 sNonNullStringValidator;
 
         /**
-         * Whether to use black theme for dark mode
-         */
-        public static final String BERRY_BLACK_THEME = "berry_black_theme";
-
-        /** @hide */
-        public static final Validator BERRY_BLACK_THEME_VALIDATOR =
-                sBooleanValidator;
-
-        /**
          * Display style of AM/PM next to clock in status bar
          * 0: Normal display (Eclair stock)
          * 1: Small display (Froyo stock)
@@ -1987,7 +1978,6 @@ public final class EVSettings {
             VALIDATORS.put(BERRY_CURRENT_ACCENT, BERRY_CURRENT_ACCENT_VALIDATOR);
             VALIDATORS.put(BERRY_DARK_OVERLAY, BERRY_DARK_OVERLAY_VALIDATOR);
             VALIDATORS.put(BERRY_MANAGED_BY_APP, BERRY_MANAGED_BY_APP_VALIDATOR);
-            VALIDATORS.put(BERRY_BLACK_THEME, BERRY_BLACK_THEME_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_QUICK_QS_PULLDOWN,
                     STATUS_BAR_QUICK_QS_PULLDOWN_VALIDATOR);
@@ -2610,6 +2600,15 @@ public final class EVSettings {
         /** @hide */
         public static final Validator NETWORK_TRAFFIC_SHOW_UNITS_VALIDATOR = sBooleanValidator;
 
+        /**
+         * Whether to use black theme for dark mode
+         */
+        public static final String BERRY_BLACK_THEME = "berry_black_theme";
+
+        /** @hide */
+        public static final Validator BERRY_BLACK_THEME_VALIDATOR =
+                sBooleanValidator;
+
         // Secure Settings end
 
         /**
@@ -2656,6 +2655,7 @@ public final class EVSettings {
             VALIDATORS.put(NETWORK_TRAFFIC_AUTOHIDE, NETWORK_TRAFFIC_AUTOHIDE_VALIDATOR);
             VALIDATORS.put(NETWORK_TRAFFIC_UNITS, NETWORK_TRAFFIC_UNITS_VALIDATOR);
             VALIDATORS.put(NETWORK_TRAFFIC_SHOW_UNITS, NETWORK_TRAFFIC_SHOW_UNITS_VALIDATOR);
+            VALIDATORS.put(BERRY_BLACK_THEME, BERRY_BLACK_THEME_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
                     __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR);
         }
