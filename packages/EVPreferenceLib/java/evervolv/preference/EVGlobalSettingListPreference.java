@@ -1,11 +1,12 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,18 +23,18 @@ import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;
 
-public class EVGlobalSettingSwitchPreference extends SelfRemovingSwitchPreference {
+public class EVGlobalSettingListPreference extends SelfRemovingListPreference {
 
-    public EVGlobalSettingSwitchPreference(Context context, AttributeSet attrs, int defStyle) {
+    public EVGlobalSettingListPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public EVGlobalSettingSwitchPreference(Context context, AttributeSet attrs) {
+    public EVGlobalSettingListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EVGlobalSettingSwitchPreference(Context context) {
-        super(context);
+    public int getIntValue(int defValue) {
+        return getValue() == null ? defValue : Integer.valueOf(getValue());
     }
 
     @Override
@@ -42,13 +43,12 @@ public class EVGlobalSettingSwitchPreference extends SelfRemovingSwitchPreferenc
     }
 
     @Override
-    protected void putBoolean(String key, boolean value) {
-        EVSettings.Global.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
+    protected void putString(String key, String value) {
+        EVSettings.Global.putString(getContext().getContentResolver(), key, value);
     }
 
     @Override
-    protected boolean getBoolean(String key, boolean defaultValue) {
-        return EVSettings.Global.getInt(getContext().getContentResolver(),
-                getKey(), defaultValue ? 1 : 0) != 0;
+    protected String getString(String key, String defaultValue) {
+        return EVSettings.Global.getString(getContext().getContentResolver(), key);
     }
 }

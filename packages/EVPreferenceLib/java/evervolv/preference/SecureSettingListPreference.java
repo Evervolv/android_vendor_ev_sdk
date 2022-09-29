@@ -22,6 +22,7 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 
 public class SecureSettingListPreference extends SelfRemovingListPreference {
+
     public SecureSettingListPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }

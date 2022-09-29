@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2016 The CyanogenMod project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package evervolv.preference;
 
 import android.content.Context;
@@ -23,13 +21,12 @@ import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;
 
-public class EVSystemSettingListPreference extends SelfRemovingListPreference {
-
-    public EVSystemSettingListPreference(Context context, AttributeSet attrs, int defStyle) {
+public class EVSecureSettingDropDownPreference extends SelfRemovingDropDownPreference {
+    public EVSecureSettingDropDownPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public EVSystemSettingListPreference(Context context, AttributeSet attrs) {
+    public EVSecureSettingDropDownPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -39,16 +36,16 @@ public class EVSystemSettingListPreference extends SelfRemovingListPreference {
 
     @Override
     protected boolean isPersisted() {
-        return EVSettings.System.getString(getContext().getContentResolver(), getKey()) != null;
+        return EVSettings.Secure.getString(getContext().getContentResolver(), getKey()) != null;
     }
 
     @Override
     protected void putString(String key, String value) {
-        EVSettings.System.putString(getContext().getContentResolver(), key, value);
+        EVSettings.Secure.putString(getContext().getContentResolver(), key, value);
     }
 
     @Override
     protected String getString(String key, String defaultValue) {
-        return EVSettings.System.getString(getContext().getContentResolver(), key);
+        return EVSettings.Secure.getString(getContext().getContentResolver(), key);
     }
 }

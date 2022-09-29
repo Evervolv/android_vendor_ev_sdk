@@ -34,13 +34,13 @@ public class GlobalCheckBoxPreference extends SelfRemovingCheckBoxPreference {
     }
 
     @Override
-    protected boolean isPersisted() {
-        return Settings.Global.getString(getContext().getContentResolver(), getKey()) != null;
+    protected void putBoolean(String key, boolean value) {
+        Settings.Global.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
     }
 
     @Override
-    protected void putBoolean(String key, boolean value) {
-        Settings.Global.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
+    protected boolean isPersisted() {
+        return Settings.Global.getString(getContext().getContentResolver(), getKey()) != null;
     }
 
     @Override

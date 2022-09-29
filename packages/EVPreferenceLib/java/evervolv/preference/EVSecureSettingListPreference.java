@@ -49,6 +49,6 @@ public class EVSecureSettingListPreference extends SelfRemovingListPreference {
 
     @Override
     protected String getString(String key, String defaultValue) {
-        return EVSettings.Secure.getString(getContext().getContentResolver(), key, defaultValue);
+        return EVSettings.Secure.getString(getContext().getContentResolver(), key);
     }
 }

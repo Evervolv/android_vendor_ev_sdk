@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package evervolv.preference;
 
 import android.content.Context;
@@ -22,18 +21,17 @@ import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;
 
-public class EVSystemSettingSwitchPreference extends SelfRemovingSwitchPreference {
-
-    public EVSystemSettingSwitchPreference(Context context, AttributeSet attrs, int defStyle) {
+public class EVSystemSettingDropDownPreference extends SelfRemovingDropDownPreference {
+    public EVSystemSettingDropDownPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public EVSystemSettingSwitchPreference(Context context, AttributeSet attrs) {
+    public EVSystemSettingDropDownPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EVSystemSettingSwitchPreference(Context context) {
-        super(context);
+    public int getIntValue(int defValue) {
+        return getValue() == null ? defValue : Integer.valueOf(getValue());
     }
 
     @Override
@@ -42,13 +40,12 @@ public class EVSystemSettingSwitchPreference extends SelfRemovingSwitchPreferenc
     }
 
     @Override
-    protected void putBoolean(String key, boolean value) {
-        EVSettings.System.putInt(getContext().getContentResolver(), getKey(), value ? 1 : 0);
+    protected void putString(String key, String value) {
+        EVSettings.System.putString(getContext().getContentResolver(), key, value);
     }
 
     @Override
-    protected boolean getBoolean(String key, boolean defaultValue) {
-        return EVSettings.System.getInt(getContext().getContentResolver(),
-                getKey(), defaultValue ? 1 : 0) != 0;
+    protected String getString(String key, String defaultValue) {
+        return EVSettings.System.getString(getContext().getContentResolver(), key);
     }
 }
