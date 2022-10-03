@@ -14,18 +14,14 @@
 // limitations under the License.
 //
 
-java_defaults {
-    name: "EVSettingsLibDefaults",
-    defaults: ["SettingsLibDefaults"],
+android_library {
+    name: "CustomDialogPreference",
+    min_sdk_version: "30",
+    resource_dirs: ["res"],
+    srcs: ["src/**/*.java"],
     static_libs: [
+        "androidx.legacy_legacy-support-v4",
         "androidx.preference_preference",
-        "androidx.legacy_legacy-preference-v14",
-        "com.evervolv.platform",
-        "CustomDialogPreference",
-        "EVMainSwitchPreference",
-        "EVSettingsPreference",
-        "PartsPreference",
-        "RemotePreference",
-        "SelfRemovingPreference",
     ],
+
 }
