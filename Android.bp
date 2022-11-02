@@ -62,12 +62,19 @@ android_app {
 // ============================================================
 
 java_defaults {
+    name: "com.evervolv.res-defaults",
+    srcs: [
+        // For the generated R.java and Manifest.java
+        ":com.evervolv.platform-res{.aapt.srcjar}",
+    ],
+}
+
+java_defaults {
     name: "com.evervolv.platform-defaults",
+    defaults: ["com.evervolv.res-defaults"],
     srcs: [
         "core/java/evervolv/**/*.java",
         "core/java/evervolv/**/I*.aidl",
-        // For the generated R.java and Manifest.java
-        ":com.evervolv.platform-res{.aapt.srcjar}",
     ],
     static_libs: [
         "vendor.evervolv.touch-V1.0-java",
@@ -120,6 +127,15 @@ java_library {
         "com.evervolv.internal-defaults",
     ],
     required: ["services"],
+}
+
+// Resources only target for use by frameworks/base/core
+// ============================================================
+
+java_library {
+    name: "com.evervolv.platform.resources",
+    defaults: ["com.evervolv.res-defaults"],
+    sdk_version: "core_current",
 }
 
 // The SDK
