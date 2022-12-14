@@ -16,6 +16,7 @@
 package com.evervolv.platform.internal.display;
 
 import android.content.Context;
+import android.hardware.display.ColorDisplayManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -47,7 +48,14 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
     public PictureAdjustmentController(Context context, Handler handler) {
         super(context, handler);
         mHardware = HardwareManager.getInstance(context);
-        mHasDisplayModes = mHardware.isSupported(HardwareManager.FEATURE_DISPLAY_MODES);
+
+        // Prefer ColorDisplayManager over LiveDisplay if applicable
+        final int[] availableColorModes = mContext.getResources().getIntArray(
+                com.android.internal.R.array.config_availableColorModes);
+        final boolean colorModesAvailable = mContext.getSystemService(ColorDisplayManager.class).isDeviceColorManaged()
+                && !ColorDisplayManager.areAccessibilityTransformsEnabled(mContext) && availableColorModes.length > 0;
+        mHasDisplayModes = mHardware
+                .isSupported(HardwareManager.FEATURE_DISPLAY_MODES) && !colorModesAvailable;
 
         boolean usePA = mHardware.isSupported(HardwareManager.FEATURE_PICTURE_ADJUSTMENT);
         if (usePA) {
@@ -115,6 +123,7 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
             pw.println("  contrastRange=" + getContrastRange());
             pw.println("  saturationThresholdRange=" + getSaturationThresholdRange());
             pw.println("  defaultAdjustment=" + getDefaultPictureAdjustment());
+            pw.println("  mHasDisplayModes=" + mHasDisplayModes);
         }
     }
 
@@ -124,7 +133,10 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
         if (mUsePictureAdjustment) {
             caps.set(LiveDisplayManager.FEATURE_PICTURE_ADJUSTMENT);
         }
-        return mUsePictureAdjustment;
+        if (mHasDisplayModes) {
+            caps.set(LiveDisplayManager.FEATURE_DISPLAY_MODES);
+        }
+        return mUsePictureAdjustment || mHasDisplayModes;
     }
 
     Range<Float> getHueRange() {
