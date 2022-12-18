@@ -24,6 +24,9 @@ import android.util.Log;
 
 import evervolv.app.ContextConstants;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * LiveDisplay is an advanced set of features for improving
  * display quality under various ambient conditions.
@@ -125,6 +128,14 @@ public class LiveDisplayManager {
      * System supports anti flicker mode
      */
     public static final int FEATURE_ANTI_FLICKER = 19;
+
+    private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
+        FEATURE_CABC,
+        FEATURE_AUTO_CONTRAST,
+        FEATURE_COLOR_ENHANCEMENT,
+        FEATURE_MANAGED_OUTDOOR_MODE,
+        FEATURE_ANTI_FLICKER
+    );
 
     public static final int ADJUSTMENT_HUE = 0;
     public static final int ADJUSTMENT_SATURATION = 1;
@@ -247,13 +258,11 @@ public class LiveDisplayManager {
      * Checks if the auto contrast optimization feature is enabled.
      *
      * @return true if enabled
+     * @deprecated
      */
+    @Deprecated
     public boolean isAutoContrastEnabled() {
-        try {
-            return checkService() && sService.isAutoContrastEnabled();
-        } catch (RemoteException e) {
-            return false;
-        }
+        return getFeature(FEATURE_AUTO_CONTRAST);
     }
 
     /**
@@ -261,26 +270,22 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
+     * @deprecated
      */
+    @Deprecated
     public boolean setAutoContrastEnabled(boolean enabled) {
-        try {
-            return checkService() && sService.setAutoContrastEnabled(enabled);
-        } catch (RemoteException e) {
-            return false;
-        }
+        return setFeature(FEATURE_AUTO_CONTRAST, enabled);
     }
 
     /**
      * Checks if the CABC feature is enabled
      *
      * @return true if enabled
+     * @deprecated
      */
+    @Deprecated
     public boolean isCABCEnabled() {
-        try {
-            return checkService() && sService.isCABCEnabled();
-        } catch (RemoteException e) {
-            return false;
-        }
+        return getFeature(FEATURE_CABC);
     }
 
     /**
@@ -288,26 +293,22 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
+     * @deprecated
      */
+    @Deprecated
     public boolean setCABCEnabled(boolean enabled) {
-        try {
-            return checkService() && sService.setCABCEnabled(enabled);
-        } catch (RemoteException e) {
-            return false;
-        }
+        return setFeature(FEATURE_CABC, enabled);
     }
 
     /**
      * Checks if the color enhancement feature is enabled
      *
      * @return true if enabled
+     * @deprecated
      */
+    @Deprecated
     public boolean isColorEnhancementEnabled() {
-        try {
-            return checkService() && sService.isColorEnhancementEnabled();
-        } catch (RemoteException e) {
-            return false;
-        }
+        return getFeature(FEATURE_COLOR_ENHANCEMENT);
     }
 
     /**
@@ -315,13 +316,11 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
+     * @deprecated
      */
+    @Deprecated
     public boolean setColorEnhancementEnabled(boolean enabled) {
-        try {
-            return checkService() && sService.setColorEnhancementEnabled(enabled);
-        } catch (RemoteException e) {
-            return false;
-        }
+        return setFeature(FEATURE_COLOR_ENHANCEMENT, enabled);
     }
 
     /**
@@ -383,13 +382,11 @@ public class LiveDisplayManager {
      * ambient light. This is typically around 12000 lux.
      *
      * @return if outdoor conditions should be detected
+     * @deprecated
      */
+    @Deprecated
     public boolean isAutomaticOutdoorModeEnabled() {
-        try {
-            return checkService() && sService.isAutomaticOutdoorModeEnabled();
-        } catch (RemoteException e) {
-            return false;
-        }
+        return getFeature(FEATURE_MANAGED_OUTDOOR_MODE);
     }
 
     /**
@@ -398,13 +395,11 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
+     * @deprecated
      */
+    @Deprecated
     public boolean setAutomaticOutdoorModeEnabled(boolean enabled) {
-        try {
-            return checkService() && sService.setAutomaticOutdoorModeEnabled(enabled);
-        } catch (RemoteException e) {
-            return false;
-        }
+        return setFeature(FEATURE_MANAGED_OUTDOOR_MODE, enabled);
     }
 
     /**
@@ -506,13 +501,11 @@ public class LiveDisplayManager {
      * Checks if the anti flicker feature is enabled
      *
      * @return true if enabled
+     * @deprecated
      */
+    @Deprecated
     public boolean isAntiFlickerEnabled() {
-        try {
-            return checkService() && sService.isAntiFlickerEnabled();
-        } catch (RemoteException e) {
-            return false;
-        }
+        return getFeature(FEATURE_ANTI_FLICKER);
     }
 
     /**
@@ -520,12 +513,52 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
+     * @deprecated
      */
+    @Deprecated
     public boolean setAntiFlickerEnabled(boolean enabled) {
-        try {
-            return checkService() && sService.setAntiFlickerEnabled(enabled);
-        } catch (RemoteException e) {
-            return false;
+        return setFeature(FEATURE_ANTI_FLICKER, enabled);
+    }
+
+    /**
+     * Determine if the given feature is enabled or disabled.
+     *
+     * Only used for features which have simple enable/disable controls.
+     *
+     * @param feature the display feature to query
+     *
+     * @return true if the feature is enabled, false otherwise.
+     */
+    public boolean getFeature(int feature) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
         }
+
+        try {
+            return checkService() && sService.getFeature(feature);
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    /**
+     * Enable or disable the given feature
+     *
+     * Only used for features which have simple enable/disable controls.
+     *
+     * @param feature the display feature to query
+     *
+     * @return true if the feature is enabled, false otherwise.
+     */
+    public boolean setFeature(int feature, boolean enable) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
+        }
+
+        try {
+            return checkService() && sService.setFeature(feature, enable);
+        } catch (RemoteException e) {
+        }
+        return false;
     }
 }

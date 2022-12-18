@@ -57,6 +57,11 @@ import evervolv.hardware.ILiveDisplayService;
 import evervolv.hardware.LiveDisplayConfig;
 import evervolv.provider.EVSettings;
 
+import static evervolv.hardware.LiveDisplayManager.FEATURE_ANTI_FLICKER;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_AUTO_CONTRAST;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_CABC;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_COLOR_ENHANCEMENT;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
 import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
 import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
 import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
@@ -275,54 +280,6 @@ public class LiveDisplayService extends VendorService {
         }
 
         @Override
-        public boolean isAutoContrastEnabled() {
-            return mDHC.isAutoContrastEnabled();
-        }
-
-        @Override
-        public  boolean setAutoContrastEnabled(boolean enabled) {
-            mContext.enforceCallingOrSelfPermission(
-                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mDHC.setAutoContrastEnabled(enabled);
-        }
-
-        @Override
-        public boolean isCABCEnabled() {
-            return mDHC.isCABCEnabled();
-        }
-
-        @Override
-        public boolean setCABCEnabled(boolean enabled) {
-            mContext.enforceCallingOrSelfPermission(
-                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mDHC.setCABCEnabled(enabled);
-        }
-
-        @Override
-        public boolean isColorEnhancementEnabled() {
-            return mDHC.isColorEnhancementEnabled();
-        }
-
-        @Override
-        public boolean setColorEnhancementEnabled(boolean enabled) {
-            mContext.enforceCallingOrSelfPermission(
-                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mDHC.setColorEnhancementEnabled(enabled);
-        }
-
-        @Override
-        public boolean isAutomaticOutdoorModeEnabled() {
-            return mOMC.isAutomaticOutdoorModeEnabled();
-        }
-
-        @Override
-        public boolean setAutomaticOutdoorModeEnabled(boolean enabled) {
-            mContext.enforceCallingOrSelfPermission(
-                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mOMC.setAutomaticOutdoorModeEnabled(enabled);
-        }
-
-        @Override
         public int getDayColorTemperature() {
             return mCTC.getDayColorTemperature();
         }
@@ -384,15 +341,41 @@ public class LiveDisplayService extends VendorService {
         }
 
         @Override
-        public boolean isAntiFlickerEnabled() {
-            return mAFC.isAntiFlickerEnabled();
+        public boolean getFeature(int feature) {
+            switch (feature) {
+            case FEATURE_CABC:
+                return mDHC.isCABCEnabled();
+            case FEATURE_AUTO_CONTRAST:
+                return mDHC.isAutoContrastEnabled();
+            case FEATURE_COLOR_ENHANCEMENT:
+                return mDHC.isColorEnhancementEnabled();
+            case FEATURE_MANAGED_OUTDOOR_MODE:
+                return mOMC.isAutomaticOutdoorModeEnabled();
+            case FEATURE_ANTI_FLICKER:
+                return mAFC.isAntiFlickerEnabled();
+            default:
+                return false;
+            }
         }
 
         @Override
-        public boolean setAntiFlickerEnabled(boolean enabled) {
+        public boolean setFeature(int feature, boolean enable) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mAFC.setAntiFlickerEnabled(enabled);
+            switch (feature) {
+            case FEATURE_CABC:
+                return mDHC.setCABCEnabled(enable);
+            case FEATURE_AUTO_CONTRAST:
+                return mDHC.setAutoContrastEnabled(enable);
+            case FEATURE_COLOR_ENHANCEMENT:
+                return mDHC.setColorEnhancementEnabled(enable);
+            case FEATURE_MANAGED_OUTDOOR_MODE:
+                return mOMC.setAutomaticOutdoorModeEnabled(enable);
+            case FEATURE_ANTI_FLICKER:
+                return mAFC.setAntiFlickerEnabled(enable);
+            default:
+                return false;
+            }
         }
     };
 

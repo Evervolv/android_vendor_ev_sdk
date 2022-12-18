@@ -30,15 +30,6 @@ interface ILiveDisplayService {
     float[] getColorAdjustment();
     boolean setColorAdjustment(in float[] adj);
 
-    boolean isAutoContrastEnabled();
-    boolean setAutoContrastEnabled(boolean enabled);
-
-    boolean isCABCEnabled();
-    boolean setCABCEnabled(boolean enabled);
-
-    boolean isColorEnhancementEnabled();
-    boolean setColorEnhancementEnabled(boolean enabled);
-
     int getDayColorTemperature();
     boolean setDayColorTemperature(int temperature);
 
@@ -47,14 +38,11 @@ interface ILiveDisplayService {
 
     int getColorTemperature();
 
-    boolean isAutomaticOutdoorModeEnabled();
-    boolean setAutomaticOutdoorModeEnabled(boolean enabled);
-
     HSIC getPictureAdjustment();
     HSIC getDefaultPictureAdjustment();
     boolean setPictureAdjustment(in HSIC adj);
     boolean isNight();
 
-    boolean isAntiFlickerEnabled();
-    boolean setAntiFlickerEnabled(boolean enabled);
+    boolean getFeature(int feature);
+    boolean setFeature(int feature, boolean enable);
 }
