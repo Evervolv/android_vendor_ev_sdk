@@ -19,6 +19,7 @@ package com.evervolv.platform.internal;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.os.UserHandle;
 import android.util.Log;
 
@@ -26,11 +27,30 @@ import com.android.server.display.color.DisplayTransformManager;
 import com.android.server.LocalServices;
 
 import evervolv.app.ContextConstants;
-import evervolv.hardware.IHardwareService;
 import evervolv.hardware.HardwareManager;
+import evervolv.hardware.IHardwareService;
+import evervolv.hardware.TouchscreenGesture;
 
-import static com.android.server.display.color.DisplayTransformManager.LEVEL_COLOR_MATRIX_NIGHT_DISPLAY;
-import static com.android.server.display.color.DisplayTransformManager.LEVEL_COLOR_MATRIX_GRAYSCALE;
+import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import vendor.evervolv.touch.V1_0.Gesture;
+import vendor.evervolv.touch.V1_0.IHighTouchPollingRate;
+import vendor.evervolv.touch.V1_0.IGloveMode;
+import vendor.evervolv.touch.V1_0.IKeyDisabler;
+import vendor.evervolv.touch.V1_0.IKeySwapper;
+import vendor.evervolv.touch.V1_0.IStylusMode;
+import vendor.evervolv.touch.V1_0.ITouchscreenGesture;
+
+import static evervolv.hardware.HardwareManager.FEATURE_KEY_DISABLE;
+import static evervolv.hardware.HardwareManager.FEATURE_TOUCHSCREEN_GESTURES;
+import static evervolv.hardware.HardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY;
+import static evervolv.hardware.HardwareManager.FEATURE_TOUCH_HOVERING;
+import static evervolv.hardware.HardwareManager.FEATURE_KEY_SWAP;
+import static evervolv.hardware.HardwareManager.FEATURE_HIGH_TOUCH_POLLING_RATE;
 
 /** @hide */
 public class HardwareService extends VendorService {
@@ -38,143 +58,66 @@ public class HardwareService extends VendorService {
     private static final boolean DEBUG = true;
     private static final String TAG = HardwareService.class.getSimpleName();
 
+    private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
+        FEATURE_HIGH_TOUCH_SENSITIVITY,
+        FEATURE_KEY_DISABLE,
+        FEATURE_KEY_SWAP,
+        FEATURE_TOUCH_HOVERING,
+        FEATURE_HIGH_TOUCH_POLLING_RATE
+    );
+
     private final Context mContext;
-    private final HardwareInterface mHardwareImpl;
 
-    private interface HardwareInterface {
-        public int getSupportedFeatures();
-        public boolean get(int feature);
-        public boolean set(int feature, boolean enable);
+    private IHighTouchPollingRate mHighTouchPollingRate = null;
+    private IGloveMode mGloveMode = null;
+    private IKeyDisabler mKeyDisabler = null;
+    private IKeySwapper mKeySwapper = null;
+    private IStylusMode mStylusMode = null;
+    private ITouchscreenGesture mTouchscreenGesture;
+    private TouchscreenGesture[] mAvailableGestures;
 
-        public int[] getDisplayColorCalibration();
-        public boolean setDisplayColorCalibration(int[] rgb);
-    }
-
-    private class LegacyHardware implements HardwareInterface {
-
-        private final int MIN = 0;
-        private final int MAX = 255;
-
-        /**
-         * Matrix and offset used for converting color to grayscale.
-         * Copied from com.android.server.accessibility.DisplayAdjustmentUtils.MATRIX_GRAYSCALE
-         */
-        private final float[] MATRIX_GRAYSCALE = {
-            .2126f, .2126f, .2126f, 0,
-            .7152f, .7152f, .7152f, 0,
-            .0722f, .0722f, .0722f, 0,
-                 0,      0,      0, 1
-        };
-
-        /** Full color matrix and offset */
-        private final float[] MATRIX_NORMAL = {
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        };
-
-        private final int LEVEL_COLOR_MATRIX_CALIB = LEVEL_COLOR_MATRIX_NIGHT_DISPLAY + 1;
-        private final int LEVEL_COLOR_MATRIX_READING = LEVEL_COLOR_MATRIX_GRAYSCALE + 1;
-
-        private boolean mAcceleratedTransform;
-        private DisplayTransformManager mDTMService;
-
-        private int[] mCurColors = { MAX, MAX, MAX };
-        private boolean mReadingEnhancementEnabled;
-
-        private int mSupportedFeatures = 0;
-
-        public LegacyHardware() {
-            mAcceleratedTransform = mContext.getResources().getBoolean(
-                    com.android.internal.R.bool.config_setColorTransformAccelerated);
-            if (mAcceleratedTransform) {
-                mDTMService = LocalServices.getService(DisplayTransformManager.class);
-                mSupportedFeatures |= HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION;
-                mSupportedFeatures |= HardwareManager.FEATURE_READING_ENHANCEMENT;
-            }
-        }
-
-        public int getSupportedFeatures() {
-            return mSupportedFeatures;
-        }
-
-        public boolean get(int feature) {
-            switch(feature) {
-                case HardwareManager.FEATURE_READING_ENHANCEMENT:
-                    if (mAcceleratedTransform)
-                        return mReadingEnhancementEnabled;
-                default:
-                    Log.e(TAG, "feature " + feature + " is not a boolean feature");
-                    return false;
-            }
-        }
-
-        public boolean set(int feature, boolean enable) {
-            switch(feature) {
-                case HardwareManager.FEATURE_READING_ENHANCEMENT:
-                    if (mAcceleratedTransform) {
-                        mReadingEnhancementEnabled = enable;
-                        mDTMService.setColorMatrix(LEVEL_COLOR_MATRIX_READING,
-                                enable ? MATRIX_GRAYSCALE : MATRIX_NORMAL);
-                        return true;
-                    }
-                default:
-                    Log.e(TAG, "feature " + feature + " is not a boolean feature");
-                    return false;
-            }
-        }
-
-        private float[] rgbToMatrix(int[] rgb) {
-            float[] mat = new float[16];
-
-            for (int i = 0; i < 3; i++) {
-                // Sanity check
-                if (rgb[i] > MAX)
-                    rgb[i] = MAX;
-                else if (rgb[i] < MIN)
-                    rgb[i] = MIN;
-
-                mat[i * 5] = (float)rgb[i] / (float)MAX;
-            }
-
-            mat[15] = 1.0f;
-            return mat;
-        }
-
-        public int[] getDisplayColorCalibration() {
-            int[] rgb = mAcceleratedTransform ? mCurColors : null;
-            if (rgb == null || rgb.length != 3) {
-                Log.e(TAG, "Invalid color calibration string");
-                return null;
-            }
-            int[] currentCalibration = new int[5];
-            currentCalibration[HardwareManager.COLOR_CALIBRATION_RED_INDEX] = rgb[0];
-            currentCalibration[HardwareManager.COLOR_CALIBRATION_GREEN_INDEX] = rgb[1];
-            currentCalibration[HardwareManager.COLOR_CALIBRATION_BLUE_INDEX] = rgb[2];
-            currentCalibration[HardwareManager.COLOR_CALIBRATION_MIN_INDEX] = MIN;
-            currentCalibration[HardwareManager.COLOR_CALIBRATION_MAX_INDEX] = MAX;
-            return currentCalibration;
-        }
-
-        public boolean setDisplayColorCalibration(int[] rgb) {
-            if (mAcceleratedTransform) {
-                mCurColors = rgb;
-                mDTMService.setColorMatrix(LEVEL_COLOR_MATRIX_CALIB, rgbToMatrix(rgb));
-                return true;
-            }
-            return false;
-        }
-    }
-
-    private HardwareInterface getImpl(Context context) {
-        return new LegacyHardware();
-    }
+    private int mSupportedFeatures = 0;
 
     public HardwareService(Context context) {
         super(context);
         mContext = context;
-        mHardwareImpl = getImpl(context);
+
+        try {
+            mHighTouchPollingRate = IHighTouchPollingRate.getService();
+            mSupportedFeatures |= FEATURE_HIGH_TOUCH_POLLING_RATE;
+        } catch (NoSuchElementException | RemoteException e) { }
+
+        try {
+            mGloveMode = IGloveMode.getService();
+            mSupportedFeatures |= FEATURE_HIGH_TOUCH_SENSITIVITY;
+        } catch (NoSuchElementException | RemoteException e) { }
+
+        try {
+            mKeyDisabler = IKeyDisabler.getService();
+            mSupportedFeatures |= FEATURE_KEY_DISABLE;
+        } catch (NoSuchElementException | RemoteException e) { }
+
+        try {
+            mKeySwapper = IKeySwapper.getService();
+            mSupportedFeatures |= FEATURE_KEY_SWAP;
+        } catch (NoSuchElementException | RemoteException e) { }
+
+        try {
+            mStylusMode = IStylusMode.getService();
+            mSupportedFeatures |= FEATURE_TOUCH_HOVERING;
+        } catch (NoSuchElementException | RemoteException e) { }
+
+        try {
+            mTouchscreenGesture = ITouchscreenGesture.getService();
+            ArrayList<Gesture> availableGestures = mTouchscreenGesture.getSupportedGestures();
+            int size = availableGestures.size();
+            mAvailableGestures = new TouchscreenGesture[size];
+            for (int i = 0; i < size; i++) {
+                final Gesture g = availableGestures.get(i);
+                mAvailableGestures[i] = new TouchscreenGesture(g.id, g.name, g.keycode);
+            }
+            mSupportedFeatures |= FEATURE_TOUCHSCREEN_GESTURES;
+        } catch (NoSuchElementException | RemoteException e) { }
     }
 
     @Override
@@ -197,65 +140,133 @@ public class HardwareService extends VendorService {
         publishBinderService(ContextConstants.HARDWARE_MANAGER, mService);
     }
 
-    private final IBinder mService = new IHardwareService.Stub() {
+    private int getSupportedFeaturesInternal() {
+        return mSupportedFeatures;
+    }
 
-        private boolean isSupported(int feature) {
-            return (getSupportedFeatures() & feature) == feature;
+    private boolean getFeatureInternal(int feature) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
         }
 
+        switch (feature) {
+            case FEATURE_HIGH_TOUCH_POLLING_RATE:
+                try {
+                    return mHighTouchPollingRate.isEnabled();
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_HIGH_TOUCH_SENSITIVITY:
+                try {
+                    return mGloveMode.isEnabled();
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_KEY_DISABLE:
+                try {
+                    return mKeyDisabler.isEnabled();
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_KEY_SWAP:
+                try {
+                    return mKeySwapper.isEnabled();
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_TOUCH_HOVERING:
+                try {
+                    return mStylusMode.isEnabled();
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    private boolean setFeatureInternal(int feature, boolean enable) {
+        if (!BOOLEAN_FEATURES.contains(feature)) {
+            throw new IllegalArgumentException(feature + " is not a boolean");
+        }
+        switch (feature) {
+            case FEATURE_HIGH_TOUCH_POLLING_RATE:
+                try {
+                    return mHighTouchPollingRate.setEnabled(enable);
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_HIGH_TOUCH_SENSITIVITY:
+                try {
+                    return mGloveMode.setEnabled(enable);
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_KEY_DISABLE:
+                try {
+                    return mKeyDisabler.setEnabled(enable);
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_KEY_SWAP:
+                try {
+                    return mKeySwapper.setEnabled(enable);
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            case FEATURE_TOUCH_HOVERING:
+                try {
+                    return mStylusMode.setEnabled(enable);
+                } catch (NoSuchElementException | RemoteException e) { }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    private TouchscreenGesture[] getGesturesInternal() {
+        return mAvailableGestures;
+    }
+
+    private boolean setGestureInternal(TouchscreenGesture gesture, boolean state) {
+        try {
+            Gesture compat = new Gesture();
+            compat.id = gesture.id;
+            compat.name = gesture.name;
+            compat.keycode = gesture.keycode;
+            return mTouchscreenGesture.setGestureEnabled(compat, state);
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    private final IBinder mService = new IHardwareService.Stub() {
         @Override
         public int getSupportedFeatures() {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
-            return mHardwareImpl.getSupportedFeatures();
+            return getSupportedFeaturesInternal();
         }
 
         @Override
-        public boolean get(int feature) {
+        public boolean getFeature(int feature) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
-            if (!isSupported(feature)) {
-                Log.e(TAG, "feature " + feature + " is not supported");
-                return false;
-            }
-            return mHardwareImpl.get(feature);
+            return getFeatureInternal(feature);
         }
 
         @Override
-        public boolean set(int feature, boolean enable) {
+        public boolean setFeature(int feature, boolean enable) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
-            if (!isSupported(feature)) {
-                Log.e(TAG, "feature " + feature + " is not supported");
-                return false;
-            }
-            return mHardwareImpl.set(feature, enable);
+            return setFeatureInternal(feature, enable);
         }
 
         @Override
-        public int[] getDisplayColorCalibration() {
+        public TouchscreenGesture[] getGestures() {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
-            if (!isSupported(HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION)) {
-                Log.e(TAG, "Display color calibration is not supported");
-                return null;
-            }
-            return mHardwareImpl.getDisplayColorCalibration();
+            return getGesturesInternal();
         }
 
         @Override
-        public boolean setDisplayColorCalibration(int[] rgb) {
+        public boolean setGesture(TouchscreenGesture gesture, boolean state) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.HARDWARE_ABSTRACTION_ACCESS, null);
-            if (!isSupported(HardwareManager.FEATURE_DISPLAY_COLOR_CALIBRATION)) {
-                Log.e(TAG, "Display color calibration is not supported");
-                return false;
-            }
-            if (rgb.length < 3) {
-                Log.e(TAG, "Invalid color calibration");
-                return false;
-            }
-            return mHardwareImpl.setDisplayColorCalibration(rgb);
+            return setGestureInternal(gesture, state);
         }
     };
 }

@@ -17,12 +17,13 @@
 
 package evervolv.hardware;
 
+import evervolv.hardware.TouchscreenGesture;
+
 /** @hide */
 interface IHardwareService {
     int getSupportedFeatures();
-    boolean get(int feature);
-    boolean set(int feature, boolean enable);
-
-    int[] getDisplayColorCalibration();
-    boolean setDisplayColorCalibration(in int[] rgb);
+    boolean getFeature(int feature);
+    boolean setFeature(int feature, boolean enable);
+    TouchscreenGesture[] getGestures();
+    boolean setGesture(in TouchscreenGesture gesture, boolean state);
 }
