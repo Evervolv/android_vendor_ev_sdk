@@ -19,23 +19,25 @@ package com.evervolv.platform.internal.display;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.RemoteException;
 
 import java.io.PrintWriter;
 import java.util.BitSet;
+import java.util.NoSuchElementException;
 
-import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
 
 import java.util.ArrayList;
 
+import vendor.lineage.livedisplay.V2_1.IAntiFlicker;
+
 public class AntiFlickerController extends LiveDisplayFeature {
 
     private static final String TAG = "AntiFlickerController";
 
-    private final HardwareManager mHardware;
-
     // hardware capabilities
+    private IAntiFlicker mAntiFlicker = null;
     private final boolean mUseAntiFlicker;
     private final boolean mDefaultAntiFlicker;
 
@@ -48,10 +50,12 @@ public class AntiFlickerController extends LiveDisplayFeature {
     public AntiFlickerController(Context context, Handler handler) {
         super(context, handler);
 
-        mHardware = HardwareManager.getInstance(mContext);
+        try {
+            mAntiFlicker = IAntiFlicker.getService();
+        } catch (NoSuchElementException | RemoteException e) {
+        }
+        mUseAntiFlicker = mAntiFlicker != null;
 
-        mUseAntiFlicker = mHardware
-                .isSupported(HardwareManager.FEATURE_ANTI_FLICKER);
         mDefaultAntiFlicker = mContext.getResources().getBoolean(
                 com.evervolv.platform.internal.R.bool.config_defaultAntiFlicker);
     }
@@ -105,7 +109,11 @@ public class AntiFlickerController extends LiveDisplayFeature {
         if (!mUseAntiFlicker) {
             return;
         }
-        mHardware.set(HardwareManager.FEATURE_ANTI_FLICKER, isAntiFlickerEnabled());
+
+        try {
+            mAntiFlicker.setEnabled(isAntiFlickerEnabled());
+        } catch (NoSuchElementException | RemoteException e) {
+        }
     }
 
     boolean isAntiFlickerEnabled() {

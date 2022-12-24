@@ -17,6 +17,7 @@
 
 package evervolv.hardware;
 
+import evervolv.hardware.DisplayMode;
 import evervolv.hardware.HSIC;
 import evervolv.hardware.LiveDisplayConfig;
 
@@ -45,4 +46,14 @@ interface ILiveDisplayService {
 
     boolean getFeature(int feature);
     boolean setFeature(int feature, boolean enable);
+
+    int[] getDisplayColorCalibration();
+    int getDisplayColorCalibrationMin();
+    int getDisplayColorCalibrationMax();
+    boolean setDisplayColorCalibration(in int[] rgb);
+
+    DisplayMode[] getDisplayModes();
+    DisplayMode getCurrentDisplayMode();
+    DisplayMode getDefaultDisplayMode();
+    boolean setDisplayMode(in DisplayMode mode, boolean makeDefault);
 }

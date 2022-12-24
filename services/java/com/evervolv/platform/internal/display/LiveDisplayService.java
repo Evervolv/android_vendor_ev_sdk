@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 import evervolv.app.ContextConstants;
+import evervolv.hardware.DisplayMode;
 import evervolv.hardware.HSIC;
 import evervolv.hardware.ILiveDisplayService;
 import evervolv.hardware.LiveDisplayConfig;
@@ -62,6 +63,7 @@ import static evervolv.hardware.LiveDisplayManager.FEATURE_AUTO_CONTRAST;
 import static evervolv.hardware.LiveDisplayManager.FEATURE_CABC;
 import static evervolv.hardware.LiveDisplayManager.FEATURE_COLOR_ENHANCEMENT;
 import static evervolv.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_READING_ENHANCEMENT;
 import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
 import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
 import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
@@ -353,6 +355,8 @@ public class LiveDisplayService extends VendorService {
                 return mOMC.isAutomaticOutdoorModeEnabled();
             case FEATURE_ANTI_FLICKER:
                 return mAFC.isAntiFlickerEnabled();
+            case FEATURE_READING_ENHANCEMENT:
+                return mDHC.isReadingModeEnabled();
             default:
                 return false;
             }
@@ -373,9 +377,53 @@ public class LiveDisplayService extends VendorService {
                 return mOMC.setAutomaticOutdoorModeEnabled(enable);
             case FEATURE_ANTI_FLICKER:
                 return mAFC.setAntiFlickerEnabled(enable);
+            case FEATURE_READING_ENHANCEMENT:
+                return mDHC.setReadingModeEnabled(enable);
             default:
                 return false;
             }
+        }
+
+        @Override
+        public int[] getDisplayColorCalibration() {
+            return mDHC.getDisplayColorCalibration();
+        }
+
+        @Override
+        public int getDisplayColorCalibrationMin() {
+            return mDHC.getDisplayColorCalibrationMin();
+        }
+
+        @Override
+        public int getDisplayColorCalibrationMax() {
+            return mDHC.getDisplayColorCalibrationMax();
+        }
+
+        @Override
+        public boolean setDisplayColorCalibration(int[] rgb) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mDHC.setDisplayColorCalibration(rgb);
+        }
+
+        @Override
+        public DisplayMode[] getDisplayModes() {
+            return mPAC.getDisplayModes();
+        }
+
+        @Override
+        public DisplayMode getCurrentDisplayMode() {
+            return mPAC.getCurrentDisplayMode();
+        }
+
+        @Override
+        public DisplayMode getDefaultDisplayMode() {
+            return mPAC.getDefaultDisplayMode();
+        }
+
+        @Override
+        public boolean setDisplayMode(DisplayMode mode, boolean makeDefault) {
+            return mPAC.setDisplayMode(mode, makeDefault);
         }
     };
 

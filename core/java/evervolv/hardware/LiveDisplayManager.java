@@ -129,14 +129,6 @@ public class LiveDisplayManager {
      */
     public static final int FEATURE_ANTI_FLICKER = 19;
 
-    private static final List<Integer> BOOLEAN_FEATURES = Arrays.asList(
-        FEATURE_CABC,
-        FEATURE_AUTO_CONTRAST,
-        FEATURE_COLOR_ENHANCEMENT,
-        FEATURE_MANAGED_OUTDOOR_MODE,
-        FEATURE_ANTI_FLICKER
-    );
-
     public static final int ADJUSTMENT_HUE = 0;
     public static final int ADJUSTMENT_SATURATION = 1;
     public static final int ADJUSTMENT_INTENSITY = 2;
@@ -530,10 +522,6 @@ public class LiveDisplayManager {
      * @return true if the feature is enabled, false otherwise.
      */
     public boolean getFeature(int feature) {
-        if (!BOOLEAN_FEATURES.contains(feature)) {
-            throw new IllegalArgumentException(feature + " is not a boolean");
-        }
-
         try {
             return checkService() && sService.getFeature(feature);
         } catch (RemoteException e) {
@@ -551,12 +539,114 @@ public class LiveDisplayManager {
      * @return true if the feature is enabled, false otherwise.
      */
     public boolean setFeature(int feature, boolean enable) {
-        if (!BOOLEAN_FEATURES.contains(feature)) {
-            throw new IllegalArgumentException(feature + " is not a boolean");
-        }
-
         try {
             return checkService() && sService.setFeature(feature, enable);
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    /**
+     * @return the current RGB calibration, where int[0] = R, int[1] = G, int[2] = B.
+     */
+    public int[] getDisplayColorCalibration() {
+        try {
+            if (checkService()) {
+                return sService.getDisplayColorCalibration();
+            }
+        } catch (RemoteException e) {
+        }
+        return null;
+    }
+
+    /**
+     * @return The minimum value for all colors
+     */
+    public int getDisplayColorCalibrationMin() {
+        try {
+            if (checkService()) {
+                return sService.getDisplayColorCalibrationMin();
+            }
+        } catch (RemoteException e) {
+        }
+        return 0;
+    }
+
+    /**
+     * @return The maximum value for all colors
+     */
+    public int getDisplayColorCalibrationMax() {
+        try {
+            if (checkService()) {
+                return sService.getDisplayColorCalibrationMax();
+            }
+        } catch (RemoteException e) {
+        }
+        return 0;
+    }
+
+    /**
+     * Set the display color calibration to the given rgb triplet
+     *
+     * @param rgb RGB color calibration.  Each value must be between
+     * {@link #getDisplayColorCalibrationMin()} and {@link #getDisplayColorCalibrationMax()},
+     * inclusive.
+     *
+     * @return true on success, false otherwise.
+     */
+    public boolean setDisplayColorCalibration(int[] rgb) {
+        try {
+            return checkService() && sService.setDisplayColorCalibration(rgb);
+        } catch (RemoteException e) {
+        }
+        return false;
+    }
+
+    /**
+     * @return a list of available display modes on the devices
+     */
+    public DisplayMode[] getDisplayModes() {
+        try {
+            if (checkService()) {
+                return sService.getDisplayModes();
+            }
+        } catch (RemoteException e) {
+        }
+        return null;
+    }
+
+    /**
+     * @return the currently active display mode
+     */
+    public DisplayMode getCurrentDisplayMode() {
+        try {
+            if (checkService()) {
+                return sService.getCurrentDisplayMode();
+            }
+        } catch (RemoteException e) {
+        }
+        return null;
+    }
+
+    /**
+     * @return the default display mode to be set on boot
+     */
+    public DisplayMode getDefaultDisplayMode() {
+        try {
+            if (checkService()) {
+                return sService.getDefaultDisplayMode();
+            }
+        } catch (RemoteException e) {
+        }
+        return null;
+    }
+
+    /**
+     * @return true if setting the mode was successful
+     */
+    public boolean setDisplayMode(DisplayMode mode, boolean makeDefault) {
+        try {
+            return checkService() && sService.setDisplayMode(mode, makeDefault);
         } catch (RemoteException e) {
         }
         return false;
