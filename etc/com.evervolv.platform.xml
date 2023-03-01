@@ -24,6 +24,8 @@
     <feature name="com.evervolv.globalactions" />
     <!-- Feature to specify if the device supports additional hardware controls -->
     <feature name="com.evervolv.hardware" />
+    <!-- Feature to specify if the device supports extended charging controls -->
+    <feature name="com.evervolv.health" />
     <!-- Feature to specify if the device supports extended display controls -->
     <feature name="com.evervolv.livedisplay" />
 

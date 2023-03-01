@@ -27,6 +27,7 @@
     <protected-broadcast android:name="evervolv.intent.action.REFRESH_PREFERENCE" />
     <protected-broadcast android:name="evervolv.intent.action.INITIALIZE_HARDWARE" />
     <protected-broadcast android:name="evervolv.intent.action.INITIALIZE_LIVEDISPLAY" />
+    <protected-broadcast android:name="evervolv.intent.action.CHARGING_CONTROL_CANCEL_ONCE" />
 
     <!-- Allows an application to write to Evervolv system settings -->
     <permission android:name="evervolv.permission.WRITE_SETTINGS"

@@ -65,6 +65,17 @@ public final class ContextConstants {
     public static final String LIVEDISPLAY_SERVICE = "ev_livedisplay";
 
     /**
+     * Use with {@link android.content.Context#getSystemService} to retrieve a
+     * {@link evervolv.health.HealthInterface} to access the Health interface.
+     *
+     * @see android.content.Context#getSystemService
+     * @see lineageos.health.HealthInterface
+     *
+     * @hide
+     */
+    public static final String HEALTH_INTERFACE = "ev_health";
+
+    /**
      * Features supported by the Vendor SDK.
      */
     public static class Features {
@@ -98,5 +109,13 @@ public final class ContextConstants {
          */
         @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
         public static final String LIVEDISPLAY = "com.evervolv.livedisplay";
+
+        /**
+         * Feature for {@link PackageManager#getSystemAvailableFeatures} and
+         * {@link PackageManager#hasSystemFeature}: The device includes the lineage health
+         * service utilized by the lineage sdk and LineageParts.
+         */
+        @SdkConstant(SdkConstant.SdkConstantType.FEATURE)
+        public static final String HEALTH = "com.evervolv.health";
     }
 }
