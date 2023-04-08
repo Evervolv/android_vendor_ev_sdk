@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final boolean LOCAL_LOGV = false;
 
     private static final String DATABASE_NAME = "evervolv.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public static class TableNames {
         public static final String TABLE_SYSTEM = "system";
@@ -169,18 +169,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
         if (upgradeVersion < 3) {
-            // Update button brightness range
-            if (mUserHandle == UserHandle.USER_SYSTEM) {
+            // Update button/keyboard brightness range
+            if (mUserHandle == UserHandle.USER_OWNER) {
                 db.beginTransaction();
                 SQLiteStatement stmt = null;
                 try {
                     stmt = db.compileStatement(
-                            "UPDATE system SET value=round(value / 255.0, 2) WHERE name=?");
+                            "UPDATE secure SET value=round(value / 255.0, 2) WHERE name=?");
                     stmt.bindString(1, EVSettings.System.BUTTON_BRIGHTNESS);
                     stmt.execute();
                     db.setTransactionSuccessful();
                 } catch (SQLiteDoneException ex) {
-                    // key is not set
+                    // EVSettings.System.BUTTON_BRIGHTNESS is not set
                 } finally {
                     if (stmt != null) stmt.close();
                     db.endTransaction();
@@ -274,7 +274,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     + " VALUES(?,?);");
             // Secure
             loadIntegerSetting(stmt, EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR,
-                    R.integer.def_force_disable_navkeys);
+                    R.integer.def_force_show_navbar);
             loadBooleanSetting(stmt, EVSettings.Secure.LOCKSCREEN_VISUALIZER_ENABLED,
                     R.bool.def_lockscreen_visualizer);
             loadBooleanSetting(stmt, EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA,
@@ -292,14 +292,34 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             stmt = db.compileStatement("INSERT OR IGNORE INTO system(name,value)"
                     + " VALUES(?,?);");
             // System
+            loadIntegerSetting(stmt, EVSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
+                    R.integer.def_qs_quick_pulldown);
+
+            loadIntegerSetting(stmt, EVSettings.System.BATTERY_LIGHT_BRIGHTNESS_LEVEL,
+                    R.integer.def_battery_brightness_level);
+
+            loadIntegerSetting(stmt, EVSettings.System.BATTERY_LIGHT_BRIGHTNESS_LEVEL_ZEN,
+                    R.integer.def_battery_brightness_level_zen);
+
+            loadIntegerSetting(stmt, EVSettings.System.NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
+                    R.integer.def_notification_brightness_level);
+
+            loadIntegerSetting(stmt, EVSettings.System.NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL_ZEN,
+                    R.integer.def_notification_brightness_level_zen);
+
+            loadBooleanSetting(stmt, EVSettings.System.NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE,
+                    R.bool.def_notification_pulse_custom_enable);
+
+            if (mContext.getResources().getBoolean(R.bool.def_notification_pulse_custom_enable)) {
+                loadStringSetting(stmt, EVSettings.System.NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES,
+                        R.string.def_notification_pulse_custom_value);
+            }
+
             loadIntegerSetting(stmt, EVSettings.System.STATUS_BAR_BATTERY_STYLE,
                     R.integer.def_battery_style);
-            loadIntegerSetting(stmt, EVSettings.System.ENABLE_FORWARD_LOOKUP,
-                    R.integer.def_forward_lookup);
-            loadIntegerSetting(stmt, EVSettings.System.ENABLE_PEOPLE_LOOKUP,
-                    R.integer.def_people_lookup);
-            loadIntegerSetting(stmt, EVSettings.System.ENABLE_REVERSE_LOOKUP,
-                    R.integer.def_reverse_lookup);
+
+            loadBooleanSetting(stmt, EVSettings.System.LOCKSCREEN_ROTATION,
+                    R.bool.def_lockscreen_rotation);
         } finally {
             if (stmt != null) stmt.close();
         }

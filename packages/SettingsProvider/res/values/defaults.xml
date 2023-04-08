@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2014-2015 The CyanogenMod Project
+                   2019-2021 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,9 +16,47 @@
      limitations under the License.
 -->
 <resources>
+    <!-- Defaults for Secure -->
 
     <!-- Defaults for EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR. -->
-    <integer name="def_force_disable_navkeys">0</integer>
+    <integer name="def_force_show_navbar">0</integer>
+
+    <!-- Default for CMSettings.Secure.LOCKSCREEN_VISUALIZER_ENABLED -->
+    <bool name="def_lockscreen_visualizer">false</bool>
+
+    <!-- Default for EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA -->
+    <bool name="def_lockscreen_media_metadata">true</bool>
+
+    <!-- Default for EVSettings.Secure.VOLUME_PANEL_ON_LEFT -->
+    <bool name="def_volume_panel_on_left">false</bool>
+
+    <!-- Defaults for System -->
+
+    <!-- Default for EVSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN
+         0. Off
+         1. Right
+         2. Left -->
+    <integer name="def_qs_quick_pulldown">0</integer>
+
+    <!-- Default value for the battery LEDs brightness -->
+    <integer name="def_battery_brightness_level">255</integer>
+
+    <!-- Default value for the notification LEDs brightness
+         when Do Not Disturb is active -->
+    <integer name="def_battery_brightness_level_zen">255</integer>
+
+    <!-- Default value for the notification LEDs brightness
+         on devices equiped with configurable LED controller -->
+    <integer name="def_notification_brightness_level">255</integer>
+
+    <!-- Default value for the notification LEDs brightness
+         on devices equiped with configurable LED controller
+         when Do Not Disturb is active -->
+    <integer name="def_notification_brightness_level_zen">255</integer>
+
+    <!-- Default value for notification LED customization -->
+    <bool name="def_notification_pulse_custom_enable">false</bool>
+    <string name="def_notification_pulse_custom_value"></string>
 
     <!-- Default for EVSettings.System.STATUS_BAR_BATTERY_STYLE
          * 0: Display the battery an icon in portrait mode
@@ -29,22 +68,6 @@
          -->
     <integer name="def_battery_style">0</integer>
 
-    <!-- Default value of EVSettings.System.ENABLE_FORWARD_LOOKUP -->
-    <integer name="def_forward_lookup">0</integer>
-
-    <!-- Default value of EVSettings.System.ENABLE_PEOPLE_LOOKUP -->
-    <integer name="def_people_lookup">0</integer>
-
-    <!-- Default value of EVSettings.System.ENABLE_REVERSE_LOOKUP -->
-    <integer name="def_reverse_lookup">0</integer>
-
-    <!-- Default for CMSettings.Secure.LOCKSCREEN_VISUALIZER_ENABLED -->
-    <bool name="def_lockscreen_visualizer">false</bool>
-
-    <!-- Default for EVSettings.Secure.LOCKSCREEN_MEDIA_METADATA -->
-    <bool name="def_lockscreen_media_metadata">true</bool>
-
-    <!-- Default for EVSettings.Secure.VOLUME_PANEL_ON_LEFT -->
-    <bool name="def_volume_panel_on_left">false</bool>
-
+    <!-- Default for EVSettings.System.LOCKSCREEN_ROTATION -->
+    <bool name="def_lockscreen_rotation">false</bool>
 </resources>
