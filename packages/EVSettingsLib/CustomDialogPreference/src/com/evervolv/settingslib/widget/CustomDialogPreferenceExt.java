@@ -24,38 +24,42 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class CustomDialogPreference<T extends DialogInterface> extends DialogPreference {
+public class CustomDialogPreferenceExt extends DialogPreference {
 
     private CustomPreferenceDialogFragment mFragment;
+    private DialogInterface.OnShowListener mOnShowListener;
 
-    public CustomDialogPreference(Context context, AttributeSet attrs, int defStyleAttr,
+    public CustomDialogPreferenceExt(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public CustomDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomDialogPreferenceExt(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomDialogPreference(Context context, AttributeSet attrs) {
+    public CustomDialogPreferenceExt(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomDialogPreference(Context context) {
+    public CustomDialogPreferenceExt(Context context) {
         super(context);
     }
 
     public boolean isDialogOpen() {
-        return getDialog() != null && getDialog() instanceof Dialog && ((Dialog)getDialog()).isShowing();
+        return getDialog() != null && getDialog().isShowing();
     }
 
-    public T getDialog() {
-        return (T) (mFragment != null ? mFragment.getDialog() : null);
+    public Dialog getDialog() {
+        return mFragment != null ? mFragment.getDialog() : null;
+    }
+
+    public void setOnShowListener(DialogInterface.OnShowListener listner) {
+        mOnShowListener = listner;
     }
 
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder,
@@ -65,10 +69,18 @@ public class CustomDialogPreference<T extends DialogInterface> extends DialogPre
     protected void onDialogClosed(boolean positiveResult) {
     }
 
-    protected void onClick(T dialog, int which) {
+    protected void onClick(DialogInterface dialog, int which) {
     }
 
     protected void onBindDialogView(View view) {
+    }
+
+    private void setFragment(CustomPreferenceDialogFragment fragment) {
+        mFragment = fragment;
+    }
+
+    private DialogInterface.OnShowListener getOnShowListener() {
+        return mOnShowListener;
     }
 
     protected void onStart() {
@@ -91,11 +103,7 @@ public class CustomDialogPreference<T extends DialogInterface> extends DialogPre
         return null;
     }
 
-    private void setFragment(CustomPreferenceDialogFragment fragment) {
-        mFragment = fragment;
-    }
-
-    protected boolean onDismissDialog(T dialog, int which) {
+    protected boolean onDismissDialog(DialogInterface dialog, int which) {
         return true;
     }
 
@@ -107,10 +115,6 @@ public class CustomDialogPreference<T extends DialogInterface> extends DialogPre
             b.putString(ARG_KEY, key);
             fragment.setArguments(b);
             return fragment;
-        }
-
-        private CustomDialogPreference getCustomizablePreference() {
-            return (CustomDialogPreference) getPreference();
         }
 
         private class OnDismissListener implements View.OnClickListener {
@@ -129,6 +133,46 @@ public class CustomDialogPreference<T extends DialogInterface> extends DialogPre
                     mDialog.dismiss();
                 }
             }
+        }
+
+        private CustomDialogPreferenceExt getCustomizablePreference() {
+            return (CustomDialogPreferenceExt) getPreference();
+        }
+
+        @Override
+        protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
+            super.onPrepareDialogBuilder(builder);
+            getCustomizablePreference().setFragment(this);
+            getCustomizablePreference().onPrepareDialogBuilder(builder, this);
+        }
+
+        @Override
+        public void onDialogClosed(boolean positiveResult) {
+            getCustomizablePreference().onDialogClosed(positiveResult);
+        }
+
+        @Override
+        protected void onBindDialogView(View view) {
+            super.onBindDialogView(view);
+            getCustomizablePreference().onBindDialogView(view);
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            getCustomizablePreference().setFragment(this);
+            final Dialog sub = getCustomizablePreference().onCreateDialog(savedInstanceState);
+            if (sub == null) {
+                final Dialog dialog = super.onCreateDialog(savedInstanceState);
+                dialog.setOnShowListener(getCustomizablePreference().getOnShowListener());
+                return dialog;
+            }
+            return sub;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            super.onClick(dialog, which);
+            getCustomizablePreference().onClick(dialog, which);
         }
 
         @Override
@@ -168,50 +212,6 @@ public class CustomDialogPreference<T extends DialogInterface> extends DialogPre
         public void onResume() {
             super.onResume();
             getCustomizablePreference().onResume();
-        }
-
-        @Override
-        protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-            super.onPrepareDialogBuilder(builder);
-            getCustomizablePreference().setFragment(this);
-            getCustomizablePreference().onPrepareDialogBuilder(builder, this);
-        }
-
-        @Override
-        public void onDialogClosed(boolean positiveResult) {
-            getCustomizablePreference().onDialogClosed(positiveResult);
-        }
-
-        @Override
-        protected void onBindDialogView(View view) {
-            super.onBindDialogView(view);
-            getCustomizablePreference().onBindDialogView(view);
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            super.onClick(dialog, which);
-            getCustomizablePreference().onClick(dialog, which);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            getCustomizablePreference().setFragment(this);
-            final Dialog sub = getCustomizablePreference().onCreateDialog(savedInstanceState);
-            if (sub == null) {
-                return super.onCreateDialog(savedInstanceState);
-            }
-            return sub;
-        }
-
-        @Override
-        protected View onCreateDialogView(Context context) {
-            final View v = getCustomizablePreference().onCreateDialogView(context);
-            if (v == null) {
-                return super.onCreateDialogView(context);
-            }
-            return v;
         }
     }
 }
