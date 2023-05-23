@@ -15,6 +15,16 @@
 -->
 
 <permissions>
+
+    <!-- Platform library -->
     <library name="com.evervolv.platform"
             file="/system/framework/com.evervolv.platform.jar" />
+
+    <!-- Feature to specify if the device supports Global Actions -->
+    <feature name="com.evervolv.globalactions" />
+    <!-- Feature to specify if the device supports additional hardware controls -->
+    <feature name="com.evervolv.hardware" />
+    <!-- Feature to specify if the device supports extended display controls -->
+    <feature name="com.evervolv.livedisplay" />
+
 </permissions>

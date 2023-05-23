@@ -18,22 +18,3 @@ prebuilt_etc {
     sub_dir: "permissions",
     src: "com.evervolv.platform.xml",
 }
-
-// SDK feature permission files
-prebuilt_etc {
-    name: "com.evervolv.hardware.xml",
-    sub_dir: "permissions",
-    src: "com.evervolv.hardware.xml",
-}
-
-prebuilt_etc {
-    name: "com.evervolv.livedisplay.xml",
-    sub_dir: "permissions",
-    src: "com.evervolv.livedisplay.xml",
-}
-
-prebuilt_etc {
-    name: "com.evervolv.globalactions.xml",
-    sub_dir: "permissions",
-    src: "com.evervolv.globalactions.xml",
-}

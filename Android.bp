@@ -84,6 +84,7 @@ java_defaults {
     aidl: {
         local_include_dirs: ["core/java"],
     },
+    required: ["com.evervolv.platform.xml"],
 }
 
 java_defaults {
