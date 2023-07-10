@@ -142,7 +142,8 @@ public class ChargingControlController extends VendorHealthFeature {
 
         mContentResolver = mContext.getContentResolver();
         mChargingControl = IChargingControl.Stub.asInterface(
-                ServiceManager.getService(IChargingControl.DESCRIPTOR + "/default"));
+                ServiceManager.waitForDeclaredService(
+                        IChargingControl.DESCRIPTOR + "/default"));
 
         if (mChargingControl == null) {
             Log.i(TAG, "Health HAL not found");
