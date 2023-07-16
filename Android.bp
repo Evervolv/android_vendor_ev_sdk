@@ -85,7 +85,10 @@ java_defaults {
     aidl: {
         local_include_dirs: ["core/java"],
     },
-    required: ["com.evervolv.platform.xml"],
+    required: [
+        "com.evervolv.platform.xml",
+        "com.evervolv.platform-sysconfig.xml",
+    ],
 }
 
 java_defaults {

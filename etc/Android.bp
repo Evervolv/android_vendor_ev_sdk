@@ -18,3 +18,10 @@ prebuilt_etc {
     sub_dir: "permissions",
     src: "com.evervolv.platform.xml",
 }
+
+prebuilt_etc {
+    name: "com.evervolv.platform-sysconfig.xml",
+    sub_dir: "sysconfig",
+    src: "com.evervolv.platform-sysconfig.xml",
+    product_specific: true,
+}
