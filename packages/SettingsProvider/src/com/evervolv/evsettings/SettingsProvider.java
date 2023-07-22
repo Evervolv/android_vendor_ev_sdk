@@ -60,11 +60,6 @@ public class SettingsProvider extends ContentProvider {
 
     private static final boolean USER_CHECK_THROWS = true;
 
-    public static final String PREF_SETTINGS_VERSION = "settings_version";
-
-    /** A build ID string meant for displaying to the user */
-    private static final int SETTINGS_VERSION = Build.CURRENT_VERSION;
-
     private static final Bundle NULL_SETTING = Bundle.forPair("value", null);
 
     // Each defined user has their own settings
@@ -141,118 +136,6 @@ public class SettingsProvider extends ContentProvider {
         return true;
     }
 
-    // region Migration Methods
-
-    /**
-     * Migrates Evervolv settings for all existing users if this has not been run before.
-     */
-    private void migrateEVSettingsForExistingUsersIfNeeded() {
-        int version = mSharedPrefs.getInt(PREF_SETTINGS_VERSION, 0);
-
-        if (version < Build.CURRENT_VERSION) {
-            long startTime = System.currentTimeMillis();
-
-            for (UserInfo user : mUserManager.getUsers()) {
-                migrateEVSettingsForUser(user.id);
-            }
-
-            mSharedPrefs.edit().putInt(PREF_SETTINGS_VERSION, SETTINGS_VERSION).commit();
-
-            // TODO: Add this as part of a boot message to the UI
-            long timeDiffMillis = System.currentTimeMillis() - startTime;
-            if (LOCAL_LOGV) Log.d(TAG, "Migration finished in " + timeDiffMillis + " milliseconds");
-        }
-    }
-
-    /**
-     * Migrates Evervolv settings for a specific user.
-     * @param userId The id of the user to run Evervolv settings migration for.
-     */
-    private void migrateEVSettingsForUser(int userId) {
-        synchronized (this) {
-            if (LOCAL_LOGV) Log.d(TAG, "Evervolv settings will be migrated for user id: " + userId);
-
-            // Rename database files (if needed)
-            DatabaseHelper dbHelper = mDbHelpers.get(userId);
-            if (dbHelper != null) {
-                dbHelper.close();
-                mDbHelpers.delete(userId);
-                establishDbTracking(userId);
-                dbHelper = null;
-            }
-
-            // Migrate system settings
-            int rowsMigrated = migrateEVSettingsForTable(userId,
-                    DatabaseHelper.TableNames.TABLE_SYSTEM, EVSettings.System.LEGACY_SYSTEM_SETTINGS);
-            if (LOCAL_LOGV) Log.d(TAG, "Migrated " + rowsMigrated + " to Evervolv system table");
-
-            // Migrate secure settings
-            rowsMigrated = migrateEVSettingsForTable(userId,
-                    DatabaseHelper.TableNames.TABLE_SECURE, EVSettings.Secure.LEGACY_SECURE_SETTINGS);
-            if (LOCAL_LOGV) Log.d(TAG, "Migrated " + rowsMigrated + " to Evervolv secure table");
-
-            // Migrate global settings
-            rowsMigrated = migrateEVSettingsForTable(userId,
-                    DatabaseHelper.TableNames.TABLE_GLOBAL, EVSettings.Global.LEGACY_GLOBAL_SETTINGS);
-            if (LOCAL_LOGV) Log.d(TAG, "Migrated " + rowsMigrated + " to Evervolv global table");
-        }
-    }
-
-    /**
-     * Migrates Evervolv settings for a specific table and user id.
-     * @param userId The id of the user to run Evervolv settings migration for.
-     * @param tableName The name of the table to run Evervolv settings migration on.
-     * @param settings An array of keys to migrate from {@link Settings} to {@link EVSettings}
-     * @return Number of rows migrated.
-     */
-    private int migrateEVSettingsForTable(int userId, String tableName, String[] settings) {
-        ContentResolver contentResolver = getContext().getContentResolver();
-        ContentValues[] contentValues = new ContentValues[settings.length];
-
-        int migrateSettingsCount = 0;
-        for (String settingsKey : settings) {
-            String settingsValue = null;
-
-            if (tableName.equals(DatabaseHelper.TableNames.TABLE_SYSTEM)) {
-                settingsValue = Settings.System.getStringForUser(contentResolver, settingsKey,
-                        userId);
-            }
-            else if (tableName.equals(DatabaseHelper.TableNames.TABLE_SECURE)) {
-                settingsValue = Settings.Secure.getStringForUser(contentResolver, settingsKey,
-                        userId);
-            }
-            else if (tableName.equals(DatabaseHelper.TableNames.TABLE_GLOBAL)) {
-                settingsValue = Settings.Global.getStringForUser(contentResolver, settingsKey,
-                        userId);
-            }
-
-            if (LOCAL_LOGV) Log.d(TAG, "Table: " + tableName + ", Key: " + settingsKey + ", Value: "
-                    + settingsValue);
-
-            // Don't trample defaults with null values. This is the only scenario where defaults
-            // take precedence over migration values.
-            if (settingsValue == null) {
-                if (LOCAL_LOGV) Log.d(TAG, "Skipping migrating " + settingsKey
-                        + " because of null value");
-                continue;
-            }
-
-            ContentValues contentValue = new ContentValues();
-            contentValue.put(Settings.NameValueTable.NAME, settingsKey);
-            contentValue.put(Settings.NameValueTable.VALUE, settingsValue);
-            contentValues[migrateSettingsCount++] = contentValue;
-        }
-
-        int rowsInserted = 0;
-        if (contentValues.length > 0) {
-            Uri uri = mUriBuilder.build();
-            uri = uri.buildUpon().appendPath(tableName).build();
-            rowsInserted = bulkInsertForUser(userId, uri, contentValues);
-        }
-
-        return rowsInserted;
-    }
-
     /**
      * Performs cleanup for the removed user.
      * @param userId The id of the user that is removed.
@@ -267,8 +150,6 @@ public class SettingsProvider extends ContentProvider {
             if (LOCAL_LOGV) Log.d(TAG, "User " + userId + " is removed");
         }
     }
-
-    // endregion Migration Methods
 
     // region Content Provider Methods
 
@@ -288,14 +169,6 @@ public class SettingsProvider extends ContentProvider {
         }
 
         switch (method) {
-            // Migrate methods
-           case EVSettings.CALL_METHOD_MIGRATE_SETTINGS:
-                migrateEVSettingsForExistingUsersIfNeeded();
-                return null;
-           case EVSettings.CALL_METHOD_MIGRATE_SETTINGS_FOR_USER:
-                migrateEVSettingsForUser(callingUserId);
-                return null;
-
             // Get methods
             case EVSettings.CALL_METHOD_GET_SYSTEM:
                 return lookupSingleValue(callingUserId, EVSettings.System.CONTENT_URI,

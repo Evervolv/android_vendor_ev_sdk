@@ -1915,48 +1915,6 @@ public final class EVSettings {
                 sAlwaysTrueValidator;
 
         /**
-         * @hide
-         */
-        public static final String[] LEGACY_SYSTEM_SETTINGS = new String[] {
-            // Insert legacy system settings here
-            EVSettings.System.PROXIMITY_ON_WAKE,
-            EVSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK,
-            EVSettings.System.KEY_HOME_LONG_PRESS_ACTION,
-            EVSettings.System.KEY_HOME_DOUBLE_TAP_ACTION,
-            EVSettings.System.KEY_MENU_ACTION,
-            EVSettings.System.KEY_MENU_LONG_PRESS_ACTION,
-            EVSettings.System.KEY_ASSIST_ACTION,
-            EVSettings.System.KEY_ASSIST_LONG_PRESS_ACTION,
-            EVSettings.System.KEY_APP_SWITCH_ACTION,
-            EVSettings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
-            EVSettings.System.VOLBTN_MUSIC_CONTROLS,
-            EVSettings.System.HOME_WAKE_SCREEN,
-            EVSettings.System.BACK_WAKE_SCREEN,
-            EVSettings.System.MENU_WAKE_SCREEN,
-            EVSettings.System.ASSIST_WAKE_SCREEN,
-            EVSettings.System.APP_SWITCH_WAKE_SCREEN,
-            EVSettings.System.CAMERA_WAKE_SCREEN,
-            EVSettings.System.VOLUME_WAKE_SCREEN,
-            EVSettings.System.ENABLE_FORWARD_LOOKUP,
-            EVSettings.System.ENABLE_PEOPLE_LOOKUP,
-            EVSettings.System.ENABLE_REVERSE_LOOKUP,
-            EVSettings.System.FORWARD_LOOKUP_PROVIDER,
-            EVSettings.System.PEOPLE_LOOKUP_PROVIDER,
-            EVSettings.System.REVERSE_LOOKUP_PROVIDER,
-            EVSettings.System.DIALER_OPENCNAM_ACCOUNT_SID,
-            EVSettings.System.DIALER_OPENCNAM_AUTH_TOKEN,
-            EVSettings.System.STATUS_BAR_AM_PM,
-            EVSettings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
-        };
-
-        /**
-         * @hide
-         */
-        public static boolean isLegacySetting(String key) {
-            return ArrayUtils.contains(LEGACY_SYSTEM_SETTINGS, key);
-        }
-
-        /**
          * Mapping of validators for all system settings.  This map is used to validate both valid
          * keys as well as validating the values for those keys.
          *
@@ -2657,23 +2615,6 @@ public final class EVSettings {
                 sAlwaysTrueValidator;
 
         /**
-         * @hide
-         */
-        public static final String[] LEGACY_SECURE_SETTINGS = new String[] {
-            // Insert legacy secure settings here
-            EVSettings.Secure.DEV_FORCE_SHOW_NAVBAR,
-            EVSettings.Secure.POWER_MENU_ACTIONS,
-            EVSettings.Secure.ADVANCED_REBOOT,
-        };
-
-        /**
-         * @hide
-         */
-        public static boolean isLegacySetting(String key) {
-            return ArrayUtils.contains(LEGACY_SECURE_SETTINGS, key);
-        }
-
-        /**
          * Mapping of validators for all secure settings.  This map is used to validate both valid
          * keys as well as validating the values for those keys.
          *
@@ -3103,20 +3044,6 @@ public final class EVSettings {
          */
         public static final Validator __MAGICAL_TEST_PASSING_ENABLER_VALIDATOR =
                 sAlwaysTrueValidator;
-
-        /**
-         * @hide
-         */
-        public static final String[] LEGACY_GLOBAL_SETTINGS = new String[] {
-            // Insert legacy global settings here
-        };
-
-        /**
-         * @hide
-         */
-        public static boolean isLegacySetting(String key) {
-            return ArrayUtils.contains(LEGACY_GLOBAL_SETTINGS, key);
-        }
 
         /**
          * Mapping of validators for all global settings.  This map is used to validate both valid
