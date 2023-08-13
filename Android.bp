@@ -94,9 +94,14 @@ java_library {
     name: "com.evervolv.platform",
     installable: true,
     sdk_version: "core_platform",
+    srcs: ["services/java/**/*.java"],
     required: [
         "com.evervolv.platform.xml",
         "com.evervolv.platform-sysconfig.xml",
+    ],
+    libs: [
+        "framework",
+        "services",
     ],
     static_libs: [
         "com.evervolv.platform.internal",
@@ -111,7 +116,7 @@ java_library {
 filegroup {
     name: "platform-sdk-service-sources",
     srcs: [
-        "services/java/**/*.java",
+        "services/core/java/**/*.java",
     ],
 }
 
