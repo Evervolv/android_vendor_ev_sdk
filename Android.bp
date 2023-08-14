@@ -14,6 +14,18 @@
 // limitations under the License.
 //
 
+package {
+    default_applicable_licenses: ["platform_sdk_license"],
+}
+
+license {
+    name: "platform_sdk_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-Apache-2.0",
+    ],
+}
+
 android_app {
     name: "com.evervolv.platform-res",
     sdk_version: "core_platform",
@@ -58,45 +70,13 @@ android_app {
     export_package_resources: true,
 }
 
-// The Evervolv Platform Framework Library
-// ============================================================
-
-java_defaults {
-    name: "com.evervolv.res-defaults",
+java_library {
+    name: "com.evervolv.platform.resources",
     srcs: [
         // For the generated R.java and Manifest.java
         ":com.evervolv.platform-res{.aapt.srcjar}",
     ],
-}
-
-java_defaults {
-    name: "com.evervolv.platform-defaults",
-    defaults: ["com.evervolv.res-defaults"],
-    srcs: [
-        "core/java/evervolv/**/*.java",
-        "core/java/evervolv/**/I*.aidl",
-    ],
-    static_libs: [
-        "vendor.evervolv.touch-V1.0-java",
-        "vendor.lineage.health-V1-java",
-        "vendor.lineage.livedisplay-V2.0-java",
-        "vendor.lineage.livedisplay-V2.1-java",
-    ],
-    aidl: {
-        local_include_dirs: ["core/java"],
-    },
-    required: [
-        "com.evervolv.platform.xml",
-        "com.evervolv.platform-sysconfig.xml",
-    ],
-}
-
-java_defaults {
-    name: "com.evervolv.internal-defaults",
-    srcs: [
-        "core/java/com/evervolv/internal/**/*.java",
-        "core/java/com/evervolv/internal/**/I*.aidl",
-    ],
+    sdk_version: "core_current",
 }
 
 // READ ME: ########################################################
@@ -112,44 +92,69 @@ java_defaults {
 
 java_library {
     name: "com.evervolv.platform",
-    defaults: [
-        "com.evervolv.platform-defaults",
-        "com.evervolv.internal-defaults",
-    ],
     installable: true,
     sdk_version: "core_platform",
-    srcs: ["services/java/**/*.java"],
-    libs: ["framework", "services"],
+    required: [
+        "com.evervolv.platform.xml",
+        "com.evervolv.platform-sysconfig.xml",
+    ],
+    static_libs: [
+        "com.evervolv.platform.internal",
+        "services.evervolv",
+    ],
+    dxflags: ["--core-library"],
+}
+
+// Services controlled by platform sdk
+// ============================================================
+
+filegroup {
+    name: "platform-sdk-service-sources",
+    srcs: [
+        "services/java/**/*.java",
+    ],
+}
+
+java_library {
+    name: "services.evervolv",
+    sdk_version: "core_platform",
+    srcs: [":platform-sdk-service-sources"],
+    libs: [
+        "framework",
+        "services",
+    ],
+    required: [
+        "com.evervolv.platform.xml",
+        "com.evervolv.platform-sysconfig.xml",
+    ],
+    static_libs: [
+        "com.evervolv.platform.internal",
+        "vendor.evervolv.touch-V1.0-java",
+        "vendor.lineage.health-V1-java",
+        "vendor.lineage.livedisplay-V2.0-java",
+        "vendor.lineage.livedisplay-V2.1-java",
+    ],
 }
 
 // Full target for use by platform apps
 // ============================================================
 
+filegroup {
+    name: "platform-sdk-core-sources",
+    srcs: [
+        "core/java/**/*.java",
+        "core/java/**/I*.aidl",
+    ],
+}
+
 java_library {
     name: "com.evervolv.platform.internal",
-    defaults: [
-        "com.evervolv.platform-defaults",
-        "com.evervolv.internal-defaults",
+    srcs: [":platform-sdk-core-sources"],
+    aidl: {
+        export_include_dirs: ["core/java"],
+    },
+    required: ["services"],
+    static_libs: [
+        "com.evervolv.platform.resources",
     ],
-    required: ["services"],
-}
-
-// Resources only target for use by frameworks/base/core
-// ============================================================
-
-java_library {
-    name: "com.evervolv.platform.resources",
-    defaults: ["com.evervolv.res-defaults"],
-    sdk_version: "core_current",
-}
-
-// The SDK
-// ============================================================
-
-// Included aidl files from evervolv.app namespace
-
-java_library {
-    name: "com.evervolv.platform.sdk",
-    defaults: ["com.evervolv.platform-defaults"],
-    required: ["services"],
 }
