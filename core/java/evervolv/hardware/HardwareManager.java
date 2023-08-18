@@ -27,13 +27,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import evervolv.app.ContextConstants;
 import evervolv.hardware.TouchscreenGesture;
 
-import vendor.evervolv.touch.V1_0.IHighTouchPollingRate;
-import vendor.evervolv.touch.V1_0.IGloveMode;
-import vendor.evervolv.touch.V1_0.IKeyDisabler;
-import vendor.evervolv.touch.V1_0.IKeySwapper;
-import vendor.evervolv.touch.V1_0.IStylusMode;
-import vendor.evervolv.touch.V1_0.ITouchscreenGesture;
-
 import java.lang.reflect.Field;
 
 /**

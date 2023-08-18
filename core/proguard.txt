@@ -1,3 +1,0 @@
-# Ignore Evervolv SDK access to private resources
--dontwarn evervolv.**
--dontnote evervolv.**
