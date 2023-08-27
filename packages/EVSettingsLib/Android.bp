@@ -18,15 +18,8 @@ java_defaults {
     name: "EVSettingsLibDefaults",
     defaults: ["SettingsLibDefaults"],
     static_libs: [
-        "androidx.preference_preference",
-        "androidx.legacy_legacy-preference-v14",
-        "androidx.legacy_legacy-support-v4",
-        "com.evervolv.platform",
-        "CustomDialogPreference",
-        "EVMainSwitchPreference",
+        "EVSettingsLibPreference",
         "EVSettingsPreference",
         "PartsPreference",
-        "RemotePreference",
-        "SelfRemovingPreference",
     ],
 }

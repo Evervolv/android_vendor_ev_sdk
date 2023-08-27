@@ -17,11 +17,11 @@
 android_library {
     name: "EVSettingsPreference",
     min_sdk_version: "30",
+    resource_dirs: ["res"],
     srcs: ["src/**/*.java"],
     static_libs: [
         "androidx.preference_preference",
         "androidx.legacy_legacy-preference-v14",
         "com.evervolv.platform",
-        "SelfRemovingPreference",
     ],
 }

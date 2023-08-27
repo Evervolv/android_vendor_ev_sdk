@@ -15,10 +15,12 @@
 //
 
 android_library {
-    name: "EVMainSwitchPreference",
+    name: "EVSettingsLibPreference",
     min_sdk_version: "30",
     srcs: ["src/**/*.java"],
     static_libs: [
+        "androidx.legacy_legacy-support-v4",
+        "androidx.preference_preference",
         "com.evervolv.platform",
         "SettingsLibMainSwitchPreference",
     ],
