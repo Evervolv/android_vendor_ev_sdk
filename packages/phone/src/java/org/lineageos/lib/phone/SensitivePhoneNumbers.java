@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.evervolv.internal.phone;
+package org.lineageos.lib.phone;
 
 import android.content.Context;
 import android.os.Environment;
@@ -32,10 +32,10 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 
-import com.evervolv.internal.phone.spn.Item;
-import com.evervolv.internal.phone.spn.SensitivePN;
-import com.evervolv.internal.phone.spn.SensitivePNS;
-import com.evervolv.internal.phone.spn.XmlParser;
+import org.lineageos.lib.phone.spn.Item;
+import org.lineageos.lib.phone.spn.SensitivePN;
+import org.lineageos.lib.phone.spn.SensitivePNS;
+import org.lineageos.lib.phone.spn.XmlParser;
 
 import org.xmlpull.v1.XmlPullParserException;
 
