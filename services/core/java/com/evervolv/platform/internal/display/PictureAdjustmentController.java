@@ -64,13 +64,7 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
             mDisplayModes = IDisplayModes.getService();
         } catch (NoSuchElementException | RemoteException e) {
         }
-
-        // Prefer ColorDisplayManager over LiveDisplay if applicable
-        final int[] availableColorModes = mContext.getResources().getIntArray(
-                com.android.internal.R.array.config_availableColorModes);
-        final boolean colorModesAvailable = mContext.getSystemService(ColorDisplayManager.class).isDeviceColorManaged()
-                && !ColorDisplayManager.areAccessibilityTransformsEnabled(mContext) && availableColorModes.length > 0;
-        mHasDisplayModes = mDisplayModes != null && !colorModesAvailable;
+        mHasDisplayModes = mDisplayModes != null;
 
         final String[] mappings = mContext.getResources().getStringArray(
                 com.evervolv.platform.internal.R.array.config_displayModeMappings);
