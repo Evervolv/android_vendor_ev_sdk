@@ -25,3 +25,9 @@ prebuilt_etc {
     src: "com.evervolv.platform-sysconfig.xml",
     product_specific: true,
 }
+
+prebuilt_etc {
+    name: "org.lineage.health.xml",
+    sub_dir: "permissions",
+    src: "org.lineage.health.xml",
+}
