@@ -212,6 +212,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             upgradeVersion = 5;
         }
 
+        if (upgradeVersion < 6) {
+            // Previously Settings.System.THREE_FINGER_GESTURE
+            int oldSetting = Settings.System.getInt(mContext.getContentResolver(),
+                    "three_finger_gesture", 0);
+            EVSettings.System.putInt(mContext.getContentResolver(),
+                    EVSettings.System.SWIPE_TO_SCREENSHOT, oldSetting);
+            upgradeVersion = 6;
+        }
+
         if (upgradeVersion < newVersion) {
             Log.w(TAG, "Got stuck trying to upgrade db. Old version: " + oldVersion
                     + ", version stuck at: " +  upgradeVersion + ", new version: "
