@@ -585,7 +585,7 @@ public class LiveDisplayService extends VendorService {
             //show the notification and don't come back here
             final Intent intent = new Intent(EVSettings.ACTION_LIVEDISPLAY_SETTINGS);
             PendingIntent result = PendingIntent.getActivity(
-                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             Notification.Builder builder = new Notification.Builder(mContext)
                     .setContentTitle(mContext.getResources().getString(
                             com.evervolv.platform.internal.R.string.live_display_title))
