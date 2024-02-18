@@ -71,21 +71,4 @@
     <!-- Default for EVSettings.System.LOCKSCREEN_ROTATION -->
     <bool name="def_lockscreen_rotation">false</bool>
 
-    <!-- Default for EVSettings.System.EDGE_LIGHT_ENABLED -->
-    <bool name="def_edge_light_enabled">true</bool>
-
-    <!-- Default for EVSettings.System.EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE -->
-    <bool name="def_edge_light_always_trigger_on_pulse">false</bool>
-
-    <!-- Default for EVSettings.System.EDGE_LIGHT_REPEAT_ANIMATION -->
-    <bool name="def_edge_light_repeat_animation">false</bool>
-
-    <!-- Default for EVSettings.System.EDGE_LIGHT_COLOR_MODE
-         * 0: System theme
-         * 1: Automatic
-         * 2: Custom
-         * default: 0
-         -->
-    <integer name="def_edge_light_color_mode">0</integer>
-
 </resources>

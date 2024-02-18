@@ -1956,7 +1956,7 @@ public final class EVSettings {
 
         /** @hide */
         public static final Validator EDGE_LIGHT_CUSTOM_COLOR_VALIDATOR =
-                sNonNullStringValidator;
+                sNonNegativeIntegerValidator;
 
         // System Settings end
 
