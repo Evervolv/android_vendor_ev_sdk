@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 The CyanogenMod Project
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2024 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,16 @@
 package evervolv.preference;
 
 import android.content.Context;
-import androidx.preference.SwitchPreference;
+import android.util.AttributeSet;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceViewHolder;
-import android.util.AttributeSet;
+import androidx.preference.SwitchPreferenceCompat;
 
 /**
- * A SwitchPreference which can automatically remove itself from the hierarchy
+ * A SwitchPreferenceCompat which can automatically remove itself from the hierarchy
  * based on constraints set in XML.
  */
-public abstract class SelfRemovingSwitchPreference extends SwitchPreference {
+public abstract class SelfRemovingSwitchPreference extends SwitchPreferenceCompat {
 
     private final ConstraintsHelper mConstraints;
 
