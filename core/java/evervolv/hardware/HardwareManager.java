@@ -70,13 +70,13 @@ public final class HardwareManager {
     public static final int FEATURE_TOUCH_HOVERING = 0x8;
 
     /**
-     * Touchscreen hovering
+     * Hardware key swap
      */
     @VisibleForTesting
     public static final int FEATURE_KEY_SWAP = 0x10;
 
     /**
-     * Anti flicker mode
+     * High touch polling rate
      */
     @VisibleForTesting
     public static final int FEATURE_HIGH_TOUCH_POLLING_RATE = 0x20;
