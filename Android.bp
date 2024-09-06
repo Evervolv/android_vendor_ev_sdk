@@ -153,5 +153,4 @@ java_library {
     aidl: {
         export_include_dirs: ["core/java"],
     },
-    required: ["services"],
 }
