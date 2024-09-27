@@ -24,9 +24,6 @@ import android.util.Log;
 
 import evervolv.app.ContextConstants;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * LiveDisplay is an advanced set of features for improving
  * display quality under various ambient conditions.
@@ -250,11 +247,13 @@ public class LiveDisplayManager {
      * Checks if the auto contrast optimization feature is enabled.
      *
      * @return true if enabled
-     * @deprecated
      */
-    @Deprecated
     public boolean isAutoContrastEnabled() {
-        return getFeature(FEATURE_AUTO_CONTRAST);
+        try {
+            return checkService() && sService.isAutoContrastEnabled();
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -262,22 +261,26 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
-     * @deprecated
      */
-    @Deprecated
     public boolean setAutoContrastEnabled(boolean enabled) {
-        return setFeature(FEATURE_AUTO_CONTRAST, enabled);
+        try {
+            return checkService() && sService.setAutoContrastEnabled(enabled);
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
      * Checks if the CABC feature is enabled
      *
      * @return true if enabled
-     * @deprecated
      */
-    @Deprecated
     public boolean isCABCEnabled() {
-        return getFeature(FEATURE_CABC);
+        try {
+            return checkService() && sService.isCABCEnabled();
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -285,22 +288,26 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
-     * @deprecated
      */
-    @Deprecated
     public boolean setCABCEnabled(boolean enabled) {
-        return setFeature(FEATURE_CABC, enabled);
+        try {
+            return checkService() && sService.setCABCEnabled(enabled);
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
      * Checks if the color enhancement feature is enabled
      *
      * @return true if enabled
-     * @deprecated
      */
-    @Deprecated
     public boolean isColorEnhancementEnabled() {
-        return getFeature(FEATURE_COLOR_ENHANCEMENT);
+        try {
+            return checkService() && sService.isColorEnhancementEnabled();
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -308,11 +315,13 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
-     * @deprecated
      */
-    @Deprecated
     public boolean setColorEnhancementEnabled(boolean enabled) {
-        return setFeature(FEATURE_COLOR_ENHANCEMENT, enabled);
+        try {
+            return checkService() && sService.setColorEnhancementEnabled(enabled);
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -374,11 +383,13 @@ public class LiveDisplayManager {
      * ambient light. This is typically around 12000 lux.
      *
      * @return if outdoor conditions should be detected
-     * @deprecated
      */
-    @Deprecated
     public boolean isAutomaticOutdoorModeEnabled() {
-        return getFeature(FEATURE_MANAGED_OUTDOOR_MODE);
+        try {
+            return checkService() && sService.isAutomaticOutdoorModeEnabled();
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -387,11 +398,13 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
-     * @deprecated
      */
-    @Deprecated
     public boolean setAutomaticOutdoorModeEnabled(boolean enabled) {
-        return setFeature(FEATURE_MANAGED_OUTDOOR_MODE, enabled);
+        try {
+            return checkService() && sService.setAutomaticOutdoorModeEnabled(enabled);
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -493,11 +506,13 @@ public class LiveDisplayManager {
      * Checks if the anti flicker feature is enabled
      *
      * @return true if enabled
-     * @deprecated
      */
-    @Deprecated
     public boolean isAntiFlickerEnabled() {
-        return getFeature(FEATURE_ANTI_FLICKER);
+        try {
+            return checkService() && sService.isAntiFlickerEnabled();
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     /**
@@ -505,150 +520,12 @@ public class LiveDisplayManager {
      *
      * @param enabled
      * @return true if state was changed
-     * @deprecated
      */
-    @Deprecated
     public boolean setAntiFlickerEnabled(boolean enabled) {
-        return setFeature(FEATURE_ANTI_FLICKER, enabled);
-    }
-
-    /**
-     * Determine if the given feature is enabled or disabled.
-     *
-     * Only used for features which have simple enable/disable controls.
-     *
-     * @param feature the display feature to query
-     *
-     * @return true if the feature is enabled, false otherwise.
-     */
-    public boolean getFeature(int feature) {
         try {
-            return checkService() && sService.getFeature(feature);
+            return checkService() && sService.setAntiFlickerEnabled(enabled);
         } catch (RemoteException e) {
+            return false;
         }
-        return false;
-    }
-
-    /**
-     * Enable or disable the given feature
-     *
-     * Only used for features which have simple enable/disable controls.
-     *
-     * @param feature the display feature to query
-     *
-     * @return true if the feature is enabled, false otherwise.
-     */
-    public boolean setFeature(int feature, boolean enable) {
-        try {
-            return checkService() && sService.setFeature(feature, enable);
-        } catch (RemoteException e) {
-        }
-        return false;
-    }
-
-    /**
-     * @return the current RGB calibration, where int[0] = R, int[1] = G, int[2] = B.
-     */
-    public int[] getDisplayColorCalibration() {
-        try {
-            if (checkService()) {
-                return sService.getDisplayColorCalibration();
-            }
-        } catch (RemoteException e) {
-        }
-        return null;
-    }
-
-    /**
-     * @return The minimum value for all colors
-     */
-    public int getDisplayColorCalibrationMin() {
-        try {
-            if (checkService()) {
-                return sService.getDisplayColorCalibrationMin();
-            }
-        } catch (RemoteException e) {
-        }
-        return 0;
-    }
-
-    /**
-     * @return The maximum value for all colors
-     */
-    public int getDisplayColorCalibrationMax() {
-        try {
-            if (checkService()) {
-                return sService.getDisplayColorCalibrationMax();
-            }
-        } catch (RemoteException e) {
-        }
-        return 0;
-    }
-
-    /**
-     * Set the display color calibration to the given rgb triplet
-     *
-     * @param rgb RGB color calibration.  Each value must be between
-     * {@link #getDisplayColorCalibrationMin()} and {@link #getDisplayColorCalibrationMax()},
-     * inclusive.
-     *
-     * @return true on success, false otherwise.
-     */
-    public boolean setDisplayColorCalibration(int[] rgb) {
-        try {
-            return checkService() && sService.setDisplayColorCalibration(rgb);
-        } catch (RemoteException e) {
-        }
-        return false;
-    }
-
-    /**
-     * @return a list of available display modes on the devices
-     */
-    public DisplayMode[] getDisplayModes() {
-        try {
-            if (checkService()) {
-                return sService.getDisplayModes();
-            }
-        } catch (RemoteException e) {
-        }
-        return null;
-    }
-
-    /**
-     * @return the currently active display mode
-     */
-    public DisplayMode getCurrentDisplayMode() {
-        try {
-            if (checkService()) {
-                return sService.getCurrentDisplayMode();
-            }
-        } catch (RemoteException e) {
-        }
-        return null;
-    }
-
-    /**
-     * @return the default display mode to be set on boot
-     */
-    public DisplayMode getDefaultDisplayMode() {
-        try {
-            if (checkService()) {
-                return sService.getDefaultDisplayMode();
-            }
-        } catch (RemoteException e) {
-        }
-        return null;
-    }
-
-    /**
-     * @return true if setting the mode was successful
-     */
-    public boolean setDisplayMode(DisplayMode mode, boolean makeDefault) {
-        try {
-            return checkService() && sService.setDisplayMode(mode, makeDefault);
-        } catch (RemoteException e) {
-        }
-        return false;
     }
 }

@@ -125,10 +125,7 @@ java_library {
     ],
     static_libs: [
         "com.evervolv.platform.internal",
-        "vendor.evervolv.touch-V1.0-java",
         "vendor.lineage.health-V1-java",
-        "vendor.lineage.livedisplay-V2.0-java",
-        "vendor.lineage.livedisplay-V2.1-java",
     ],
 }
 
@@ -153,4 +150,9 @@ java_library {
     aidl: {
         export_include_dirs: ["core/java"],
     },
+    static_libs: [
+        "vendor.evervolv.touch-V1.0-java",
+        "vendor.lineage.livedisplay-V2.0-java",
+        "vendor.lineage.livedisplay-V2.1-java",
+    ],
 }

@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.android.server.LocalServices;
-import com.android.server.display.color.DisplayTransformManager;
 import com.android.server.twilight.TwilightManager;
 import com.android.server.twilight.TwilightState;
 
@@ -46,8 +45,6 @@ public abstract class LiveDisplayFeature extends VendorBaseFeature {
 
     protected final boolean mNightDisplayAvailable;
     protected final TwilightManager mTwilightManager;
-    protected final boolean mAcceleratedTransform;
-    protected final DisplayTransformManager mTransformManager;
 
     private State mState;
 
@@ -55,9 +52,6 @@ public abstract class LiveDisplayFeature extends VendorBaseFeature {
         super(context, handler);
         mNightDisplayAvailable = ColorDisplayManager.isNightDisplayAvailable(mContext);
         mTwilightManager = LocalServices.getService(TwilightManager.class);
-        mAcceleratedTransform =
-                ColorDisplayManager.isColorTransformAccelerated(context);
-        mTransformManager = LocalServices.getService(DisplayTransformManager.class);
     }
 
     public abstract boolean getCapabilities(final BitSet caps);

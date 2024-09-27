@@ -16,85 +16,42 @@
 package com.evervolv.platform.internal.display;
 
 import android.content.Context;
-import android.hardware.display.ColorDisplayManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.ArrayMap;
 import android.util.Range;
 import android.util.Slog;
 import android.util.SparseArray;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import evervolv.hardware.DisplayMode;
+import evervolv.hardware.HardwareManager;
 import evervolv.hardware.HSIC;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
-
-import vendor.lineage.livedisplay.V2_0.IDisplayModes;
-import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
 
 public class PictureAdjustmentController extends LiveDisplayFeature {
 
     private static final String TAG = "PictureAdjustmentController";
 
-    private IPictureAdjustment mPictureAdjustment = null;
-    private IDisplayModes mDisplayModes = null;
-
+    private final HardwareManager mHardware;
     private final boolean mUsePictureAdjustment;
     private final boolean mHasDisplayModes;
-
-    // DisplayMode remapping
-    private final ArrayMap<String, String> mDisplayModeMappings = new ArrayMap<String, String>();
-    private final boolean mFilterDisplayModes;
 
     private List<Range<Float>> mRanges = new ArrayList<Range<Float>>();
 
     public PictureAdjustmentController(Context context, Handler handler) {
         super(context, handler);
+        mHardware = HardwareManager.getInstance(context);
+        mHasDisplayModes = mHardware.isSupported(HardwareManager.FEATURE_DISPLAY_MODES);
 
-        try {
-            mDisplayModes = IDisplayModes.getService();
-        } catch (NoSuchElementException | RemoteException e) {
-        }
-        mHasDisplayModes = mDisplayModes != null;
-
-        final String[] mappings = mContext.getResources().getStringArray(
-                com.evervolv.platform.internal.R.array.config_displayModeMappings);
-        if (mappings != null && mappings.length > 0) {
-            for (String mapping : mappings) {
-                String[] split = mapping.split(":");
-                if (split.length == 2) {
-                    mDisplayModeMappings.put(split[0], split[1]);
-                }
-            }
-        }
-        mFilterDisplayModes = mContext.getResources().getBoolean(
-                com.evervolv.platform.internal.R.bool.config_filterDisplayModes);
-
-        try {
-            mPictureAdjustment = IPictureAdjustment.getService();
-        } catch (NoSuchElementException | RemoteException e) {
-        }
-        boolean usePA = mPictureAdjustment != null;
+        boolean usePA = mHardware.isSupported(HardwareManager.FEATURE_PICTURE_ADJUSTMENT);
         if (usePA) {
-            List<Range<Float>> r = null;
-            try {
-                r = Arrays.asList(
-                        fromFloatRange(mPictureAdjustment.getHueRange()),
-                        fromFloatRange(mPictureAdjustment.getSaturationRange()),
-                        fromFloatRange(mPictureAdjustment.getIntensityRange()),
-                        fromFloatRange(mPictureAdjustment.getContrastRange()),
-                        fromFloatRange(mPictureAdjustment.getSaturationThresholdRange()));
-            } catch (RemoteException e) { }
-
+            final List<Range<Float>> r = mHardware.getPictureAdjustmentRanges();
             if (r != null) {
                 mRanges.addAll(r);
             }
@@ -135,35 +92,13 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
         updatePictureAdjustment();
     }
 
-    private Range<Float> fromFloatRange(vendor.lineage.livedisplay.V2_0.FloatRange range) {
-        return new Range(range.min, range.max);
-    }
-
-    private vendor.lineage.livedisplay.V2_0.HSIC toCompat(HSIC hsic) {
-        vendor.lineage.livedisplay.V2_0.HSIC h = new vendor.lineage.livedisplay.V2_0.HSIC();
-        h.hue = hsic.getHue();
-        h.saturation = hsic.getSaturation();
-        h.intensity = hsic.getIntensity();
-        h.contrast = hsic.getContrast();
-        h.saturationThreshold = hsic.getSaturationThreshold();
-        return h;
-    }
-
-    private HSIC fromCompat(vendor.lineage.livedisplay.V2_0.HSIC hsic) {
-        return new HSIC(hsic.hue, hsic.saturation, hsic.intensity,
-                hsic.contrast, hsic.saturationThreshold);
-    }
-
     private void updatePictureAdjustment() {
         if (mUsePictureAdjustment && isScreenOn()) {
             final HSIC hsic = getPictureAdjustment();
-            if (hsic == null)
-                return;
-
-            try {
-                mPictureAdjustment.setPictureAdjustment(toCompat(hsic));
-            } catch (RemoteException e) {
-                Slog.e(TAG, "Failed to set picture adjustment! " + hsic.toString());
+            if (hsic != null) {
+                if (!mHardware.setPictureAdjustment(hsic)) {
+                    Slog.e(TAG, "Failed to set picture adjustment! " + hsic.toString());
+                }
             }
         }
     }
@@ -180,19 +115,16 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
             pw.println("  contrastRange=" + getContrastRange());
             pw.println("  saturationThresholdRange=" + getSaturationThresholdRange());
             pw.println("  defaultAdjustment=" + getDefaultPictureAdjustment());
-            pw.println("  mHasDisplayModes=" + mHasDisplayModes);
         }
     }
+
 
     @Override
     public boolean getCapabilities(BitSet caps) {
         if (mUsePictureAdjustment) {
             caps.set(LiveDisplayManager.FEATURE_PICTURE_ADJUSTMENT);
         }
-        if (mHasDisplayModes) {
-            caps.set(LiveDisplayManager.FEATURE_DISPLAY_MODES);
-        }
-        return mUsePictureAdjustment || mHasDisplayModes;
+        return mUsePictureAdjustment;
     }
 
     Range<Float> getHueRange() {
@@ -223,9 +155,7 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
     HSIC getDefaultPictureAdjustment() {
         HSIC hsic = null;
         if (mUsePictureAdjustment) {
-            try {
-                hsic = fromCompat(mPictureAdjustment.getDefaultPictureAdjustment());
-            } catch (RemoteException e) { }
+            hsic = mHardware.getDefaultPictureAdjustment();
         }
         if (hsic == null) {
             hsic = new HSIC(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -238,7 +168,7 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
         if (mUsePictureAdjustment) {
             int modeID = 0;
             if (mHasDisplayModes) {
-                DisplayMode mode = getCurrentDisplayMode();
+                DisplayMode mode = mHardware.getCurrentDisplayMode();
                 if (mode != null) {
                     modeID = mode.id;
                 }
@@ -255,7 +185,7 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
         if (mUsePictureAdjustment && hsic != null) {
             int modeID = 0;
             if (mHasDisplayModes) {
-                DisplayMode mode = getCurrentDisplayMode();
+                DisplayMode mode = mHardware.getCurrentDisplayMode();
                 if (mode != null) {
                     modeID = mode.id;
                 }
@@ -311,96 +241,4 @@ public class PictureAdjustmentController extends LiveDisplayFeature {
         putString(EVSettings.System.DISPLAY_PICTURE_ADJUSTMENT, sb.toString());
     }
 
-
-    private DisplayMode remapDisplayMode(DisplayMode in) {
-        if (in == null) {
-            return null;
-        }
-        if (mDisplayModeMappings.containsKey(in.name)) {
-            return new DisplayMode(in.id, mDisplayModeMappings.get(in.name));
-        }
-        if (!mFilterDisplayModes) {
-            return in;
-        }
-        return null;
-    }
-
-    private DisplayMode getDisplayModeCompat(
-            vendor.lineage.livedisplay.V2_0.DisplayMode mode) {
-        return new DisplayMode(mode.id, mode.name);
-    }
-
-    /**
-     * @return a list of available display modes on the devices
-     */
-    DisplayMode[] getDisplayModes() {
-        DisplayMode[] availableModes = null;
-        try {
-            if (mHasDisplayModes) {
-                ArrayList<vendor.lineage.livedisplay.V2_0.DisplayMode> modes =
-                    mDisplayModes.getDisplayModes();
-                int size = modes.size();
-                availableModes = new DisplayMode[size];
-                for (int i = 0; i < size; i++) {
-                    availableModes[i] = getDisplayModeCompat(modes.get(i));
-                }
-            }
-        } catch (RemoteException e) {
-        } finally {
-            if (availableModes == null) {
-                return null;
-            }
-            final ArrayList<DisplayMode> remapped = new ArrayList<DisplayMode>();
-            for (DisplayMode mode : availableModes) {
-                DisplayMode r = remapDisplayMode(mode);
-                if (r != null) {
-                    remapped.add(r);
-                }
-            }
-            return remapped.toArray(new DisplayMode[0]);
-        }
-    }
-
-    /**
-     * @return the default display mode to be set on boot
-     */
-    DisplayMode getDefaultDisplayMode() {
-        DisplayMode mode = null;
-        try {
-            if (mHasDisplayModes) {
-                mode = getDisplayModeCompat(mDisplayModes.getDefaultDisplayMode());
-            }
-        } catch (RemoteException e) {
-        } finally {
-            return mode != null ? remapDisplayMode(mode) : null;
-        }
-    }
-
-    /**
-     * @return the currently active display mode
-     */
-    DisplayMode getCurrentDisplayMode() {
-        DisplayMode mode = null;
-        try {
-            if (mHasDisplayModes) {
-                mode = getDisplayModeCompat(mDisplayModes.getCurrentDisplayMode());
-            }
-        } catch (RemoteException e) {
-        } finally {
-            return mode != null ? remapDisplayMode(mode) : null;
-        }
-    }
-
-    /**
-     * @return true if setting the mode was successful
-     */
-    boolean setDisplayMode(DisplayMode mode, boolean makeDefault) {
-        try {
-            if (mHasDisplayModes) {
-                return mDisplayModes.setDisplayMode(mode.id, makeDefault);
-            }
-        } catch (RemoteException e) {
-        }
-        return false;
-    }
 }

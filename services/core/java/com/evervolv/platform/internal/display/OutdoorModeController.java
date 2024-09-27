@@ -23,22 +23,19 @@ import static evervolv.hardware.LiveDisplayManager.MODE_OUTDOOR;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.RemoteException;
 
 import java.io.PrintWriter;
 import java.util.BitSet;
-import java.util.NoSuchElementException;
 
+import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
-
-import vendor.lineage.livedisplay.V2_0.ISunlightEnhancement;
 
 public class OutdoorModeController extends LiveDisplayFeature {
 
     private static final String TAG = "OutdoorModeController";
 
-    private ISunlightEnhancement mSunlightEnhancement = null;
+    private final HardwareManager mHardware;
     private AmbientLuxObserver mLuxObserver;
 
     // hardware capabilities
@@ -59,11 +56,8 @@ public class OutdoorModeController extends LiveDisplayFeature {
     public OutdoorModeController(Context context, Handler handler) {
         super(context, handler);
 
-        try {
-            mSunlightEnhancement = ISunlightEnhancement.getService();
-        } catch (NoSuchElementException | RemoteException e) {
-        }
-        mUseOutdoorMode = mSunlightEnhancement != null;
+        mHardware = HardwareManager.getInstance(mContext);
+        mUseOutdoorMode = mHardware.isSupported(HardwareManager.FEATURE_SUNLIGHT_ENHANCEMENT);
 
         mDefaultOutdoorLux = mContext.getResources().getInteger(
                 com.evervolv.platform.internal.R.integer.config_outdoorAmbientLux);
@@ -118,10 +112,7 @@ public class OutdoorModeController extends LiveDisplayFeature {
         // face if they turn it back on in normal conditions
         if (!isScreenOn() && getMode() != MODE_OUTDOOR) {
             mIsOutdoor = false;
-            try {
-                mSunlightEnhancement.setEnabled(false);
-            } catch (NoSuchElementException | RemoteException e) {
-            }
+            mHardware.set(HardwareManager.FEATURE_SUNLIGHT_ENHANCEMENT, false);
         }
     }
 
@@ -141,10 +132,8 @@ public class OutdoorModeController extends LiveDisplayFeature {
         pw.println("    mAutoOutdoorMode=" + isAutomaticOutdoorModeEnabled());
         pw.println("    mIsOutdoor=" + mIsOutdoor);
         pw.println("    mIsNight=" + isNight());
-        try {
-            pw.println("    hardware state=" + mSunlightEnhancement.isEnabled());
-        } catch (NoSuchElementException | RemoteException e) {
-        }
+        pw.println("    hardware state=" +
+                mHardware.get(HardwareManager.FEATURE_SUNLIGHT_ENHANCEMENT));
         mLuxObserver.dump(pw);
     }
 
@@ -221,10 +210,7 @@ public class OutdoorModeController extends LiveDisplayFeature {
                     }
                 }
             }
-            try {
-                mSunlightEnhancement.setEnabled(enabled);
-            } catch (NoSuchElementException | RemoteException e) {
-            }
+            mHardware.set(HardwareManager.FEATURE_SUNLIGHT_ENHANCEMENT, enabled);
         }
     }
 

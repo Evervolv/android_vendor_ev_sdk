@@ -52,18 +52,11 @@ import java.util.List;
 import java.util.Locale;
 
 import evervolv.app.ContextConstants;
-import evervolv.hardware.DisplayMode;
 import evervolv.hardware.HSIC;
 import evervolv.hardware.ILiveDisplayService;
 import evervolv.hardware.LiveDisplayConfig;
 import evervolv.provider.EVSettings;
 
-import static evervolv.hardware.LiveDisplayManager.FEATURE_ANTI_FLICKER;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_AUTO_CONTRAST;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_CABC;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_COLOR_ENHANCEMENT;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_READING_ENHANCEMENT;
 import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
 import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
 import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
@@ -94,11 +87,11 @@ public class LiveDisplayService extends VendorService {
 
     private final List<LiveDisplayFeature> mFeatures = new ArrayList<LiveDisplayFeature>();
 
+    private AntiFlickerController mAFC;
     private ColorTemperatureController mCTC;
     private DisplayHardwareController mDHC;
     private OutdoorModeController mOMC;
     private PictureAdjustmentController mPAC;
-    private SimpleDisplayController mSDC;
 
     private LiveDisplayConfig mConfig;
 
@@ -161,8 +154,8 @@ public class LiveDisplayService extends VendorService {
         } else if (phase == PHASE_BOOT_COMPLETED) {
             mAwaitingNudge = getSunsetCounter() < 1;
 
-            mSDC = new SimpleDisplayController(mContext, mHandler);
-            mFeatures.add(mSDC);
+            mAFC = new AntiFlickerController(mContext, mHandler);
+            mFeatures.add(mAFC);
 
             mDHC = new DisplayHardwareController(mContext, mHandler);
             mFeatures.add(mDHC);
@@ -191,8 +184,8 @@ public class LiveDisplayService extends VendorService {
 
             mConfig = new LiveDisplayConfig(capabilities, defaultMode,
                     mCTC.getDefaultDayTemperature(), mCTC.getDefaultNightTemperature(),
-                    mOMC.getDefaultAutoOutdoorMode(), mSDC.getDefaultAutoContrast(),
-                    mSDC.getDefaultCABC(), mSDC.getDefaultColorEnhancement(),
+                    mOMC.getDefaultAutoOutdoorMode(), mDHC.getDefaultAutoContrast(),
+                    mDHC.getDefaultCABC(), mDHC.getDefaultColorEnhancement(),
                     mCTC.getColorTemperatureRange(), mCTC.getColorBalanceRange(),
                     mPAC.getHueRange(), mPAC.getSaturationRange(),
                     mPAC.getIntensityRange(), mPAC.getContrastRange(),
@@ -282,6 +275,54 @@ public class LiveDisplayService extends VendorService {
         }
 
         @Override
+        public boolean isAutoContrastEnabled() {
+            return mDHC.isAutoContrastEnabled();
+        }
+
+        @Override
+        public  boolean setAutoContrastEnabled(boolean enabled) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mDHC.setAutoContrastEnabled(enabled);
+        }
+
+        @Override
+        public boolean isCABCEnabled() {
+            return mDHC.isCABCEnabled();
+        }
+
+        @Override
+        public boolean setCABCEnabled(boolean enabled) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mDHC.setCABCEnabled(enabled);
+        }
+
+        @Override
+        public boolean isColorEnhancementEnabled() {
+            return mDHC.isColorEnhancementEnabled();
+        }
+
+        @Override
+        public boolean setColorEnhancementEnabled(boolean enabled) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mDHC.setColorEnhancementEnabled(enabled);
+        }
+
+        @Override
+        public boolean isAutomaticOutdoorModeEnabled() {
+            return mOMC.isAutomaticOutdoorModeEnabled();
+        }
+
+        @Override
+        public boolean setAutomaticOutdoorModeEnabled(boolean enabled) {
+            mContext.enforceCallingOrSelfPermission(
+                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
+            return mOMC.setAutomaticOutdoorModeEnabled(enabled);
+        }
+
+        @Override
         public int getDayColorTemperature() {
             return mCTC.getDayColorTemperature();
         }
@@ -343,67 +384,15 @@ public class LiveDisplayService extends VendorService {
         }
 
         @Override
-        public boolean getFeature(int feature) {
-            switch (feature) {
-            case FEATURE_MANAGED_OUTDOOR_MODE:
-                return mOMC.isAutomaticOutdoorModeEnabled();
-            default:
-                return mSDC.getFeature(feature);
-            }
+        public boolean isAntiFlickerEnabled() {
+            return mAFC.isAntiFlickerEnabled();
         }
 
         @Override
-        public boolean setFeature(int feature, boolean enable) {
+        public boolean setAntiFlickerEnabled(boolean enabled) {
             mContext.enforceCallingOrSelfPermission(
                     evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            switch (feature) {
-            case FEATURE_MANAGED_OUTDOOR_MODE:
-                return mOMC.setAutomaticOutdoorModeEnabled(enable);
-            default:
-                return mSDC.setFeature(feature, enable);
-            }
-        }
-
-        @Override
-        public int[] getDisplayColorCalibration() {
-            return mDHC.getDisplayColorCalibration();
-        }
-
-        @Override
-        public int getDisplayColorCalibrationMin() {
-            return mDHC.getDisplayColorCalibrationMin();
-        }
-
-        @Override
-        public int getDisplayColorCalibrationMax() {
-            return mDHC.getDisplayColorCalibrationMax();
-        }
-
-        @Override
-        public boolean setDisplayColorCalibration(int[] rgb) {
-            mContext.enforceCallingOrSelfPermission(
-                    evervolv.platform.Manifest.permission.MANAGE_LIVEDISPLAY, null);
-            return mDHC.setDisplayColorCalibration(rgb);
-        }
-
-        @Override
-        public DisplayMode[] getDisplayModes() {
-            return mPAC.getDisplayModes();
-        }
-
-        @Override
-        public DisplayMode getCurrentDisplayMode() {
-            return mPAC.getCurrentDisplayMode();
-        }
-
-        @Override
-        public DisplayMode getDefaultDisplayMode() {
-            return mPAC.getDefaultDisplayMode();
-        }
-
-        @Override
-        public boolean setDisplayMode(DisplayMode mode, boolean makeDefault) {
-            return mPAC.setDisplayMode(mode, makeDefault);
+            return mAFC.setAntiFlickerEnabled(enabled);
         }
     };
 
@@ -565,7 +554,7 @@ public class LiveDisplayService extends VendorService {
             //show the notification and don't come back here
             final Intent intent = new Intent(EVSettings.ACTION_LIVEDISPLAY_SETTINGS);
             PendingIntent result = PendingIntent.getActivity(
-                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             Notification.Builder builder = new Notification.Builder(mContext)
                     .setContentTitle(mContext.getResources().getString(
                             com.evervolv.platform.internal.R.string.live_display_title))

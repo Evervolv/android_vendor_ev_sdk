@@ -21,7 +21,6 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.RemoteException;
 import android.text.format.DateUtils;
 import android.util.MathUtils;
 import android.util.Range;
@@ -32,13 +31,11 @@ import com.android.server.twilight.TwilightState;
 
 import java.io.PrintWriter;
 import java.util.BitSet;
-import java.util.NoSuchElementException;
 
+import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
 import evervolv.util.ColorUtils;
-
-import vendor.lineage.livedisplay.V2_0.IColorBalance;
 
 import static evervolv.hardware.LiveDisplayManager.MODE_AUTO;
 import static evervolv.hardware.LiveDisplayManager.MODE_DAY;
@@ -52,10 +49,10 @@ public class ColorTemperatureController extends LiveDisplayFeature {
     private final DisplayHardwareController mDisplayHardware;
 
     private final boolean mUseTemperatureAdjustment;
+    private final boolean mUseColorBalance;
     private final Range<Integer> mColorBalanceRange;
     private final Range<Integer> mColorTemperatureRange;
     private final double[] mColorBalanceCurve;
-    private boolean mUseColorBalance;
 
     private final int mDefaultDayTemperature;
     private final int mDefaultNightTemperature;
@@ -67,7 +64,7 @@ public class ColorTemperatureController extends LiveDisplayFeature {
     private AccelerateDecelerateInterpolator mInterpolator;
     private ValueAnimator mAnimator;
 
-    private IColorBalance mColorBalance = null;
+    private final HardwareManager mHardware;
 
     private static final long TWILIGHT_ADJUSTMENT_TIME = DateUtils.HOUR_IN_MILLIS / 2;
 
@@ -80,29 +77,14 @@ public class ColorTemperatureController extends LiveDisplayFeature {
             Handler handler, DisplayHardwareController displayHardware) {
         super(context, handler);
         mDisplayHardware = displayHardware;
+        mHardware = HardwareManager.getInstance(mContext);
 
-        Range<Integer> adjustedRange;
-        try {
-            mColorBalance = IColorBalance.getService();
-            vendor.lineage.livedisplay.V2_0.Range range = mColorBalance.getColorBalanceRange();
-            if (range != null) {
-                adjustedRange = Range.create(range.min, range.max);
-            } else {
-                adjustedRange = Range.create(0, 0);
-            }
-        } catch (NoSuchElementException | RemoteException e) {
-            adjustedRange = Range.create(0, 0);
-        }
-        mUseColorBalance = adjustedRange.getLower() == 0 && adjustedRange.getUpper() == 0;
-
-        if (mUseColorBalance) {
-            mColorBalanceRange = adjustedRange;
-        } else {
-            mColorBalanceRange = Range.create(0, 0);
-        }
+        mUseColorBalance = mHardware
+                .isSupported(HardwareManager.FEATURE_COLOR_BALANCE);
+        mColorBalanceRange = mHardware.getColorBalanceRange();
 
         mUseTemperatureAdjustment = !mNightDisplayAvailable &&
-                (mColorBalance != null || mDisplayHardware.hasColorAdjustment());
+                (mUseColorBalance || mDisplayHardware.hasColorAdjustment());
 
         mDefaultDayTemperature = mContext.getResources().getInteger(
                 com.evervolv.platform.internal.R.integer.config_dayColorTemperature);
@@ -237,11 +219,7 @@ public class ColorTemperatureController extends LiveDisplayFeature {
     private synchronized void animateColorBalance(int balance) {
 
         // always start with the current values in the hardware
-        int current = 0;
-        try {
-            current = mColorBalance.getColorBalance();
-        } catch (NoSuchElementException | RemoteException e) {
-        }
+        int current = mHardware.getColorBalance();
 
         if (current == balance) {
             return;
@@ -269,10 +247,7 @@ public class ColorTemperatureController extends LiveDisplayFeature {
                 synchronized (ColorTemperatureController.this) {
                     if (isScreenOn()) {
                         int value = (int) animation.getAnimatedValue();
-                        try {
-                            mColorBalance.setColorBalance(value);
-                        } catch (RemoteException e) {
-                        }
+                        mHardware.setColorBalance(value);
                     }
                 }
             }
