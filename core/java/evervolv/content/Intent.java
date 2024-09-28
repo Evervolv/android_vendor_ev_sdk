@@ -86,7 +86,7 @@ public class Intent {
      * @hide
      */
     public static final String ACTION_LID_STATE_CHANGED =
-            "evervolv.intent.action.LID_STATE_CHANGED";
+            "lineageos.intent.action.LID_STATE_CHANGED";
 
     /**
      * This field is part of the intent {@link #ACTION_LID_STATE_CHANGED}.
@@ -94,5 +94,5 @@ public class Intent {
      * @hide
      */
     public static final String EXTRA_LID_STATE =
-            "evervolv.intent.extra.LID_STATE";
+            "lineageos.intent.extra.LID_STATE";
 }
