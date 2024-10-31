@@ -1,5 +1,0 @@
-prebuilt_etc_xml {
-    name: "fonts_customization.xml",
-    product_specific: true,
-    src: "fonts_customization.xml",
-}
