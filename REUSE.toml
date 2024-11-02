@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Evervolv
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+SPDX-PackageName = "SDK"
+SPDX-PackageSupplier = "Evervolv"
+SPDX-PackageDownloadLocation = "https://github.com/Evervolv/android_vendor_ev_sdk"
