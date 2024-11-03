@@ -1825,7 +1825,7 @@ public final class EVSettings {
 
         /** @hide */
         public static final Validator DISPLAY_ANTI_FLICKER_VALIDATOR =
-                new InclusiveIntegerRangeValidator(0, 2);
+                sBooleanValidator;
 
         /**
          * The user selected preferred refresh rate in frames per second.
