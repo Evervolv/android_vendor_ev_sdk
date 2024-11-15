@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.provider.Settings.Global;
@@ -104,7 +105,7 @@ public final class NotificationLightHelper {
             mPackageNameMappings.put(map[0], map[1]);
         }
 
-        mSettingsObserver = new SettingsObserver(new Handler());
+        mSettingsObserver = new SettingsObserver(new Handler(Looper.getMainLooper()));
         mSettingsObserver.observe();
     }
 

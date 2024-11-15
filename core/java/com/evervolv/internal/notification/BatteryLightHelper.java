@@ -15,6 +15,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.UserHandle;
 import android.provider.Settings.Global;
 import android.util.Slog;
@@ -91,7 +92,7 @@ public final class BatteryLightHelper {
                 }, filter);
         mZenMode = mNotificationManager.getZenMode();
 
-        SettingsObserver observer = new SettingsObserver(new Handler());
+        SettingsObserver observer = new SettingsObserver(new Handler(Looper.getMainLooper()));
         observer.observe();
     }
 

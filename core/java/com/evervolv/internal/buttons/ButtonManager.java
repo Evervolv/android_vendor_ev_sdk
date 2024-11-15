@@ -12,6 +12,7 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.session.MediaSessionLegacyHelper;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.UserHandle;
 import android.util.Slog;
@@ -65,7 +66,7 @@ public final class ButtonManager {
         mButtonBrightnessDefault = mContext.getResources().getFloat(
                 com.evervolv.platform.internal.R.dimen.config_buttonBrightnessSettingDefaultFloat);
 
-        SettingsObserver observer = new SettingsObserver(new Handler());
+        SettingsObserver observer = new SettingsObserver(new Handler(Looper.getMainLooper()));
         observer.observe();
     }
 

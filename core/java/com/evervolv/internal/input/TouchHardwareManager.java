@@ -13,6 +13,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.UserHandle;
 
 import evervolv.hardware.HardwareManager;
@@ -30,7 +31,7 @@ public final class TouchHardwareManager {
 
         mHardwareManager = HardwareManager.getInstance(mContext);
 
-        mSettingsObserver = new SettingsObserver(new Handler());
+        mSettingsObserver = new SettingsObserver(new Handler(Looper.getMainLooper()));
     }
 
     class SettingsObserver extends ContentObserver {
