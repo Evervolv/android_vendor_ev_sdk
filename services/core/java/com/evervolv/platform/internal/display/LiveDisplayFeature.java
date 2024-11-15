@@ -1,9 +1,14 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod Project
- * SPDX-FileCopyrightText: 2017-2019 The LineageOS Project
+ * SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 package com.evervolv.platform.internal.display;
+
+import static com.evervolv.platform.internal.display.LiveDisplayService.ALL_CHANGED;
+import static com.evervolv.platform.internal.display.LiveDisplayService.DISPLAY_CHANGED;
+import static com.evervolv.platform.internal.display.LiveDisplayService.MODE_CHANGED;
+import static com.evervolv.platform.internal.display.LiveDisplayService.TWILIGHT_CHANGED;
 
 import android.content.Context;
 import android.hardware.display.ColorDisplayManager;
@@ -14,18 +19,13 @@ import com.android.server.LocalServices;
 import com.android.server.twilight.TwilightManager;
 import com.android.server.twilight.TwilightState;
 
-import java.util.BitSet;
-
 import com.evervolv.platform.internal.VendorBaseFeature;
 import com.evervolv.platform.internal.common.UserContentObserver;
 import com.evervolv.platform.internal.display.LiveDisplayService.State;
 
 import evervolv.provider.EVSettings;
 
-import static com.evervolv.platform.internal.display.LiveDisplayService.ALL_CHANGED;
-import static com.evervolv.platform.internal.display.LiveDisplayService.DISPLAY_CHANGED;
-import static com.evervolv.platform.internal.display.LiveDisplayService.MODE_CHANGED;
-import static com.evervolv.platform.internal.display.LiveDisplayService.TWILIGHT_CHANGED;
+import java.util.BitSet;
 
 public abstract class LiveDisplayFeature extends VendorBaseFeature {
 

@@ -5,6 +5,10 @@
  */
 package com.evervolv.platform.internal.display;
 
+import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
+import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
+import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
+
 import android.annotation.Nullable;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -32,6 +36,12 @@ import com.android.server.twilight.TwilightState;
 import com.evervolv.platform.internal.common.UserContentObserver;
 import com.evervolv.platform.internal.VendorService;
 
+import evervolv.app.ContextConstants;
+import evervolv.hardware.HSIC;
+import evervolv.hardware.ILiveDisplayService;
+import evervolv.hardware.LiveDisplayConfig;
+import evervolv.provider.EVSettings;
+
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -39,16 +49,6 @@ import java.util.BitSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-
-import evervolv.app.ContextConstants;
-import evervolv.hardware.HSIC;
-import evervolv.hardware.ILiveDisplayService;
-import evervolv.hardware.LiveDisplayConfig;
-import evervolv.provider.EVSettings;
-
-import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
-import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
-import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
 
 /**
  * LiveDisplay is an advanced set of features for improving

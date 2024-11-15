@@ -5,6 +5,11 @@
  */
 package com.evervolv.platform.internal.display;
 
+import static evervolv.hardware.LiveDisplayManager.MODE_AUTO;
+import static evervolv.hardware.LiveDisplayManager.MODE_DAY;
+import static evervolv.hardware.LiveDisplayManager.MODE_NIGHT;
+import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
+
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.net.Uri;
@@ -17,18 +22,13 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.android.server.twilight.TwilightState;
 
-import java.io.PrintWriter;
-import java.util.BitSet;
-
 import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
 import evervolv.util.ColorUtils;
 
-import static evervolv.hardware.LiveDisplayManager.MODE_AUTO;
-import static evervolv.hardware.LiveDisplayManager.MODE_DAY;
-import static evervolv.hardware.LiveDisplayManager.MODE_NIGHT;
-import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
+import java.io.PrintWriter;
+import java.util.BitSet;
 
 public class ColorTemperatureController extends LiveDisplayFeature {
 

@@ -5,6 +5,11 @@
 
 package com.evervolv.platform.internal.health;
 
+import static evervolv.health.HealthInterface.MODE_NONE;
+import static evervolv.health.HealthInterface.MODE_AUTO;
+import static evervolv.health.HealthInterface.MODE_MANUAL;
+import static evervolv.health.HealthInterface.MODE_LIMIT;
+
 import static java.time.format.FormatStyle.SHORT;
 
 import android.app.AlarmManager;
@@ -29,6 +34,8 @@ import android.util.Log;
 
 import com.evervolv.platform.internal.R;
 
+import evervolv.provider.EVSettings;
+
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -40,15 +47,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
-import evervolv.provider.EVSettings;
-
 import vendor.lineage.health.ChargingControlSupportedMode;
 import vendor.lineage.health.IChargingControl;
-
-import static evervolv.health.HealthInterface.MODE_NONE;
-import static evervolv.health.HealthInterface.MODE_AUTO;
-import static evervolv.health.HealthInterface.MODE_MANUAL;
-import static evervolv.health.HealthInterface.MODE_LIMIT;
 
 public class ChargingControlController extends VendorHealthFeature {
     private final IChargingControl mChargingControl;

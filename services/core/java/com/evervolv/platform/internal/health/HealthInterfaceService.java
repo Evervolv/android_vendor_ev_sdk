@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2023 The LineageOS Project
+ * SPDX-FileCopyrightText: 2023-2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -18,12 +18,13 @@ import com.evervolv.platform.internal.VendorService;
 
 import evervolv.app.ContextConstants;
 import evervolv.health.IHealthInterface;
-import vendor.lineage.health.ChargingControlSupportedMode;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import vendor.lineage.health.ChargingControlSupportedMode;
 
 public class HealthInterfaceService extends VendorService {
 

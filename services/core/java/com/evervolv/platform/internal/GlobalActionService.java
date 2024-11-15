@@ -1,32 +1,29 @@
 /*
- * SPDX-FileCopyrightText: 2021 The LineageOS Project
+ * SPDX-FileCopyrightText: 2021-2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package com.evervolv.platform.internal;
 
+import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_BUGREPORT;
+import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_LOCKDOWN;
 import static evervolv.provider.EVSettings.Secure.POWER_MENU_ACTIONS;
 import static evervolv.provider.EVSettings.Secure.getStringForUser;
 import static evervolv.provider.EVSettings.Secure.putStringForUser;
 
-import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_BUGREPORT;
-import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_LOCKDOWN;
-
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.provider.Settings;
 
+import com.evervolv.internal.util.PowerMenuConstants;
+
 import evervolv.app.ContextConstants;
 import evervolv.app.IGlobalActions;
-
-import com.evervolv.internal.util.PowerMenuConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

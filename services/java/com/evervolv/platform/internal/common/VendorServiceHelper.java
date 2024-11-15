@@ -7,6 +7,7 @@
 package com.evervolv.platform.internal.common;
 
 import android.content.Context;
+
 import com.evervolv.platform.internal.VendorService;
 
 import java.lang.reflect.Constructor;
