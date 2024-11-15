@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod Project
+ * SPDX-FileCopyrightText: 2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -20,8 +21,8 @@ import com.evervolv.platform.internal.common.VendorServiceHelper;
  */
 public class VendorServer {
     private static final String TAG = "VendorServer";
-    private Context mSystemContext;
-    private VendorServiceHelper mSystemServiceHelper;
+    private final Context mSystemContext;
+    private final VendorServiceHelper mSystemServiceHelper;
 
     private static final String ENCRYPTING_STATE = "trigger_restart_min_framework";
     private static final String ENCRYPTED_STATE = "1";
