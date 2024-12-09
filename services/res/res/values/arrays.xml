@@ -79,6 +79,7 @@
         <item>219</item> <!-- KEYCODE_ASSIST -->
         <item>225</item> <!-- KEYCODE_PAIRING -->
         <item>231</item> <!-- KEYCODE_VOICE_ASSIST -->
+        <item>187</item> <!-- KEYCODE_SWITCH -->
     </integer-array>
 
     <!-- Array of packages for special keys on device.
@@ -94,5 +95,6 @@
         <item>com.google.android.katniss</item>
         <item>com.google.android.intent.action.CONNECT_INPUT</item>
         <item>com.google.android.katniss</item>
+        <item>org.lineageos.tv.launcher.SYSTEM_OPTIONS</item>
     </string-array>
 </resources>
