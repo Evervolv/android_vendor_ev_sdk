@@ -813,6 +813,7 @@ public final class HardwareManager {
      * @return true if service is valid
      */
     private boolean checkService() {
+        sService = getService();
         if (sService == null) {
             Log.w(TAG, "not connected to HardwareManagerService");
             return false;
