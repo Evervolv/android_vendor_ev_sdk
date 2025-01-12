@@ -12,6 +12,7 @@ import static evervolv.health.HealthInterface.MODE_LIMIT;
 
 import static java.time.format.FormatStyle.SHORT;
 
+import android.app.ActivityOptions;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -790,10 +791,14 @@ public class ChargingControlController extends VendorHealthFeature {
                         mConfigLimit);
             }
 
+            ActivityOptions activityOptions = ActivityOptions.makeBasic();
+            activityOptions.setPendingIntentCreatorBackgroundActivityStartMode(
+                    ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
+
             Intent mainIntent = new Intent(INTENT_PARTS);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent mainPendingIntent = PendingIntent.getActivity(mContext, 0, mainIntent,
-                    PendingIntent.FLAG_IMMUTABLE);
+                    PendingIntent.FLAG_IMMUTABLE, activityOptions.toBundle());
 
             Intent cancelOnceIntent = new Intent(ACTION_CHARGING_CONTROL_CANCEL_ONCE);
             PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(mContext, 0,

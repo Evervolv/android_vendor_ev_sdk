@@ -10,6 +10,7 @@ import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
 import static evervolv.hardware.LiveDisplayManager.MODE_OFF;
 
 import android.annotation.Nullable;
+import android.app.ActivityOptions;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -537,10 +538,14 @@ public class LiveDisplayService extends VendorService {
             updateSunsetCounter(counter);
         }
         if (counter == 0) {
+            ActivityOptions activityOptions = ActivityOptions.makeBasic();
+            activityOptions.setPendingIntentCreatorBackgroundActivityStartMode(
+                    ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
+
             //show the notification and don't come back here
             final Intent intent = new Intent(EVSettings.ACTION_LIVEDISPLAY_SETTINGS);
             PendingIntent result = PendingIntent.getActivity(
-                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT, activityOptions.toBundle());
             Notification.Builder builder = new Notification.Builder(mContext)
                     .setContentTitle(mContext.getResources().getString(
                             com.evervolv.platform.internal.R.string.live_display_title))
