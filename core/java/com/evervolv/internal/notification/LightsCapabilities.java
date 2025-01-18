@@ -44,6 +44,15 @@ public final class LightsCapabilities {
     // RGB color values.
     public static final int LIGHTS_ADJUSTABLE_BATTERY_LED_BRIGHTNESS = 128;
 
+    // The notification light has non-adjustable pulsing capability.
+    public static final int LIGHTS_BREATHING_LED = 256;
+
+    public static boolean blinks(Context context) {
+        final int capabilities = context.getResources().getInteger(
+                com.evervolv.platform.internal.R.integer.config_deviceLightCapabilities);
+        return (capabilities & (LIGHTS_PULSATING_LED | LIGHTS_BREATHING_LED)) != 0;
+    }
+
     public static boolean supports(Context context, final int capability) {
         final int capabilities = context.getResources().getInteger(
                 com.evervolv.platform.internal.R.integer.config_deviceLightCapabilities);
