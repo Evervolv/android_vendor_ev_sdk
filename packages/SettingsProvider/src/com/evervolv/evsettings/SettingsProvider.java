@@ -33,7 +33,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
-import evervolv.os.Build;
 import evervolv.provider.EVSettings;
 
 import java.util.ArrayList;
