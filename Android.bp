@@ -115,7 +115,7 @@ java_library {
     ],
     static_libs: [
         "com.evervolv.platform.internal",
-        "vendor.lineage.health-V1-java",
+        "vendor.lineage.health-V2-java",
     ],
 }
 
