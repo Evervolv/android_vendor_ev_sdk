@@ -17,6 +17,7 @@ license {
 
 android_app {
     name: "com.evervolv.platform-res",
+    use_resource_processor: false,
     sdk_version: "core_platform",
     certificate: "platform",
 
