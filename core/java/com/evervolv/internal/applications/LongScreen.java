@@ -13,11 +13,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.UserHandle;
 
+import evervolv.provider.EVSettings;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import evervolv.provider.EVSettings;
 
 public class LongScreen {
     private Set<String> mApps = new HashSet<>();

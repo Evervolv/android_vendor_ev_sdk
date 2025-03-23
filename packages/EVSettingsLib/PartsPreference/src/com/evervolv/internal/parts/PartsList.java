@@ -4,6 +4,16 @@
  */
 package com.evervolv.internal.parts;
 
+import static com.android.internal.R.styleable.Preference;
+import static com.android.internal.R.styleable.Preference_fragment;
+import static com.android.internal.R.styleable.Preference_icon;
+import static com.android.internal.R.styleable.Preference_key;
+import static com.android.internal.R.styleable.Preference_summary;
+import static com.android.internal.R.styleable.Preference_title;
+
+import static evervolv.preference.R.styleable.Searchable;
+import static evervolv.preference.R.styleable.Searchable_xmlRes;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -24,15 +34,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
-
-import static com.android.internal.R.styleable.Preference;
-import static com.android.internal.R.styleable.Preference_fragment;
-import static com.android.internal.R.styleable.Preference_icon;
-import static com.android.internal.R.styleable.Preference_key;
-import static com.android.internal.R.styleable.Preference_summary;
-import static com.android.internal.R.styleable.Preference_title;
-import static evervolv.preference.R.styleable.Searchable;
-import static evervolv.preference.R.styleable.Searchable_xmlRes;
 
 public class PartsList {
 

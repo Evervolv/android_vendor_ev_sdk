@@ -4,6 +4,9 @@
  */
 package evervolv.preference;
 
+import static evervolv.preference.R.styleable.SelfRemovingPreference_minSummaryLines;
+import static evervolv.preference.R.styleable.SelfRemovingPreference_replacesKey;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -13,10 +16,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.os.SystemProperties;
 import android.os.UserHandle;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceGroup;
-import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceViewHolder;
 import android.telephony.TelephonyManager;
 import android.util.ArraySet;
 import android.util.AttributeSet;
@@ -24,15 +23,16 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import androidx.preference.Preference;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceViewHolder;
+
+import evervolv.hardware.HardwareManager;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import evervolv.app.ContextConstants;
-import evervolv.hardware.HardwareManager;
-
-import static evervolv.preference.R.styleable.SelfRemovingPreference_minSummaryLines;
-import static evervolv.preference.R.styleable.SelfRemovingPreference_replacesKey;
 
 /**
  * Helpers for checking if a device supports various features.

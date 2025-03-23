@@ -7,10 +7,7 @@ package com.evervolv.settingslib.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.SeekBar;
-
-import com.evervolv.settingslib.widget.R;
 
 /**
  * Custom SeekBar that allows setting both a minimum and maximum value.

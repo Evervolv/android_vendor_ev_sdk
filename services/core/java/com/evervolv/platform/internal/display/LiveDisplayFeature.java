@@ -20,10 +20,7 @@ import com.android.server.twilight.TwilightManager;
 import com.android.server.twilight.TwilightState;
 
 import com.evervolv.platform.internal.VendorBaseFeature;
-import com.evervolv.platform.internal.common.UserContentObserver;
 import com.evervolv.platform.internal.display.LiveDisplayService.State;
-
-import evervolv.provider.EVSettings;
 
 import java.util.BitSet;
 

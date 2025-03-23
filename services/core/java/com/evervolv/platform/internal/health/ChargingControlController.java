@@ -8,10 +8,10 @@ package com.evervolv.platform.internal.health;
 import static com.evervolv.platform.internal.health.Util.getTimeMillisFromSecondOfDay;
 import static com.evervolv.platform.internal.health.Util.msToString;
 
-import static evervolv.health.HealthInterface.MODE_NONE;
 import static evervolv.health.HealthInterface.MODE_AUTO;
-import static evervolv.health.HealthInterface.MODE_MANUAL;
 import static evervolv.health.HealthInterface.MODE_LIMIT;
+import static evervolv.health.HealthInterface.MODE_MANUAL;
+import static evervolv.health.HealthInterface.MODE_NONE;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
@@ -34,9 +34,9 @@ import com.evervolv.platform.internal.health.ccprovider.Toggle;
 
 import evervolv.provider.EVSettings;
 
-import java.io.PrintWriter;
-
 import vendor.lineage.health.IChargingControl;
+
+import java.io.PrintWriter;
 
 public class ChargingControlController extends VendorHealthFeature {
     private final IChargingControl mChargingControl;

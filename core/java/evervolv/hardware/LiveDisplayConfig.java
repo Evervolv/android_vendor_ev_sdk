@@ -6,9 +6,9 @@
 package evervolv.hardware;
 
 import static evervolv.hardware.LiveDisplayManager.FEATURE_COLOR_BALANCE;
-import static evervolv.hardware.LiveDisplayManager.FEATURE_PICTURE_ADJUSTMENT;
 import static evervolv.hardware.LiveDisplayManager.FEATURE_FIRST;
 import static evervolv.hardware.LiveDisplayManager.FEATURE_LAST;
+import static evervolv.hardware.LiveDisplayManager.FEATURE_PICTURE_ADJUSTMENT;
 import static evervolv.hardware.LiveDisplayManager.MODE_FIRST;
 import static evervolv.hardware.LiveDisplayManager.MODE_LAST;
 import static evervolv.hardware.LiveDisplayManager.MODE_OFF;

@@ -5,11 +5,11 @@
 
 package evervolv.util.palette;
 
+import android.annotation.ColorInt;
+import android.annotation.Nullable;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.annotation.ColorInt;
-import android.annotation.Nullable;
 import android.util.TimingLogger;
 
 import java.util.ArrayList;

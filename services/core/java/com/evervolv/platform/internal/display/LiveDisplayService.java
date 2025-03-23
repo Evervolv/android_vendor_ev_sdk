@@ -34,8 +34,8 @@ import com.android.server.twilight.TwilightListener;
 import com.android.server.twilight.TwilightManager;
 import com.android.server.twilight.TwilightState;
 
-import com.evervolv.platform.internal.common.UserContentObserver;
 import com.evervolv.platform.internal.VendorService;
+import com.evervolv.platform.internal.common.UserContentObserver;
 
 import evervolv.app.ContextConstants;
 import evervolv.hardware.HSIC;

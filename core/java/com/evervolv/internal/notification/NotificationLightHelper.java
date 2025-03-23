@@ -11,8 +11,8 @@ import static android.service.notification.NotificationListenerService.SUPPRESSE
 
 import android.app.KeyguardManager;
 import android.app.Notification;
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;

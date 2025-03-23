@@ -14,8 +14,8 @@ import android.util.Slog;
 import android.util.SparseArray;
 
 import evervolv.hardware.DisplayMode;
-import evervolv.hardware.HardwareManager;
 import evervolv.hardware.HSIC;
+import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
 

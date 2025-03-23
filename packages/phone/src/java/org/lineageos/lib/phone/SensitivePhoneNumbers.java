@@ -7,25 +7,21 @@
 package org.lineageos.lib.phone;
 
 import android.content.Context;
-import android.os.Environment;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Xml;
 
 import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.google.i18n.phonenumbers.Phonenumber;
 
 import org.lineageos.lib.phone.spn.Item;
 import org.lineageos.lib.phone.spn.SensitivePN;
-import org.lineageos.lib.phone.spn.SensitivePNS;
 import org.lineageos.lib.phone.spn.XmlParser;
-
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
@@ -35,7 +31,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 

@@ -9,14 +9,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 
-import java.io.PrintWriter;
-import java.util.BitSet;
-
 import evervolv.hardware.HardwareManager;
 import evervolv.hardware.LiveDisplayManager;
 import evervolv.provider.EVSettings;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 public class AntiFlickerController extends LiveDisplayFeature {
 

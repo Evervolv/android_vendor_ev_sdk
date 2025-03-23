@@ -6,8 +6,6 @@
 
 package evervolv.provider;
 
-import com.android.internal.util.ArrayUtils;
-
 import android.content.ContentResolver;
 import android.content.IContentProvider;
 import android.database.Cursor;
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 

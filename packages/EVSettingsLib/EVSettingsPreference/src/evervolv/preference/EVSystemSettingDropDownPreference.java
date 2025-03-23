@@ -5,7 +5,6 @@
 package evervolv.preference;
 
 import android.content.Context;
-import android.provider.Settings;
 import android.util.AttributeSet;
 
 import evervolv.provider.EVSettings;

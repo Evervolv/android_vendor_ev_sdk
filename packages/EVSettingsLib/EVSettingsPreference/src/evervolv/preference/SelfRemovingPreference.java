@@ -5,10 +5,11 @@
 package evervolv.preference;
 
 import android.content.Context;
+import android.util.AttributeSet;
+
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.R;
-import android.util.AttributeSet;
 
 /**
  * A Preference which can automatically remove itself from the hierarchy

@@ -18,8 +18,8 @@ import com.android.server.LocalServices;
 import com.android.server.display.color.DisplayTransformManager;
 
 import evervolv.app.ContextConstants;
-import evervolv.hardware.IHardwareService;
 import evervolv.hardware.HardwareManager;
+import evervolv.hardware.IHardwareService;
 
 /** @hide */
 public class HardwareService extends VendorService {

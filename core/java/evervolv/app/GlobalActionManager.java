@@ -5,13 +5,13 @@
 
 package evervolv.app;
 
-import java.util.List;
-
 import android.content.Context;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Log;
+
+import java.util.List;
 
 public class GlobalActionManager {
 

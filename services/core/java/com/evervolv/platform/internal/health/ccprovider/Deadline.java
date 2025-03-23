@@ -8,8 +8,6 @@ package com.evervolv.platform.internal.health.ccprovider;
 import static evervolv.health.HealthInterface.MODE_AUTO;
 import static evervolv.health.HealthInterface.MODE_MANUAL;
 
-import static com.evervolv.platform.internal.health.Util.msToString;
-
 import android.content.Context;
 import android.util.Log;
 

@@ -7,6 +7,7 @@ package evervolv.preference;
 
 import android.content.Context;
 import android.util.AttributeSet;
+
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SwitchPreferenceCompat;

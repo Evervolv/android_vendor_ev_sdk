@@ -4,6 +4,10 @@
  */
 package evervolv.preference;
 
+import static evervolv.preference.RemotePreference.ACTION_REFRESH_PREFERENCE;
+import static evervolv.preference.RemotePreference.ACTION_UPDATE_PREFERENCE;
+import static evervolv.preference.RemotePreference.EXTRA_KEY;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,14 +21,10 @@ import android.os.UserHandle;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import java.util.Map;
-import java.util.Objects;
-
 import evervolv.platform.Manifest;
 
-import static evervolv.preference.RemotePreference.ACTION_REFRESH_PREFERENCE;
-import static evervolv.preference.RemotePreference.ACTION_UPDATE_PREFERENCE;
-import static evervolv.preference.RemotePreference.EXTRA_KEY;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Manages attaching and detaching of RemotePreferences and optimizes callbacks

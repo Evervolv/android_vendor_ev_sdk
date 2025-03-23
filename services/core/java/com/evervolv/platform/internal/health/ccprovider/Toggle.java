@@ -5,12 +5,12 @@
 
 package com.evervolv.platform.internal.health.ccprovider;
 
+import static com.evervolv.platform.internal.health.Util.msToHMSString;
+import static com.evervolv.platform.internal.health.Util.msToString;
+
 import static evervolv.health.HealthInterface.MODE_AUTO;
 import static evervolv.health.HealthInterface.MODE_LIMIT;
 import static evervolv.health.HealthInterface.MODE_MANUAL;
-
-import static com.evervolv.platform.internal.health.Util.msToString;
-import static com.evervolv.platform.internal.health.Util.msToHMSString;
 
 import android.content.Context;
 import android.content.Intent;

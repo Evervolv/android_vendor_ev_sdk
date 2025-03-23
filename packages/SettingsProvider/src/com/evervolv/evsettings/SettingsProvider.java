@@ -17,7 +17,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.pm.PackageManager;
-import android.content.pm.UserInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -36,8 +35,6 @@ import android.util.SparseArray;
 import evervolv.provider.EVSettings;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * The SettingsProvider serves as a {@link ContentProvider} for Evervolv specific settings

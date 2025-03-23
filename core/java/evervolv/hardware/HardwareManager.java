@@ -18,8 +18,6 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.ArrayUtils;
 
 import evervolv.app.ContextConstants;
-import evervolv.hardware.HIDLHelper;
-import evervolv.hardware.TouchscreenGesture;
 
 import vendor.evervolv.touch.V1_0.IGloveMode;
 import vendor.evervolv.touch.V1_0.IHighTouchPollingRate;
@@ -27,7 +25,6 @@ import vendor.evervolv.touch.V1_0.IKeyDisabler;
 import vendor.evervolv.touch.V1_0.IKeySwapper;
 import vendor.evervolv.touch.V1_0.IStylusMode;
 import vendor.evervolv.touch.V1_0.ITouchscreenGesture;
-
 import vendor.lineage.livedisplay.V2_0.IAdaptiveBacklight;
 import vendor.lineage.livedisplay.V2_0.IAutoContrast;
 import vendor.lineage.livedisplay.V2_0.IColorBalance;
@@ -35,12 +32,10 @@ import vendor.lineage.livedisplay.V2_0.IColorEnhancement;
 import vendor.lineage.livedisplay.V2_0.IDisplayColorCalibration;
 import vendor.lineage.livedisplay.V2_0.IDisplayModes;
 import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
-import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
 import vendor.lineage.livedisplay.V2_0.IReadingEnhancement;
 import vendor.lineage.livedisplay.V2_0.ISunlightEnhancement;
 import vendor.lineage.livedisplay.V2_1.IAntiFlicker;
 
-import java.lang.IllegalArgumentException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;

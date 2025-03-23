@@ -6,7 +6,7 @@
 package com.evervolv.platform.internal;
 
 import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_BUGREPORT;
-import static com.evervolv.internal.util.PowerMenuConstants.GLOBAL_ACTION_KEY_LOCKDOWN;
+
 import static evervolv.provider.EVSettings.Secure.POWER_MENU_ACTIONS;
 import static evervolv.provider.EVSettings.Secure.getStringForUser;
 import static evervolv.provider.EVSettings.Secure.putStringForUser;
