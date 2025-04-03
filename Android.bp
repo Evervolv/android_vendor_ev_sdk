@@ -60,52 +60,47 @@ android_app {
     export_package_resources: true,
 }
 
-// READ ME: ########################################################
-//
-// When updating this list of aidl files, consider if that aidl is
-// part of the SDK API.  If it is, also add it to the list below that
-// is preprocessed and distributed with the SDK. This list should
-// not contain any aidl files for parcelables, but the one below should
-// if you intend for 3rd parties to be able to send those objects
-// across process boundaries.
-//
-// READ ME: ########################################################
-
-java_library {
-    name: "com.evervolv.platform",
-    installable: true,
-    sdk_version: "core_platform",
-    srcs: ["services/java/**/*.java"],
-    required: [
-        "com.evervolv.platform-sysconfig.xml",
-        "org.lineageos.globalactions.xml",
-        "org.lineageos.hardware.xml",
-        "org.lineageos.health.xml",
-        "org.lineageos.livedisplay.xml",
-    ],
-    libs: [
-        "framework",
-        "services",
-    ],
-    static_libs: [
-        "com.evervolv.platform.internal",
-        "services.evervolv",
-    ],
-    dxflags: ["--core-library"],
-}
-
-// Services controlled by platform sdk
+// The Platform Framework Library
 // ============================================================
+
+filegroup {
+    name: "platform-sdk-core-sources",
+    srcs: [
+        "core/java/**/*.java",
+        "core/java/**/I*.aidl",
+    ],
+}
 
 filegroup {
     name: "platform-sdk-service-sources",
     srcs: [
         "services/core/java/**/*.java",
+        "services/java/**/*.java",
+    ],
+}
+
+java_defaults {
+    name: "com.evervolv.platform-defaults",
+    srcs: [
+        ":platform-sdk-core-sources",
+        // For the generated R.java and Manifest.java
+        ":com.evervolv.platform-res{.aapt.srcjar}",
+    ],
+    aidl: {
+        local_include_dirs: ["core/java"],
+    },
+    static_libs: [
+        "vendor.lineage.health-V2-java",
+        "vendor.lineage.livedisplay-V2.0-java",
+        "vendor.lineage.livedisplay-V2.1-java",
+        "vendor.lineage.touch-V1.0-java",
     ],
 }
 
 java_library {
-    name: "services.evervolv",
+    name: "com.evervolv.platform",
+    defaults: ["com.evervolv.platform-defaults"],
+    installable: true,
     sdk_version: "core_platform",
     srcs: [":platform-sdk-service-sources"],
     libs: [
@@ -119,36 +114,13 @@ java_library {
         "org.lineageos.health.xml",
         "org.lineageos.livedisplay.xml",
     ],
-    static_libs: [
-        "com.evervolv.platform.internal",
-        "vendor.lineage.health-V2-java",
-    ],
+    dxflags: ["--core-library"],
 }
 
 // Full target for use by platform apps
 // ============================================================
 
-filegroup {
-    name: "platform-sdk-core-sources",
-    srcs: [
-        "core/java/**/*.java",
-        "core/java/**/I*.aidl",
-    ],
-}
-
 java_library {
     name: "com.evervolv.platform.internal",
-    srcs: [
-        ":platform-sdk-core-sources",
-        // For the generated R.java and Manifest.java
-        ":com.evervolv.platform-res{.aapt.srcjar}",
-    ],
-    aidl: {
-        export_include_dirs: ["core/java"],
-    },
-    static_libs: [
-        "vendor.lineage.livedisplay-V2.0-java",
-        "vendor.lineage.livedisplay-V2.1-java",
-        "vendor.lineage.touch-V1.0-java",
-    ],
+    defaults: ["com.evervolv.platform-defaults"],
 }
