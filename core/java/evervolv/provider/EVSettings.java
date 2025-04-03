@@ -875,7 +875,6 @@ public final class EVSettings {
         /**
          * Check the proximity sensor during wakeup
          * 0 = 0ff, 1 = on
-         * @hide
          */
         public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
 
@@ -884,7 +883,6 @@ public final class EVSettings {
 
          /**
          * Whether or not to vibrate when a touchscreen gesture is detected
-         * @hide
          */
         public static final String TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
 
@@ -904,7 +902,6 @@ public final class EVSettings {
          * 7 - Action Sleep
          * 8 - Last app
          * 9 - Toggle split screen
-         * @hide
          */
         public static final String KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action";
 
@@ -915,7 +912,6 @@ public final class EVSettings {
          * Action to perform when the home key is double-tapped.
          * (Default can be configured via config_doubleTapOnHomeBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
 
@@ -925,7 +921,6 @@ public final class EVSettings {
          /**
          * Action to perform when the menu key is pressed. (Default is 1)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_MENU_ACTION = "key_menu_action";
 
@@ -936,7 +931,6 @@ public final class EVSettings {
          * Action to perform when the menu key is long-pressed.
          * (Default is 0 on devices with a search key, 3 on devices without)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_MENU_LONG_PRESS_ACTION = "key_menu_long_press_action";
 
@@ -946,7 +940,6 @@ public final class EVSettings {
          /**
          * Action to perform when the assistant (search) key is pressed. (Default is 3)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_ASSIST_ACTION = "key_assist_action";
 
@@ -956,7 +949,6 @@ public final class EVSettings {
          /**
          * Action to perform when the assistant (search) key is long-pressed. (Default is 4)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action";
 
@@ -966,7 +958,6 @@ public final class EVSettings {
          /**
          * Action to perform when the app switch key is pressed. (Default is 2)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_APP_SWITCH_ACTION = "key_app_switch_action";
 
@@ -976,7 +967,6 @@ public final class EVSettings {
          /**
          * Action to perform when the app switch key is long-pressed. (Default is 0)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
-         * @hide
          */
         public static final String KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action";
 
@@ -986,7 +976,6 @@ public final class EVSettings {
         /**
          * Whether or not volume button music controls should be enabled to seek media tracks
          * 0 = 0ff, 1 = on
-         * @hide
          */
         public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
 
@@ -995,7 +984,6 @@ public final class EVSettings {
 
         /**
          * Whether to wake the screen with the home key, the value is boolean.
-         * @hide
          */
         public static final String HOME_WAKE_SCREEN = "home_wake_screen";
 
@@ -1003,7 +991,6 @@ public final class EVSettings {
         public static final Validator HOME_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
          /**
          * Whether to wake the screen with the back key, the value is boolean.
-         * @hide
          */
         public static final String BACK_WAKE_SCREEN = "back_wake_screen";
 
@@ -1011,7 +998,6 @@ public final class EVSettings {
         public static final Validator BACK_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
          /**
          * Whether to wake the screen with the menu key, the value is boolean.
-         * @hide
          */
         public static final String MENU_WAKE_SCREEN = "menu_wake_screen";
 
@@ -1019,7 +1005,6 @@ public final class EVSettings {
         public static final Validator MENU_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
          /**
          * Whether to wake the screen with the assist key, the value is boolean.
-         * @hide
          */
         public static final String ASSIST_WAKE_SCREEN = "assist_wake_screen";
 
@@ -1027,7 +1012,6 @@ public final class EVSettings {
         public static final Validator ASSIST_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
          /**
          * Whether to wake the screen with the app switch key, the value is boolean.
-         * @hide
          */
         public static final String APP_SWITCH_WAKE_SCREEN = "app_switch_wake_screen";
 
@@ -1036,7 +1020,6 @@ public final class EVSettings {
 
          /**
          * Whether to wake the screen with the camera key, the value is boolean.
-         * @hide
          */
         public static final String CAMERA_WAKE_SCREEN = "camera_wake_screen";
 
@@ -1045,17 +1028,14 @@ public final class EVSettings {
 
          /**
          * Whether to wake the screen with the volume keys, the value is boolean.
-         * @hide
          */
         public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 
         /** @hide */
         public static final Validator VOLUME_WAKE_SCREEN_VALIDATOR = sBooleanValidator;
 
-       /**
+        /**
          * Enable looking up of phone numbers of nearby places
-         *
-         * @hide
          */
         public static final String ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
 
@@ -1064,8 +1044,6 @@ public final class EVSettings {
 
         /**
          * Enable looking up of phone numbers of people
-         *
-         * @hide
          */
         public static final String ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
 
@@ -1074,8 +1052,6 @@ public final class EVSettings {
 
         /**
          * Enable looking up of information of phone numbers not in the contacts
-         *
-         * @hide
          */
         public static final String ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
 
@@ -1084,8 +1060,6 @@ public final class EVSettings {
 
         /**
          * The forward lookup provider
-         *
-         * @hide
          */
         public static final String FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
 
@@ -1095,8 +1069,6 @@ public final class EVSettings {
 
         /**
          * The people lookup provider
-         *
-         * @hide
          */
         public static final String PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
 
@@ -1106,8 +1078,6 @@ public final class EVSettings {
 
         /**
          * The reverse lookup provider
-         *
-         * @hide
          */
         public static final String REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
 
@@ -1117,8 +1087,6 @@ public final class EVSettings {
 
         /**
          * The OpenCNAM paid account ID
-         *
-         * @hide
          */
         public static final String DIALER_OPENCNAM_ACCOUNT_SID = "dialer_opencnam_account_sid";
 
@@ -1128,8 +1096,6 @@ public final class EVSettings {
 
         /**
          * The OpenCNAM authentication token
-         *
-         * @hide
          */
         public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
 
@@ -1145,7 +1111,6 @@ public final class EVSettings {
          * 4: Hide the battery status information
          * 5: Display the battery as plain text
          * default: 0
-         * @hide
          */
         public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
 
@@ -1172,6 +1137,8 @@ public final class EVSettings {
 
         /**
          * Current accent package name
+         *
+         * @deprecated
          */
         @Deprecated
         public static final String BERRY_CURRENT_ACCENT = "berry_current_accent";
@@ -1183,6 +1150,8 @@ public final class EVSettings {
 
         /**
          * Current dark overlay package name
+         *
+         * @deprecated
          */
         @Deprecated
         public static final String BERRY_DARK_OVERLAY = "berry_dark_overlay";
@@ -1194,6 +1163,8 @@ public final class EVSettings {
 
         /**
          * Current application managing the style
+         *
+         * @deprecated
          */
         @Deprecated
         public static final String BERRY_MANAGED_BY_APP = "berry_managed_by_app";
@@ -1240,7 +1211,6 @@ public final class EVSettings {
          /**
          * Whether the HighTouchSensitivity is activated or not.
          * 0 = off, 1 = on
-         * @hide
          */
         public static final String HIGH_TOUCH_SENSITIVITY_ENABLE =
                 "high_touch_sensitivity_enable";
@@ -1250,7 +1220,6 @@ public final class EVSettings {
 
         /**
          * Swipe to screenshot
-         * @hide
          */
         public static final String SWIPE_TO_SCREENSHOT = "swipe_to_screenshot";
 
@@ -1261,7 +1230,6 @@ public final class EVSettings {
          * The button brightness to be used while the screen is on or after a button press,
          * depending on the value of {@link BUTTON_BACKLIGHT_TIMEOUT}.
          * Valid value range is between 0 and {@link PowerManager#getMaximumButtonBrightness()}
-         * @hide
          */
         public static final String BUTTON_BRIGHTNESS = "button_brightness";
 
@@ -1272,7 +1240,6 @@ public final class EVSettings {
         /**
          * The time in ms to keep the button backlight on after pressing a button.
          * A value of 0 will keep the buttons on for as long as the screen is on.
-         * @hide
          */
         public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
 
@@ -1495,8 +1462,6 @@ public final class EVSettings {
         /**
          * Whether we automatically generate notification LED colors or just
          * use the boring default.
-         *
-         * @hide
          */
         public static final String NOTIFICATION_LIGHT_COLOR_AUTO =
                 "notification_light_color_auto";
@@ -1593,11 +1558,10 @@ public final class EVSettings {
          * * Whether user can invert the order of the Alert Slider.
          * 0: Default
          * 1: Inverted
-         * @hide
          */
         public static final String ALERT_SLIDER_ORDER = "alert_slider_order";
 
-        /* @hide */
+        /** @hide */
         public static final Validator ALERT_SLIDER_ORDER_VALIDATOR =
                 sBooleanValidator;
 
@@ -1605,17 +1569,15 @@ public final class EVSettings {
          * Preferred silent mode for Alert Slider..
          * 0: Alarms only.
          * 1: Total silence
-         * @hide
          */
         public static final String ALERT_SLIDER_SILENT_MODE = "alert_slider_on_left";
 
-        /* @hide */
+        /** @hide */
         public static final Validator ALERT_SLIDER_SILENT_MODE_VALIDATOR =
                 sBooleanValidator;
 
         /**
          * Whether or not to send device back to sleep if Camera button is released ("Peek")
-         * @hide
          */
         public static final String CAMERA_SLEEP_ON_RELEASE = "camera_sleep_on_release";
 
@@ -1624,7 +1586,6 @@ public final class EVSettings {
 
         /**
          * Whether to launch secure camera app when key is longpressed
-         * @hide
          */
         public static final String CAMERA_LAUNCH = "camera_launch";
 
@@ -1633,7 +1594,6 @@ public final class EVSettings {
 
         /**
          * Screen off fod
-         * @hide
          */
         public static final String FOD_GESTURE = "fod_gesture";
 
@@ -1646,7 +1606,6 @@ public final class EVSettings {
          * will resume automatically when volume is restored.
          *   0 = disabled
          *   1 = enabled
-         * @hide
          */
         public static final String ADAPTIVE_PLAYBACK_ENABLED = "adaptive_playback_enabled";
 
@@ -1655,7 +1614,6 @@ public final class EVSettings {
 
         /**
          * Adaptive playback's timeout in ms
-         * @hide
          */
         public static final String ADAPTIVE_PLAYBACK_TIMEOUT = "adaptive_playback_timeout";
 
@@ -1760,7 +1718,6 @@ public final class EVSettings {
 
         /**
          * Did we tell about how they can stop breaking their eyes?
-         * @hide
          */
         public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
 
@@ -1888,7 +1845,6 @@ public final class EVSettings {
         /**
          * Whether edge light is enabled.
          * Default 0
-         * @hide
          */
         public static final String EDGE_LIGHT_ENABLED = "edge_light_enabled";
 
@@ -1899,7 +1855,6 @@ public final class EVSettings {
         /**
          * Whether to show edge light for all pulse events and not just for notifications.
          * Default 0
-         * @hide
          */
         public static final String EDGE_LIGHT_ALWAYS_TRIGGER_ON_PULSE = "edge_light_always_trigger_on_pulse";
 
@@ -1910,7 +1865,6 @@ public final class EVSettings {
         /**
          * Whether to repeat edge light animation until pulse timeout.
          * Default 0
-         * @hide
          */
         public static final String EDGE_LIGHT_REPEAT_ANIMATION = "edge_light_repeat_animation";
 
@@ -1925,7 +1879,6 @@ public final class EVSettings {
          * 2: Wallpaper
          * 3: Custom
          * Default 0
-         * @hide
          */
         public static final String EDGE_LIGHT_COLOR_MODE = "edge_light_color_mode";
 
@@ -1936,7 +1889,6 @@ public final class EVSettings {
         /**
          * Custom color (hex value) for edge light.
          * Default #FFFFFF
-         * @hide
          */
         public static final String EDGE_LIGHT_CUSTOM_COLOR = "edge_light_custom_color";
 
@@ -1967,7 +1919,6 @@ public final class EVSettings {
          *
          * Note: Make sure if you add a new System setting you create a Validator for it and add
          *       it to this map.
-         *
          * @hide
          */
         public static final Map<String, Validator> VALIDATORS =
@@ -2516,43 +2467,40 @@ public final class EVSettings {
         */
         public static final String DEV_FORCE_SHOW_NAVBAR = "dev_force_show_navbar";
 
-        /* @hide */
+        /** @hide */
         public static final Validator DEV_FORCE_SHOW_VALIDATOR = sBooleanValidator;
 
         /**
          * String to contain power menu actions
-         * @hide
          */
         public static final String POWER_MENU_ACTIONS = "power_menu_actions";
 
+        /** @hide */
         private static final Validator POWER_MENU_ACTIONS_VALIDATOR =
                 sAlwaysTrueValidator;
 
         /**
          * Whether to include options in power menu for rebooting into recovery or bootloader
-         * @hide
          */
         public static final String ADVANCED_REBOOT = "advanced_reboot";
 
-        /* @hide */
+        /** @hide */
         public static final Validator ADVANCED_REBOOT_VALIDATOR = sBooleanValidator;
 
         /**
          * Whether touch hovering is enabled on supported hardware
-         * @hide
          */
         public static final String FEATURE_TOUCH_HOVERING = "feature_touch_hovering";
 
-        /* @hide */
+        /** @hide */
         public static final Validator FEATURE_TOUCH_HOVERING_VALIDATOR = sBooleanValidator;
 
         /**
          * Vibrator intensity setting for supported devices
-         * @hide
          */
         public static final String VIBRATOR_INTENSITY = "vibrator_intensity";
 
-        /* @hide */
+        /** @hide */
         public static final Validator VIBRATOR_INTENSITY_VALIDATOR =
                 sNonNullStringValidator;
 
@@ -2563,6 +2511,7 @@ public final class EVSettings {
          */
         public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
 
+        /** @hide */
         public static final Validator VOLUME_PANEL_ON_LEFT_VALIDATOR =
                 sBooleanValidator;
 
@@ -2573,39 +2522,37 @@ public final class EVSettings {
          */
         public static final String VOLUME_PANEL_EXPANDABLE = "volume_panel_expandable";
 
+        /** @hide */
         public static final Validator VOLUME_PANEL_EXPANDABLE_VALIDATOR =
                 sBooleanValidator;
 
         /**
          * Whether to show the keyguard visualizer.
          * Boolean setting. 0 = off, 1 = on.
-         * @hide
          */
         public static final String LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer";
 
-        /* @hide */
+        /** @hide */
         public static final Validator LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR =
                 sBooleanValidator;
 
         /**
          * Whether to show media art on lockscreen
          * Boolean setting. 0 = off, 1 = on.
-         * @hide
          */
         public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
-        /* @hide */
+        /** @hide */
         public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR =
                 sBooleanValidator;
 
         /**
          * Whether to have translucent background on lockscreen notifications
-         * @hide
          */
         public static final String LOCKSCREEN_TRANSLUCENT_NOTIFICATIONS_BG_ENABLED
                 = "lockscreen_translucent_notifications_bg_enabled";
 
-        /* @hide */
+        /** @hide */
         public static final Validator LOCKSCREEN_TRANSLUCENT_NOTIFICATIONS_BG_ENABLED_VALIDATOR =
                 sBooleanValidator;
 
@@ -2615,7 +2562,6 @@ public final class EVSettings {
          * 1 = Display up-stream traffic only
          * 2 = Display down-stream traffic only
          * 3 = Display both up- and down-stream traffic
-         * @hide
          */
         public static final String NETWORK_TRAFFIC_MODE = "network_traffic_mode";
 
@@ -2625,7 +2571,6 @@ public final class EVSettings {
 
         /**
          * Whether or not to hide the network traffic indicator when there is no activity
-         * @hide
          */
         public static final String NETWORK_TRAFFIC_AUTOHIDE = "network_traffic_autohide";
 
@@ -2634,7 +2579,6 @@ public final class EVSettings {
 
         /**
          * Measurement unit preference for network traffic
-         * @hide
          */
         public static final String NETWORK_TRAFFIC_UNITS = "network_traffic_units";
 
@@ -2683,7 +2627,6 @@ public final class EVSettings {
          *
          * Note: Make sure if you add a new Secure setting you create a Validator for it and add
          *       it to this map.
-         *
          * @hide
          */
         public static final Map<String, Validator> VALIDATORS =
@@ -3115,7 +3058,6 @@ public final class EVSettings {
          *
          * Note: Make sure if you add a new Global setting you create a Validator for it and add
          *       it to this map.
-         *
          * @hide
          */
         public static final Map<String, Validator> VALIDATORS =
