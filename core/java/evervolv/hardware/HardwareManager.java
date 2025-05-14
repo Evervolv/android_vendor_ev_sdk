@@ -19,12 +19,6 @@ import com.android.internal.util.ArrayUtils;
 
 import evervolv.app.ContextConstants;
 
-import vendor.evervolv.touch.V1_0.IGloveMode;
-import vendor.evervolv.touch.V1_0.IHighTouchPollingRate;
-import vendor.evervolv.touch.V1_0.IKeyDisabler;
-import vendor.evervolv.touch.V1_0.IKeySwapper;
-import vendor.evervolv.touch.V1_0.IStylusMode;
-import vendor.evervolv.touch.V1_0.ITouchscreenGesture;
 import vendor.lineage.livedisplay.V2_0.IAdaptiveBacklight;
 import vendor.lineage.livedisplay.V2_0.IAutoContrast;
 import vendor.lineage.livedisplay.V2_0.IColorBalance;
@@ -35,6 +29,12 @@ import vendor.lineage.livedisplay.V2_0.IPictureAdjustment;
 import vendor.lineage.livedisplay.V2_0.IReadingEnhancement;
 import vendor.lineage.livedisplay.V2_0.ISunlightEnhancement;
 import vendor.lineage.livedisplay.V2_1.IAntiFlicker;
+import vendor.lineage.touch.V1_0.IGloveMode;
+import vendor.lineage.touch.V1_0.IHighTouchPollingRate;
+import vendor.lineage.touch.V1_0.IKeyDisabler;
+import vendor.lineage.touch.V1_0.IKeySwapper;
+import vendor.lineage.touch.V1_0.IStylusMode;
+import vendor.lineage.touch.V1_0.ITouchscreenGesture;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
