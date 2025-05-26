@@ -8,8 +8,10 @@ prebuilt_etc {
     name: "com.evervolv.platform.xml",
     sub_dir: "permissions",
     src: "com.evervolv.platform.xml",
+    product_specific: true,
 }
 
+// SDK sysconfig
 prebuilt_etc {
     name: "com.evervolv.platform-sysconfig.xml",
     sub_dir: "sysconfig",
@@ -17,8 +19,31 @@ prebuilt_etc {
     product_specific: true,
 }
 
+// SDK feature permission files
 prebuilt_etc {
-    name: "org.lineage.health.xml",
+    name: "org.lineageos.globalactions.xml",
     sub_dir: "permissions",
-    src: "org.lineage.health.xml",
+    src: "org.lineageos.globalactions.xml",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "org.lineageos.hardware.xml",
+    sub_dir: "permissions",
+    src: "org.lineageos.hardware.xml",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "org.lineageos.health.xml",
+    sub_dir: "permissions",
+    src: "org.lineageos.health.xml",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "org.lineageos.livedisplay.xml",
+    sub_dir: "permissions",
+    src: "org.lineageos.livedisplay.xml",
+    product_specific: true,
 }

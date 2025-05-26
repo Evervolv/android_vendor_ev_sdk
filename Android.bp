@@ -79,6 +79,10 @@ java_library {
     required: [
         "com.evervolv.platform.xml",
         "com.evervolv.platform-sysconfig.xml",
+        "org.lineageos.globalactions.xml",
+        "org.lineageos.hardware.xml",
+        "org.lineageos.health.xml",
+        "org.lineageos.livedisplay.xml",
     ],
     libs: [
         "framework",
@@ -112,6 +116,10 @@ java_library {
     required: [
         "com.evervolv.platform.xml",
         "com.evervolv.platform-sysconfig.xml",
+        "org.lineageos.globalactions.xml",
+        "org.lineageos.hardware.xml",
+        "org.lineageos.health.xml",
+        "org.lineageos.livedisplay.xml",
     ],
     static_libs: [
         "com.evervolv.platform.internal",
