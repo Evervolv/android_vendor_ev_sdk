@@ -77,7 +77,6 @@ java_library {
     sdk_version: "core_platform",
     srcs: ["services/java/**/*.java"],
     required: [
-        "com.evervolv.platform.xml",
         "com.evervolv.platform-sysconfig.xml",
         "org.lineageos.globalactions.xml",
         "org.lineageos.hardware.xml",
@@ -114,7 +113,6 @@ java_library {
         "services",
     ],
     required: [
-        "com.evervolv.platform.xml",
         "com.evervolv.platform-sysconfig.xml",
         "org.lineageos.globalactions.xml",
         "org.lineageos.hardware.xml",

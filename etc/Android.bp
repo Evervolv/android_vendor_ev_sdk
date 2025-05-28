@@ -3,14 +3,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-// SDK permission
-prebuilt_etc {
-    name: "com.evervolv.platform.xml",
-    sub_dir: "permissions",
-    src: "com.evervolv.platform.xml",
-    product_specific: true,
-}
-
 // SDK sysconfig
 prebuilt_etc {
     name: "com.evervolv.platform-sysconfig.xml",
