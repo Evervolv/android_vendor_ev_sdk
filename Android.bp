@@ -114,7 +114,10 @@ java_library {
         "org.lineageos.health.xml",
         "org.lineageos.livedisplay.xml",
     ],
-    dxflags: ["--core-library"],
+    dxflags: [
+        "--core-library",
+        "--multi-dex",
+    ],
 }
 
 // Full target for use by platform apps
