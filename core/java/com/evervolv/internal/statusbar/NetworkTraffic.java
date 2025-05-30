@@ -88,10 +88,6 @@ public class NetworkTraffic extends TextView {
     private int mIconTint = Color.WHITE;
     private Drawable mDrawable;
 
-    // Network tracking related variables
-    private ConnectivityManager.NetworkCallback networkCallback;
-    private ConnectivityManager.NetworkCallback defaultNetworkCallback;
-
     private final HashMap<Network, LinkProperties> mLinkPropertiesMap = new HashMap<>();
     // Used to indicate that the set of sources contributing
     // to current stats have changed.
@@ -113,10 +109,6 @@ public class NetworkTraffic extends TextView {
         mTextSizeMulti = resources.getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
 
         mNetworkTrafficIsVisible = false;
-
-        ContentResolver resolver = mContext.getContentResolver();
-        mMode = EVSettings.Secure.getInt(resolver,
-                EVSettings.Secure.NETWORK_TRAFFIC_MODE, MODE_DISABLED);
 
         mTrafficHandler = new Handler(mContext.getMainLooper()) {
             @Override
@@ -271,70 +263,46 @@ public class NetworkTraffic extends TextView {
         };
         mObserver = new SettingsObserver(mTrafficHandler);
 
-        manageNetworkCallbacks();
-    }
+        // Network tracking related variables
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .build();
+        ConnectivityManager.NetworkCallback networkCallback =
+                new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onLinkPropertiesChanged(Network network,
+                            LinkProperties linkProperties) {
+                        Message msg = new Message();
+                        msg.what = MESSAGE_TYPE_ADD_NETWORK;
+                        msg.obj = new LinkPropertiesHolder(network, linkProperties);
+                        mTrafficHandler.sendMessage(msg);
+                    }
 
-    private void manageNetworkCallbacks() {
-        ConnectivityManager connectivityManager =
-                mContext.getSystemService(ConnectivityManager.class);
-
-        if (mMode == MODE_DISABLED) {
-            // Unregister callbacks if disabling
-            if (networkCallback != null) {
-                connectivityManager.unregisterNetworkCallback(networkCallback);
-                networkCallback = null;
+                    @Override
+                    public void onLost(Network network) {
+                        Message msg = new Message();
+                        msg.what = MESSAGE_TYPE_REMOVE_NETWORK;
+                        msg.obj = network;
+                        mTrafficHandler.sendMessage(msg);
+                    }
+                };
+        ConnectivityManager.NetworkCallback defaultNetworkCallback =
+                new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+                updateViewState();
             }
-            if (defaultNetworkCallback != null) {
-                connectivityManager.unregisterNetworkCallback(defaultNetworkCallback);
-                defaultNetworkCallback = null;
+
+            @Override
+            public void onLost(Network network) {
+                updateViewState();
             }
-            return;
-        }
-
-        // Register callbacks if enabling
-        if (networkCallback == null) {
-            networkCallback = new ConnectivityManager.NetworkCallback() {
-                @Override
-                public void onLinkPropertiesChanged(Network network,
-                        LinkProperties linkProperties) {
-                    Message msg = new Message();
-                    msg.what = MESSAGE_TYPE_ADD_NETWORK;
-                    msg.obj = new LinkPropertiesHolder(network, linkProperties);
-                    mTrafficHandler.sendMessage(msg);
-                }
-
-                @Override
-                public void onLost(Network network) {
-                    Message msg = new Message();
-                    msg.what = MESSAGE_TYPE_REMOVE_NETWORK;
-                    msg.obj = network;
-                    mTrafficHandler.sendMessage(msg);
-                }
-            };
-
-            NetworkRequest request = new NetworkRequest.Builder()
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
-                    .build();
-
-            connectivityManager.registerNetworkCallback(request, networkCallback);
-        }
-
-        if (defaultNetworkCallback == null) {
-            defaultNetworkCallback = new ConnectivityManager.NetworkCallback() {
-                @Override
-                public void onAvailable(Network network) {
-                    updateViewState();
-                }
-
-                @Override
-                public void onLost(Network network) {
-                    updateViewState();
-                }
-            };
-
-            connectivityManager.registerDefaultNetworkCallback(defaultNetworkCallback);
-        }
+        };
+        context.getSystemService(ConnectivityManager.class)
+                .registerNetworkCallback(request, networkCallback);
+        context.getSystemService(ConnectivityManager.class)
+                .registerDefaultNetworkCallback(defaultNetworkCallback);
     }
 
     private final StatusBarItem.DarkReceiver mDarkReceiver =
@@ -422,8 +390,6 @@ public class NetworkTraffic extends TextView {
                 EVSettings.Secure.NETWORK_TRAFFIC_AUTOHIDE, 0) == 1;
         mUnits = EVSettings.Secure.getInt(resolver,
                 EVSettings.Secure.NETWORK_TRAFFIC_UNITS, /* Mbps */ 1);
-
-        manageNetworkCallbacks();
 
         switch (mUnits) {
             case UNITS_KILOBITS:
