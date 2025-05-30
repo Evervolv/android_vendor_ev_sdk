@@ -333,12 +333,7 @@ public class NetworkTraffic extends TextView {
                 }
             };
 
-            try {
-                connectivityManager.registerDefaultNetworkCallback(defaultNetworkCallback);
-            } catch (RuntimeException e) {
-                // ConnectivityManager.TooManyRequestsException
-                Log.e(TAG, "Too many requests made to the ConnectivityManager", e);
-            }
+            connectivityManager.registerDefaultNetworkCallback(defaultNetworkCallback);
         }
     }
 
