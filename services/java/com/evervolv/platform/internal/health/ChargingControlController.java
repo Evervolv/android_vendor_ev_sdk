@@ -43,7 +43,7 @@ public class ChargingControlController extends VendorHealthFeature {
     private final IChargingControl mChargingControl;
     private final ContentResolver mContentResolver;
     private ChargingControlNotification mChargingNotification;
-    private BatteryHealthBroadcastReceiver mBattReceiver;
+    private VendorHealthBatteryBroadcastReceiver mBattReceiver;
     private BroadcastReceiver mAlarmBroadcastReceiver;
 
     // Defaults
@@ -85,7 +85,7 @@ public class ChargingControlController extends VendorHealthFeature {
                         IChargingControl.DESCRIPTOR + "/default"));
 
         if (mChargingControl == null) {
-            Log.i(TAG, "Health HAL not found");
+            Log.i(TAG, "Vendor Health HAL not found");
             return;
         }
 
@@ -326,7 +326,9 @@ public class ChargingControlController extends VendorHealthFeature {
 
     private void onPowerConnected() {
         if (mBattReceiver == null) {
-            mBattReceiver = new BatteryHealthBroadcastReceiver();
+            mBattReceiver = new VendorHealthBatteryBroadcastReceiver();
+        } else {
+            mContext.unregisterReceiver(mBattReceiver);
         }
         IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         mContext.registerReceiver(mBattReceiver, battFilter);
@@ -334,11 +336,7 @@ public class ChargingControlController extends VendorHealthFeature {
 
     private void onPowerDisconnected() {
         if (mBattReceiver != null) {
-            try {
-                mContext.unregisterReceiver(mBattReceiver);
-            } catch (IllegalArgumentException e) {
-                Log.w(TAG, "Attempted to unregister receiver that was not registered");
-            }
+            mContext.unregisterReceiver(mBattReceiver);
             mBattReceiver = null;
         }
 
@@ -517,7 +515,7 @@ public class ChargingControlController extends VendorHealthFeature {
     }
 
     /* Battery Broadcast Receiver */
-    private class BatteryHealthBroadcastReceiver extends BroadcastReceiver {
+    private class VendorHealthBatteryBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);

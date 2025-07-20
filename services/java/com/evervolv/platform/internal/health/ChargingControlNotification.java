@@ -23,12 +23,12 @@ public class ChargingControlNotification {
     private final Context mContext;
 
     private static final String INTENT_PARTS =
-            "com.evervolv.lineageparts.CHARGING_CONTROL_SETTINGS";
+            "com.evervolv.toolbox.CHARGING_CONTROL_SETTINGS";
 
     private static final int CHARGING_CONTROL_NOTIFICATION_ID = 1000;
     private static final String ACTION_CHARGING_CONTROL_CANCEL_ONCE =
-            "lineageos.platform.intent.action.CHARGING_CONTROL_CANCEL_ONCE";
-    private static final String CHARGING_CONTROL_CHANNEL_ID = "LineageHealthChargingControl";
+            "evervolv.platform.intent.action.CHARGING_CONTROL_CANCEL_ONCE";
+    private static final String CHARGING_CONTROL_CHANNEL_ID = "VendorHealthChargingControl";
 
     private final ChargingControlController mChargingControlController;
 
@@ -44,7 +44,7 @@ public class ChargingControlNotification {
 
         // Register notification monitor
         IntentFilter notificationFilter = new IntentFilter(ACTION_CHARGING_CONTROL_CANCEL_ONCE);
-        mContext.registerReceiver(new LineageHealthNotificationBroadcastReceiver(),
+        mContext.registerReceiver(new VendorHealthNotificationBroadcastReceiver(),
                 notificationFilter);
     }
 
@@ -204,7 +204,7 @@ public class ChargingControlNotification {
     }
 
     /* Notification Broadcast Receiver */
-    private class LineageHealthNotificationBroadcastReceiver extends BroadcastReceiver {
+    private class VendorHealthNotificationBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             handleNotificationIntent(intent);
