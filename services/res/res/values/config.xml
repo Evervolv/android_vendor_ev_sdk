@@ -122,13 +122,6 @@
          pulsating and RGB control would set this config to 75. -->
     <integer name="config_deviceLightCapabilities">8</integer>
 
-    <!-- Whether device has physical tri state switch -->
-    <bool name="config_hasAlertSlider">false</bool>
-
-    <!-- Alert slider proc nodes paths. -->
-    <string name="alert_slider_state_path"></string>
-    <string name="alert_slider_uevent_match_path"></string>
-
     <!-- Indicates that the device has Single-stage Camera key
          (without "Focus" state) instead of Dual-stage. -->
     <bool name="config_singleStageCameraKey">false</bool>

@@ -1552,30 +1552,6 @@ public final class EVSettings {
         /** @hide */
         public static final Validator ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR = sBooleanValidator;
 
-
-        /**
-         * Whether user can swap the order of the Alert Slider.
-         * * Whether user can invert the order of the Alert Slider.
-         * 0: Default
-         * 1: Inverted
-         */
-        public static final String ALERT_SLIDER_ORDER = "alert_slider_order";
-
-        /** @hide */
-        public static final Validator ALERT_SLIDER_ORDER_VALIDATOR =
-                sBooleanValidator;
-
-        /**
-         * Preferred silent mode for Alert Slider..
-         * 0: Alarms only.
-         * 1: Total silence
-         */
-        public static final String ALERT_SLIDER_SILENT_MODE = "alert_slider_on_left";
-
-        /** @hide */
-        public static final Validator ALERT_SLIDER_SILENT_MODE_VALIDATOR =
-                sBooleanValidator;
-
         /**
          * Whether or not to send device back to sleep if Camera button is released ("Peek")
          */
@@ -2027,8 +2003,6 @@ public final class EVSettings {
                     BATTERY_LIGHT_BRIGHTNESS_LEVEL_VALIDATOR);
             VALIDATORS.put(ZEN_ALLOW_LIGHTS, ZEN_ALLOW_LIGHTS_VALIDATOR);
             VALIDATORS.put(ZEN_PRIORITY_ALLOW_LIGHTS, ZEN_PRIORITY_ALLOW_LIGHTS_VALIDATOR);
-            VALIDATORS.put(ALERT_SLIDER_ORDER, ALERT_SLIDER_ORDER_VALIDATOR);
-            VALIDATORS.put(ALERT_SLIDER_SILENT_MODE, ALERT_SLIDER_SILENT_MODE_VALIDATOR);
             VALIDATORS.put(CAMERA_SLEEP_ON_RELEASE, CAMERA_SLEEP_ON_RELEASE_VALIDATOR);
             VALIDATORS.put(CAMERA_LAUNCH, CAMERA_LAUNCH_VALIDATOR);
             VALIDATORS.put(FOD_GESTURE, FOD_GESTURE_VALIDATOR);
