@@ -64,9 +64,6 @@
     <java-symbol type="string" name="alert_slider_state_path" />
     <java-symbol type="string" name="alert_slider_uevent_match_path" />
 
-    <!-- The location of the devices physical tri state switch -->
-    <java-symbol type="integer" name="config_alertSliderLocation" />
-
     <!-- Indicates that the device has Single-stage Camera key
          (without "Focus" state) instead of Dual-stage. -->
     <java-symbol type="bool" name="config_singleStageCameraKey" />
