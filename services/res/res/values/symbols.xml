@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      SPDX-FileCopyrightText: 2015 The CyanogenMod Project
-     SPDX-FileCopyrightText: 2017-2023 The LineageOS Project
+     SPDX-FileCopyrightText: 2017-2025 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
@@ -78,6 +78,11 @@
     <!-- Default brightness of button lights -->
     <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
     <java-symbol type="dimen" name="config_buttonBrightnessSettingDefaultFloat" />
+
+     <!-- Charging speed -->
+    <java-symbol type="string" name="charging_speed" />
+    <java-symbol type="array" name="charging_speed_entries" />
+    <java-symbol type="array" name="charging_speed_values" />
 
     <!-- LiveDisplay -->
     <java-symbol type="bool" name="config_enableLiveDisplay" />
